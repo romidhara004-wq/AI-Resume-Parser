@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile - SkillBridge AI Enterprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen selection:bg-blue-500 selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <i class="fa-solid fa-brain text-white text-lg"></i>
+            </div>
+            <div>
+                <h1 id="navTitle" class="font-bold text-base bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">Student Profile</h1>
+                <p id="navSubtitle" class="text-xs text-slate-400">JIS University - Student Portal</p>
+            </div>
+        </div>
+
+        <a href="student-dashboard.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs px-4 py-2 rounded-xl transition border border-slate-700 font-medium">
+            <i class="fa-solid fa-arrow-left mr-1"></i> Back to Dashboard
+        </a>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-6">
+        
+        <!-- Profile Card -->
+        <div class="bg-slate-900/60 backdrop-blur-sm p-8 rounded-3xl border border-slate-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-5">
+                <div id="profileInitials" class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-2xl font-black text-white shadow-lg shadow-blue-500/30">
+                    KG
+                </div>
+                <div>
+                    <h2 id="profileName" class="text-2xl font-black text-white">Student Name</h2>
+                    <p id="profileCourse" class="text-xs text-blue-400 font-semibold mt-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-graduation-cap"></i> B.Tech (Computer Science & AIML) - JIS University
+                    </p>
+                    <p id="profileEmail" class="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-envelope"></i> student@jisuniversity.ac.in
+                    </p>
+                </div>
+            </div>
+
+            <!-- Readiness Score Box -->
+            <div class="bg-slate-950/80 border border-slate-800 p-5 rounded-2xl text-center min-w-[180px]">
+                <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block mb-1">Placement Readiness</span>
+                <span id="profileScore" class="text-2xl font-black text-emerald-400">98.5%</span>
+            </div>
+        </div>
+
+        <!-- Recruiter Interview Invitations & Status Section -->
+        <div class="bg-slate-900/60 backdrop-blur-sm p-7 rounded-3xl border border-slate-800 shadow-xl">
+            <h3 class="font-bold text-sm text-slate-200 mb-6 pb-3 border-b border-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-briefcase text-purple-400"></i> Recruiter Interview Invitations & Status
+            </h3>
+
+            <!-- Dynamic Application Status Container -->
+            <div id="profileApplicationsList" class="space-y-4">
+                <div id="noProfileApps" class="text-center py-8 text-slate-500 text-xs">
+                    No active recruitment requests found. Apply to live drives from the dashboard!
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script to Load Dynamic User Data -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem('userName') || "Kamya Gupta";
+            const userEmail = localStorage.getItem('userEmail') || localStorage.getItem('userLoginEmail') || "kamya.gupta@jisuniversity.ac.in";
+            const userBranch = localStorage.getItem('userBranch') || "B.Tech [CSE / AIML]";
+
+            document.getElementById('navTitle').innerText = `${userName} | Student Profile`;
+            document.getElementById('navSubtitle').innerText = `JIS University - ${userBranch}`;
+            document.getElementById('profileName').innerText = userName;
+            document.getElementById('profileCourse').innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${userBranch} - JIS University`;
+            document.getElementById('profileEmail').innerHTML = `<i class="fa-solid fa-envelope"></i> ${userEmail}`;
+
+            let nameParts = userName.trim().split(" ");
+            let initials = nameParts.length > 1 ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase() : userName.substring(0, 2).toUpperCase();
+            document.getElementById('profileInitials').innerText = initials;
+
+            const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs') || '[]');
+            const listContainer = document.getElementById('profileApplicationsList');
+            const noAppsMsg = document.getElementById('noProfileApps');
+
+            if (appliedJobs.length > 0) {
+                listContainer.innerHTML = "";
+                noAppsMsg.classList.add('hidden');
+
+                appliedJobs.forEach(job => {
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-950/80 border border-slate-800 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+
+                    let statusBadge = "";
+                    if (job.status.includes("Selected")) {
+                        statusBadge = `<span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold inline-flex items-center gap-1.5"><i class="fa-solid fa-check-circle"></i> Shortlisted / Interview Scheduled</span>`;
+                    } else {
+                        statusBadge = `<span class="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-bold inline-flex items-center gap-1.5"><i class="fa-solid fa-clock"></i> Profile Under Review</span>`;
+                    }
+
+                    card.innerHTML = `
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${job.company}</h4>
+                            <p class="text-xs text-slate-400 mt-0.5">Role: ${job.role}</p>
+                        </div>
+                        <div>${statusBadge}</div>
+                    `;
+                    listContainer.appendChild(card);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

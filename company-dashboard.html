@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Portal - SkillBridge AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-slate-800 border-b border-slate-700 p-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center space-x-2">
+            <span class="text-2xl">💼</span>
+            <h1 class="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">SkillBridge AI | Recruiter & Hiring Hub</h1>
+        </div>
+        <a href="login.html" class="bg-slate-700 hover:bg-slate-600 text-sm px-4 py-2 rounded-lg transition font-medium">← Back to Login</a>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-5xl mx-auto my-10 p-6 bg-slate-800 rounded-2xl shadow-2xl border border-slate-700">
+        <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+            <div>
+                <h2 class="text-2xl font-extrabold text-white">Post Job / Internship Opening</h2>
+                <p class="text-sm text-slate-400">AI candidate vector matching engine will automatically rank matching students.</p>
+            </div>
+            <span class="bg-purple-500/20 text-purple-400 text-xs px-3 py-1.5 rounded-full font-semibold border border-purple-500/30">Recruiter Mode ⚡</span>
+        </div>
+
+        <!-- Job Posting Form -->
+        <form id="jobPostForm" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div>
+                <label class="block text-slate-300 text-sm font-semibold mb-2">Company Name</label>
+                <input type="text" id="companyName" placeholder="e.g. TechCorp Global" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl focus:outline-none focus:border-purple-500 text-white" required>
+            </div>
+
+            <div>
+                <label class="block text-slate-300 text-sm font-semibold mb-2">Job / Role Title</label>
+                <input type="text" id="jobTitle" placeholder="e.g. AI Research Intern / Full Stack Developer" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl focus:outline-none focus:border-purple-500 text-white" required>
+            </div>
+
+            <div class="md:col-span-2">
+                <label class="block text-slate-300 text-sm font-semibold mb-2">Required Skills / Domain Stack</label>
+                <input type="text" id="reqSkills" placeholder="e.g. Python, Machine Learning, TensorFlow" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl focus:outline-none focus:border-purple-500 text-white" required>
+            </div>
+
+            <div class="md:col-span-2">
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white p-3.5 rounded-xl font-bold transition shadow-lg shadow-purple-600/30">
+                    Publish Opening & Run AI Candidate Matcher 🎯
+                </button>
+            </div>
+        </form>
+
+        <!-- AI Matched Candidates Section -->
+        <div id="candidateResultsBox" class="border-t border-slate-700 pt-6 hidden">
+            <h3 class="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                <span>🤖</span> Top AI-Ranked Student Candidates
+            </h3>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-700 text-slate-400 text-xs uppercase">
+                            <th class="p-3">Student Name</th>
+                            <th class="p-3">Course / Department</th>
+                            <th class="p-3">Match Score</th>
+                            <th class="p-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="candidateTableBody" class="text-sm text-slate-200">
+                        <!-- Dynamic rows will appear here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recruiter Script -->
+    <script>
+        document.getElementById('jobPostForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const company = document.getElementById('companyName').value;
+            const title = document.getElementById('jobTitle').value;
+            const skills = document.getElementById('reqSkills').value;
+
+            const resultsBox = document.getElementById('candidateResultsBox');
+            const tableBody = document.getElementById('candidateTableBody');
+
+            resultsBox.classList.remove('hidden');
+            tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Scanning JIS University database for top vector matches...</td></tr>`;
+
+            setTimeout(() => {
+                tableBody.innerHTML = `
+                    <tr class="border-b border-slate-800 hover:bg-slate-800/50">
+                        <td class="p-3 font-semibold text-white">Kamya Gupta</td>
+                        <td class="p-3 text-slate-400">B.Tech [CSE / AIML / Cyber Security]</td>
+                        <td class="p-3"><span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-full font-bold text-xs border border-emerald-500/30">98% Match</span></td>
+                        <td class="p-3"><button onclick="alert('Interview invitation sent successfully to Kamya Gupta!')" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-xs rounded-lg font-medium transition">Shortlist / Hire</button></td>
+                    </tr>
+                    <tr class="border-b border-slate-800 hover:bg-slate-800/50">
+                        <td class="p-3 font-semibold text-white">Aarav Sharma</td>
+                        <td class="p-3 text-slate-400">Bachelor of Computer Application [BCA {Hons.}]</td>
+                        <td class="p-3"><span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-full font-bold text-xs border border-emerald-500/30">91% Match</span></td>
+                        <td class="p-3"><button onclick="alert('Interview invitation sent successfully!')" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-xs rounded-lg font-medium transition">Shortlist / Hire</button></td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="p-3 font-semibold text-white">Sneha Roy</td>
+                        <td class="p-3 text-slate-400">Bachelor of Pharmacy [B.Pharm]</td>
+                        <td class="p-3"><span class="px-2.5 py-1 bg-blue-500/20 text-blue-400 rounded-full font-bold text-xs border border-blue-500/30">85% Match</span></td>
+                        <td class="p-3"><button onclick="alert('Interview invitation sent successfully!')" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-xs rounded-lg font-medium transition">Shortlist / Hire</button></td>
+                    </tr>
+                `;
+            }, 800);
+        });
+    </script>
+</body>
+</html>

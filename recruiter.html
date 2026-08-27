@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR & Recruiter Portal - SkillBridge AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen selection:bg-purple-500 selection:text-white relative">
+
+    <!-- Toast Notification Banner -->
+    <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-x-full transition-all duration-300 bg-slate-900 border border-purple-500/40 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center font-bold text-sm">
+            <i class="fa-solid fa-bell"></i>
+        </div>
+        <div>
+            <h4 id="toastTitle" class="font-bold text-white text-xs">Notification</h4>
+            <p id="toastDesc" class="text-[11px] text-slate-400">Action completed successfully.</p>
+        </div>
+    </div>
+
+    <!-- Candidate Profile & Resume Review Modal -->
+    <div id="candidateModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 border border-purple-500/40 w-full max-w-2xl rounded-3xl p-7 shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-sm">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-5 pb-4 border-b border-slate-800">
+                <div class="w-12 h-12 rounded-2xl bg-purple-600/20 text-purple-400 flex items-center justify-center font-bold text-xl">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div>
+                    <h3 id="modalStudentName" class="text-base font-bold text-white">Candidate Name</h3>
+                    <p id="modalStudentCourse" class="text-xs text-purple-400 font-medium">B.Tech CSE (AIML)</p>
+                </div>
+            </div>
+            
+            <div class="space-y-4 mb-6">
+                <div>
+                    <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block mb-1">Applied Drive</span>
+                    <p id="modalJobRole" class="text-xs font-bold text-white bg-slate-950 p-3 rounded-xl border border-slate-800">-</p>
+                </div>
+                <div>
+                    <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block mb-1">Parsed Resume Skills & Core Stack</span>
+                    <p id="modalSkills" class="text-xs font-mono text-emerald-400 bg-slate-950 p-3 rounded-xl border border-slate-800">-</p>
+                </div>
+                <div>
+                    <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block mb-1">AI Match Compatibility Score</span>
+                    <p id="modalScore" class="text-xs font-bold text-blue-400 bg-slate-950 p-3 rounded-xl border border-slate-800">-</p>
+                </div>
+            </div>
+
+            <button onclick="closeModal()" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition">
+                Close Review Panel
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
+                <i class="fa-solid fa-building-user text-white text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-base bg-gradient-to-r from-purple-400 via-pink-300 to-rose-400 bg-clip-text text-transparent">HR & Recruiter Portal</h1>
+                <p class="text-xs text-slate-400">JIS University Placement Matrix</p>
+            </div>
+        </div>
+        <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs px-4 py-2 rounded-xl transition border border-slate-700 font-medium">
+            <i class="fa-solid fa-arrow-left mr-1"></i> Back to Home
+        </a>
+    </nav>
+
+    <!-- Main Grid Layout -->
+    <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Post New Job Section -->
+        <div class="bg-slate-900/60 backdrop-blur-sm p-7 rounded-2xl border border-slate-800 shadow-xl lg:col-span-1">
+            <h3 class="font-bold text-sm text-slate-200 mb-4 pb-3 border-b border-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-briefcase text-purple-400"></i> Post Placement Drive
+            </h3>
+
+            <form id="jobPostForm" onsubmit="postNewJob(event)" class="space-y-4">
+                <div>
+                    <label class="block text-slate-300 text-[11px] font-semibold uppercase tracking-wider mb-1.5">Company Name</label>
+                    <input type="text" id="companyName" placeholder="e.g. Google India" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-purple-500 text-white text-xs" required>
+                </div>
+
+                <div>
+                    <label class="block text-slate-300 text-[11px] font-semibold uppercase tracking-wider mb-1.5">Job Role / Designation</label>
+                    <input type="text" id="jobRole" placeholder="e.g. AI Research Intern" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-purple-500 text-white text-xs" required>
+                </div>
+
+                <div>
+                    <label class="block text-slate-300 text-[11px] font-semibold uppercase tracking-wider mb-1.5">Salary Package</label>
+                    <input type="text" id="jobSalary" placeholder="e.g. ₹50,000 / month" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-purple-500 text-white text-xs" required>
+                </div>
+
+                <div>
+                    <label class="block text-slate-300 text-[11px] font-semibold uppercase tracking-wider mb-1.5">Location</label>
+                    <input type="text" id="jobLocation" placeholder="e.g. Kolkata / Remote" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-purple-500 text-white text-xs" required>
+                </div>
+
+                <div>
+                    <label class="block text-slate-300 text-[11px] font-semibold uppercase tracking-wider mb-1.5">Requirements</label>
+                    <textarea id="jobDesc" rows="3" placeholder="Required skills, tech stack..." class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-purple-500 text-white text-xs" required></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Broadcast Drive Live 🚀
+                </button>
+            </form>
+        </div>
+
+        <!-- Student Candidates Review Section -->
+        <div class="lg:col-span-2 space-y-6">
+            <div class="bg-slate-900/60 backdrop-blur-sm p-7 rounded-2xl border border-slate-800 shadow-xl">
+                <h3 class="font-bold text-sm text-slate-200 mb-4 pb-3 border-b border-slate-800 flex items-center gap-2">
+                    <p class="text-xs text-slate-400 font-normal">Review candidate profiles, parsed resumes, and manage interview shortlists.</p>
+                </h3>
+
+                <div id="recruiterList" class="space-y-4">
+                    <!-- Dynamically populated candidate list -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script Engine -->
+    <script>
+        const applicantsData = [
+            { id: 1, name: "Rishika Gupta", course: "B.Tech CSE [AIML]", company: "TechCorp Global", role: "AI / Machine Learning Intern", status: "Under Review 🟡", skills: "Python, Machine Learning, TensorFlow, Neural Networks", score: "98.4% Optimal" },
+            { id: 2, name: "Aman Verma", course: "BCA [Hons.]", company: "InnoTech Solutions", role: "Full Stack Web Developer", status: "Under Review 🟡", skills: "React.js, Node.js, JavaScript, MongoDB, Tailwind CSS", score: "94.2% Optimal" },
+            { id: 3, name: "Priya Sharma", course: "B.Tech [Cyber Security]", company: "DataMetrics Corp", role: "Cyber Security Analyst", status: "Under Review 🟡", skills: "Network Defense, Ethical Hacking, Linux, Cryptography", score: "96.8% Optimal" },
+            { id: 4, name: "Rahul Mukherjee", course: "M.Tech [CSE]", company: "Google India", role: "AI Research Intern", status: "Under Review 🟡", skills: "Deep Learning, PyTorch, Large Language Models, C++", score: "99.1% Optimal" }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderRecruiterPanel();
+        });
+
+        function showToast(title, desc) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastDesc').innerText = desc;
+            toast.classList.remove('translate-x-full');
+            setTimeout(() => { toast.classList.add('translate-x-full'); }, 3500);
+        }
+
+        function postNewJob(e) {
+            e.preventDefault();
+            const company = document.getElementById('companyName').value;
+            const role = document.getElementById('jobRole').value;
+            const salary = document.getElementById('jobSalary').value;
+            const location = document.getElementById('jobLocation').value;
+            const desc = document.getElementById('jobDesc').value;
+
+            let customJobs = JSON.parse(localStorage.getItem('customPostedJobs') || '[]');
+            customJobs.push({ company, role, salary, location, desc, id: 'job-' + Date.now() });
+            localStorage.setItem('customPostedJobs', JSON.stringify(customJobs));
+
+            showToast("Drive Published! 🚀", "New placement drive broadcasted successfully.");
+            document.getElementById('jobPostForm').reset();
+        }
+
+        function renderRecruiterPanel() {
+            const listContainer = document.getElementById('recruiterList');
+            listContainer.innerHTML = "";
+
+            applicantsData.forEach((app, index) => {
+                const card = document.createElement('div');
+                card.className = "p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-purple-500/30 transition";
+                
+                let actionHtml = "";
+                if (app.status.includes("Under Review")) {
+                    actionHtml = `
+                        <button onclick='viewCandidate(${JSON.stringify(app)})' class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition border border-slate-700">
+                            <i class="fa-solid fa-eye mr-1"></i> View Profile
+                        </button>
+                        <button onclick="shortlistCandidate(${index})" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-md">
+                            Shortlist
+                        </button>
+                    `;
+                } else {
+                    actionHtml = `
+                        <button onclick='viewCandidate(${JSON.stringify(app)})' class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition border border-slate-700 mr-2">
+                            <i class="fa-solid fa-eye mr-1"></i> View Profile
+                        </button>
+                        <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-xl text-xs font-bold inline-flex items-center gap-1">
+                            <i class="fa-solid fa-check-circle"></i> Shortlisted
+                        </span>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <span class="text-[10px] text-purple-400 font-semibold tracking-wider uppercase">${app.company}</span>
+                        <h4 class="font-bold text-white text-sm mt-0.5">${app.name} - <span class="text-blue-400">${app.role}</span></h4>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Course: ${app.course} | Status: <span class="text-amber-400 font-medium">${app.status}</span></p>
+                    </div>
+                    <div class="flex items-center gap-2">${actionHtml}</div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function viewCandidate(app) {
+            document.getElementById('modalStudentName').innerText = app.name;
+            document.getElementById('modalStudentCourse').innerText = app.course;
+            document.getElementById('modalJobRole').innerText = `${app.company} — ${app.role}`;
+            document.getElementById('modalSkills').innerText = app.skills;
+            document.getElementById('modalScore').innerText = app.score;
+            document.getElementById('candidateModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('candidateModal').classList.add('hidden');
+        }
+
+        function shortlistCandidate(index) {
+            applicantsData[index].status = "Selected for Interview 🟢";
+            showToast("Candidate Shortlisted! 🟢", `${applicantsData[index].name} has been selected for interview.`);
+            renderRecruiterPanel();
+        }
+    </script>
+</body>
+</html>

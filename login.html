@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillBridge AI Enterprise - JIS University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex items-center justify-center p-4 relative overflow-hidden selection:bg-blue-500 selection:text-white">
+
+    <!-- Background Glow Elements -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Main Card Container -->
+    <div class="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md relative z-10">
+        
+        <!-- Logo Icon -->
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-500/30">
+            <i class="fa-solid fa-brain text-white text-2xl"></i>
+        </div>
+
+        <!-- Header Title -->
+        <div class="text-center mb-8">
+            <h1 class="text-xl md:text-2xl font-black bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent tracking-tight">
+                SkillBridge AI Enterprise
+            </h1>
+            <p class="text-xs text-slate-400 mt-1">JIS University Neural Matrix Portal</p>
+        </div>
+
+        <!-- Sign In Form -->
+        <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
+            <div>
+                <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">Email Address</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                        <i class="fa-solid fa-envelope text-xs"></i>
+                    </span>
+                    <input type="email" id="userEmail" placeholder="Enter your email address" class="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white text-xs transition" required>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">Password</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                    </span>
+                    <input type="password" id="userPassword" placeholder="Enter your password" class="w-full pl-10 pr-10 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white text-xs transition" required>
+                    <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 cursor-pointer hover:text-slate-300">
+                        <i class="fa-solid fa-eye-slash text-xs"></i>
+                    </span>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 mt-2">
+                <i class="fa-solid fa-right-to-bracket"></i> Sign In to Dashboard
+            </button>
+        </form>
+
+        <!-- Footer Link -->
+        <div class="text-center mt-6 text-xs text-slate-400">
+            New user? <a href="#" class="text-blue-400 font-semibold hover:underline">Create an account</a>
+        </div>
+
+        <!-- Security Note -->
+        <div class="text-center mt-6 pt-4 border-t border-slate-800/60 text-[10px] text-slate-500">
+            Protected by JIS University Neural Matrix Security v4.2
+        </div>
+
+    </div>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value.trim();
+            
+            // Extract user name from email for personal greeting
+            let extractedName = email.split('@')[0];
+            extractedName = extractedName.charAt(0).toUpperCase() + extractedName.slice(1);
+
+            // Store user session data
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userName', extractedName);
+
+            // Redirect to dashboard
+            window.location.href = "student-dashboard.html";
+        }
+    </script>
+</body>
+</html>
