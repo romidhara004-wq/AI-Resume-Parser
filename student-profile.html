@@ -6,23 +6,6 @@
     <title>Student Profile - SkillBridge AI Enterprise</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <script>
-(function(){
-  const saved = localStorage.getItem('theme');
-  if(saved === 'light'){
-    document.body.classList.add('light');
-  }
-  window.toggleTheme = function(){
-    document.body.classList.toggle('light');
-    const isLight = document.body.classList.contains('light');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  };
-  // page load pe button ko bhi update karna hai to
-  if(saved === 'light'){
-    document.body.classList.add('light');
-  }
-})();
-</script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen selection:bg-blue-500 selection:text-white">
 
@@ -45,7 +28,7 @@
 
     <!-- Main Content Container -->
     <main class="max-w-5xl mx-auto px-4 py-8 space-y-6">
-        
+
         <!-- Profile Card -->
         <div class="bg-slate-900/60 backdrop-blur-sm p-8 rounded-3xl border border-slate-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center space-x-5">
@@ -76,7 +59,6 @@
                 <i class="fa-solid fa-briefcase text-purple-400"></i> Recruiter Interview Invitations & Status
             </h3>
 
-            <!-- Dynamic Application Status Container -->
             <div id="profileApplicationsList" class="space-y-4">
                 <div id="noProfileApps" class="text-center py-8 text-slate-500 text-xs">
                     No active recruitment requests found. Apply to live drives from the dashboard!
@@ -85,7 +67,6 @@
         </div>
     </main>
 
-    <!-- Script to Load Dynamic User Data -->
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const userName = localStorage.getItem('userName') || "Kamya Gupta";
@@ -99,7 +80,7 @@
             document.getElementById('profileEmail').innerHTML = `<i class="fa-solid fa-envelope"></i> ${userEmail}`;
 
             let nameParts = userName.trim().split(" ");
-            let initials = nameParts.length > 1 ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase() : userName.substring(0, 2).toUpperCase();
+            let initials = nameParts.length > 1? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase() : userName.substring(0, 2).toUpperCase();
             document.getElementById('profileInitials').innerText = initials;
 
             const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs') || '[]');

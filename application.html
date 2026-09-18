@@ -6,23 +6,6 @@
     <title>My Applications - SkillBridge AI Enterprise</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <script>
-(function(){
-  const saved = localStorage.getItem('theme');
-  if(saved === 'light'){
-    document.body.classList.add('light');
-  }
-  window.toggleTheme = function(){
-    document.body.classList.toggle('light');
-    const isLight = document.body.classList.contains('light');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  };
-  // page load pe button ko bhi update karna hai to
-  if(saved === 'light'){
-    document.body.classList.add('light');
-  }
-})();
-</script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen selection:bg-blue-500 selection:text-white">
 
@@ -109,7 +92,6 @@
                     } else if (job.status.includes("Selected")) {
                         statusBadge = `<span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full text-xs font-semibold">Shortlisted for Interview 🟢</span>`;
                         
-                        // Recruiter assigned interview slot display instead of student booking
                         actionArea = `
                             <div class="text-xs text-emerald-400 font-semibold bg-emerald-500/10 px-4 py-2.5 rounded-xl border border-emerald-500/20 flex items-center gap-2 shadow-sm">
                                 <i class="fa-solid fa-calendar-check text-sm"></i>

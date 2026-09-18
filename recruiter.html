@@ -6,23 +6,6 @@
     <title>HR & Recruiter Portal - SkillBridge AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <script>
-(function(){
-  const saved = localStorage.getItem('theme');
-  if(saved === 'light'){
-    document.body.classList.add('light');
-  }
-  window.toggleTheme = function(){
-    document.body.classList.toggle('light');
-    const isLight = document.body.classList.contains('light');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  };
-  // page load pe button ko bhi update karna hai to
-  if(saved === 'light'){
-    document.body.classList.add('light');
-  }
-})();
-</script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen selection:bg-purple-500 selection:text-white relative">
 
@@ -52,7 +35,7 @@
                     <p id="modalStudentCourse" class="text-xs text-purple-400 font-medium">B.Tech CSE (AIML)</p>
                 </div>
             </div>
-            
+
             <div class="space-y-4 mb-6">
                 <div>
                     <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block mb-1">Applied Drive</span>
@@ -92,7 +75,7 @@
 
     <!-- Main Grid Layout -->
     <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         <!-- Post New Job Section -->
         <div class="bg-slate-900/60 backdrop-blur-sm p-7 rounded-2xl border border-slate-800 shadow-xl lg:col-span-1">
             <h3 class="font-bold text-sm text-slate-200 mb-4 pb-3 border-b border-slate-800 flex items-center gap-2">
@@ -135,17 +118,16 @@
         <div class="lg:col-span-2 space-y-6">
             <div class="bg-slate-900/60 backdrop-blur-sm p-7 rounded-2xl border border-slate-800 shadow-xl">
                 <h3 class="font-bold text-sm text-slate-200 mb-4 pb-3 border-b border-slate-800 flex items-center gap-2">
-                    <p class="text-xs text-slate-400 font-normal">Review candidate profiles, parsed resumes, and manage interview shortlists.</p>
+                    <i class="fa-solid fa-users text-purple-400"></i> Incoming Student Applications
                 </h3>
+                <p class="text-xs text-slate-400 font-normal mb-4">Review candidate profiles, parsed resumes, and manage interview shortlists.</p>
 
                 <div id="recruiterList" class="space-y-4">
-                    <!-- Dynamically populated candidate list -->
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Script Engine -->
     <script>
         const applicantsData = [
             { id: 1, name: "Rishika Gupta", course: "B.Tech CSE [AIML]", company: "TechCorp Global", role: "AI / Machine Learning Intern", status: "Under Review 🟡", skills: "Python, Machine Learning, TensorFlow, Neural Networks", score: "98.4% Optimal" },
@@ -189,7 +171,7 @@
             applicantsData.forEach((app, index) => {
                 const card = document.createElement('div');
                 card.className = "p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-purple-500/30 transition";
-                
+
                 let actionHtml = "";
                 if (app.status.includes("Under Review")) {
                     actionHtml = `
