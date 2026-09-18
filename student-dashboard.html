@@ -95,14 +95,19 @@
 <script>
 let isResumeUploaded = false;
 let uploadedFileName = "";
-let dynamicFileSummary = "";
+let extractedResumeText = "";
+
+const COMPANY_REQUIREMENTS = {
+    "Google AI": ["python", "machine learning", "tensorflow", "data structures", "algorithms", "sql"],
+    "Microsoft": ["javascript", "react", "node.js", "azure", "c#", "sql", "api"],
+    "TCS": ["java", "communication", "sql", "oops", "html", "teamwork"],
+    "Infosys": ["python", "java", "communication", "sql", "ms excel"],
+    "Amazon AWS": ["aws", "python", "linux", "sql", "cloud"]
+};
 
 window.onload = function(){
     let name = localStorage.getItem('userName') || "";
-    // Agar naam email jaisa hai (romi.dhara004) to ignore kar
-    if(name.includes('@') || (name.includes('.') &&!name.includes(' '))){
-        name = "";
-    }
+    if(name.includes('@') || (name.includes('.') &&!name.includes(' '))) name = "";
     if(name){
         document.getElementById('welcomeHeading').innerText = `Welcome back, ${name} 🎓`;
         document.getElementById('fullName').value = name;
@@ -115,11 +120,18 @@ function updateWelcomeName(val){
     if(val.trim()) localStorage.setItem('userName', val.trim());
 }
 
+function checkCustomSkill(val) {
+    const box = document.getElementById('customSkillBox');
+    if(!box) return;
+    if (val === 'other') box.classList.remove('hidden');
+    else box.classList.add('hidden');
+}
+
 async function handleResumeUpload(input){
     if(!input.files[0]) return;
     let file = input.files[0];
     uploadedFileName = file.name;
-    document.getElementById('uploadText').innerText = "⏳ Parsing " + file.name + "...";
+    document.getElementById('uploadText').innerText = "⏳ Analyzing Skills...";
     try{
         let text = "";
         if(file.type === "application/pdf"){
@@ -128,18 +140,16 @@ async function handleResumeUpload(input){
             for(let i=1; i<=pdf.numPages; i++){
                 let page = await pdf.getPage(i);
                 let content = await page.getTextContent();
-                text += content.items.map(s=>s.str).join(' ') + "\n";
+                text += content.items.map(s=>s.str).join(' ') + " ";
             }
         } else {
             text = await file.text();
         }
-        if(!text.trim()) text = "No readable text found.";
+        extractedResumeText = text;
         isResumeUploaded = true;
         document.getElementById('uploadText').innerText = "✅ " + file.name;
-        document.getElementById('uploadSubText').innerText = "Parsed " + text.length + " chars";
+        document.getElementById('uploadSubText').innerText = "Analyzed " + text.length + " chars - Ready";
         document.getElementById('alertBox').classList.add('hidden');
-        let curName = document.getElementById('fullName').value || localStorage.getItem('userName') || "Candidate";
-        dynamicFileSummary = `[File: ${file.name}]\nCandidate: ${curName}\n\n--- EXTRACTED TEXT ---\n${text.substring(0,2000)}`;
         showReport();
     }catch(e){
         document.getElementById('uploadText').innerText = "❌ Error: " + e.message;
@@ -151,19 +161,109 @@ function executeAnalysis(e){
     let fn = document.getElementById('fullName').value.trim();
     if(fn) localStorage.setItem('userName', fn);
     if(!isResumeUploaded){
-        document.getElementById('alertBox').classList.remove('hidden');
-        document.getElementById('alertMessage').innerText = "Please upload resume first!";
+        const alertBox = document.getElementById('alertBox');
+        alertBox.classList.remove('hidden');
+        document.getElementById('alertMessage').innerText = "Please upload your resume first to analyze skills!";
+        alertBox.scrollIntoView({behavior: 'smooth'});
         return;
     }
     showReport();
 }
 
+function analyzeSkills(resumeText, requiredSkills){
+    let lower = resumeText.toLowerCase();
+    let matched = [];
+    let missing = [];
+    requiredSkills.forEach(skill => {
+        if(lower.includes(skill.toLowerCase())) matched.push(skill);
+        else missing.push(skill);
+    });
+    let percent = requiredSkills.length? Math.round((matched.length / requiredSkills.length) * 100) : 0;
+    return {matched, missing, percent};
+}
+
 function showReport(){
+    let resumeText = extractedResumeText;
+
+    let bestCompany = "TCS";
+    let bestScore = 0;
+    let allAnalysis = {};
+
+    for(let company in COMPANY_REQUIREMENTS){
+        let result = analyzeSkills(resumeText, COMPANY_REQUIREMENTS[company]);
+        allAnalysis[company] = result;
+        if(result.percent > bestScore){
+            bestScore = result.percent;
+            bestCompany = company;
+        }
+    }
+
+    let mainResult = allAnalysis[bestCompany];
+
     document.getElementById('reportFileName').innerText = uploadedFileName;
-    document.getElementById('reportExtractedSkills').innerText = dynamicFileSummary;
-    document.getElementById('reportCompanies').innerText = "Google AI, Microsoft, TCS";
-    document.getElementById('aiReportBox').classList.remove('hidden');
-    document.getElementById('aiReportBox').scrollIntoView({behavior:'smooth'});
+    document.getElementById('reportCompanies').innerText = bestCompany + " - " + bestScore + "% Match";
+
+    let scoreColor = bestScore > 70? 'text-emerald-400' : bestScore > 40? 'text-yellow-400' : 'text-red-400';
+    let barColor = bestScore > 70? 'bg-emerald-500' : bestScore > 40? 'bg-yellow-500' : 'bg-red-500';
+    let barWidth = bestScore + "%";
+
+    let html = `
+        <div class="mb-5 p-4 bg-slate-900 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-sm font-bold text-white">Overall Skill Compatibility</span>
+                <span class="text-2xl font-black ${scoreColor}">${bestScore}%</span>
+            </div>
+            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
+                <div class="h-3 rounded-full transition-all duration-700 ${barColor}" style="width:${barWidth}"></div>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-2">Best Matched Role: <b class="text-white">${bestCompany}</b> | Total Required: ${COMPANY_REQUIREMENTS[bestCompany].length} skills</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+            <div class="p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-xl">
+                <h4 class="text-xs font-bold text-emerald-400 mb-3"><i class="fa-solid fa-circle-check"></i> Matched Skills (${mainResult.matched.length})</h4>
+                <div class="flex flex-wrap gap-2">
+                    ${mainResult.matched.length? mainResult.matched.map(s=>`<span class="px-2.5 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 rounded-full text-[11px] font-medium">${s}</span>`).join('') : '<span class="text-[11px] text-slate-500">No core skills matched from resume</span>'}
+                </div>
+            </div>
+            <div class="p-4 bg-red-950/20 border border-red-500/20 rounded-xl">
+                <h4 class="text-xs font-bold text-red-400 mb-3"><i class="fa-solid fa-circle-xmark"></i> Skill Gap - To Learn (${mainResult.missing.length})</h4>
+                <div class="flex flex-wrap gap-2">
+                    ${mainResult.missing.map(s=>`<span class="px-2.5 py-1 bg-red-500/20 border border-red-500/30 text-red-300 rounded-full text-[11px] font-medium">${s}</span>`).join('')}
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+            <h4 class="text-xs font-bold text-white mb-3">Company Wise Requirements Analysis</h4>
+            <div class="space-y-2">
+                ${Object.keys(COMPANY_REQUIREMENTS).map(comp => {
+                    let r = allAnalysis[comp];
+                    let c = r.percent > 60? 'text-emerald-400' : r.percent > 30? 'text-yellow-400' : 'text-slate-400';
+                    return `<div class="flex justify-between items-center text-[11px] bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                        <span class="font-medium text-slate-300">${comp}</span>
+                        <span class="flex items-center gap-2">
+                            <span class="text-slate-500">${r.matched.length}/${COMPANY_REQUIREMENTS[comp].length} skills</span>
+                            <span class="font-bold ${c}">${r.percent}%</span>
+                        </span>
+                    </div>`
+                }).join('')}
+            </div>
+        </div>
+
+        <div class="mt-4 p-3 bg-slate-950 border border-slate-800 rounded-xl">
+            <span class="text-[10px] text-slate-500 uppercase tracking-wider">Extracted Resume Preview</span>
+            <p class="text-[11px] text-slate-400 mt-2 font-mono whitespace-pre-wrap max-h-32 overflow-y-auto">${resumeText.substring(0,800)}...</p>
+        </div>
+    `;
+
+    document.getElementById('reportExtractedSkills').innerHTML = html;
+    document.getElementById('progressBar').style.width = barWidth;
+    document.getElementById('progressBar').className = `h-2.5 rounded-full transition-all duration-700 ${barColor}`;
+
+    const reportBox = document.getElementById('aiReportBox');
+    reportBox.classList.remove('hidden');
+    reportBox.scrollIntoView({ behavior: 'smooth' });
 }
 </script>
 </body>
