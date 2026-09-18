@@ -1,79 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Fixed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen p-6">
+    <nav class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+        <h1 class="font-bold">SkillBridge AI</h1>
+        <a href="Login.html" onclick="localStorage.clear()" class="bg-slate-800 px-4 py-2 rounded">Logout</a>
+    </nav>
+
+    <div class="max-w-4xl mx-auto">
+        <h2 id="welcomeHeading" class="text-2xl font-bold mb-6">Welcome back, Student 🎓</h2>
+        
+        <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+            <label class="text-xs uppercase text-slate-400">Full Legal Name</label>
+            <input type="text" id="fullName" oninput="updateName(this.value)" placeholder="Apna sahi naam yahan likho" class="w-full mt-2 p-3 bg-slate-950 border border-slate-800 rounded-xl text-white" />
+            
+            <p class="text-xs text-slate-500 mt-6">Iske baad ye naam hi hamesha dikhega. Gmail wala naam nahi ayega.</p>
+            
+            <button onclick="saveAndGo()" class="mt-4 w-full bg-blue-600 p-3 rounded-xl font-bold">Save Name & Continue</button>
+        </div>
+
+        <div id="alertBox" class="hidden mt-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-400 text-sm">Name saved!</div>
+    </div>
+
 <script>
-    let isResumeUploaded = false;
-    let uploadedFileName = "";
-    let dynamicFileSummary = "";
-
-    // Page load pe naam set karo - simple logic
-    window.addEventListener('DOMContentLoaded', () => {
-        try {
-            let name = localStorage.getItem('userName') || "";
-            // Agar naam me @ hai ya bahut chhota hai to usko Student dikhao
-            if (name.includes('@') || name.length < 2) {
-                name = "";
-            }
-
-            if (name) {
-                document.getElementById('welcomeHeading').innerText = `Welcome back, ${name} 🎓`;
-                document.getElementById('fullName').value = name;
-            } else {
-                document.getElementById('welcomeHeading').innerText = `Welcome back, Student 🎓`;
-                document.getElementById('fullName').value = "";
-            }
-        } catch (e) {
-            console.log("Load error:", e);
-            document.getElementById('welcomeHeading').innerText = `Welcome back, Student 🎓`;
-        }
-    });
-
-    function updateWelcomeName(val) {
-        const display = val.trim()? val.trim() : "Student";
-        document.getElementById('welcomeHeading').innerText = `Welcome back, ${display} 🎓`;
-        if (val.trim()) {
-            localStorage.setItem('userName', val.trim());
+    // Simple Load
+    window.onload = function() {
+        let saved = localStorage.getItem('userName');
+        if(saved && !saved.includes('@')) {
+            document.getElementById('fullName').value = saved;
+            document.getElementById('welcomeHeading').innerText = "Welcome back, " + saved + " 🎓";
         }
     }
 
-    function checkCustomSkill(val) {
-        const box = document.getElementById('customSkillBox');
-        if (val === 'other') box.classList.remove('hidden');
-        else box.classList.add('hidden');
+    function updateName(val) {
+        let display = val.trim() || "Student";
+        document.getElementById('welcomeHeading').innerText = "Welcome back, " + display + " 🎓";
     }
 
-    async function handleResumeUpload(input) {
-        if (!input.files[0]) return;
-        const file = input.files[0];
-        uploadedFileName = file.name;
-        document.getElementById('uploadText').innerText = "⏳ Parsing...";
-
-        // Simple demo parsing for now
-        setTimeout(() => {
-            isResumeUploaded = true;
-            document.getElementById('uploadText').innerText = "✅ " + file.name;
-            document.getElementById('uploadSubText').innerText = "Parsed Successfully!";
-            document.getElementById('alertBox').classList.add('hidden');
-            const curName = document.getElementById('fullName').value || "Candidate";
-            dynamicFileSummary = `File: ${file.name}\nCandidate: ${curName}\nSize: ${(file.size/1024).toFixed(1)} KB\nStatus: SUCCESS`;
-            showReport();
-        }, 600);
-    }
-
-    function executeAnalysis(e) {
-        e.preventDefault();
-        const finalName = document.getElementById('fullName').value.trim();
-        if (finalName) localStorage.setItem('userName', finalName);
-
-        if (!isResumeUploaded) {
-            document.getElementById('alertBox').classList.remove('hidden');
-            document.getElementById('alertBox').scrollIntoView({ behavior: 'smooth' });
-            return;
-        }
-        showReport();
-    }
-
-    function showReport() {
-        document.getElementById('reportFileName').innerText = uploadedFileName;
-        document.getElementById('reportExtractedSkills').innerText = dynamicFileSummary;
-        document.getElementById('aiReportBox').classList.remove('hidden');
-        document.getElementById('aiReportBox').scrollIntoView({ behavior: 'smooth' });
+    function saveAndGo() {
+        let name = document.getElementById('fullName').value.trim();
+        if(!name) { alert("Please naam likho"); return; }
+        localStorage.setItem('userName', name);
+        document.getElementById('alertBox').classList.remove('hidden');
+        document.getElementById('alertBox').innerText = "Saved! Ab se naam " + name + " hi dikhega.";
     }
 </script>
+</body>
+</html>
