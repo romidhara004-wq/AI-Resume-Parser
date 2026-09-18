@@ -3,52 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard - Fixed</title>
+    <title>Student Dashboard - SkillBridge AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
-<body class="bg-slate-950 text-white min-h-screen p-6">
-    <nav class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
-        <h1 class="font-bold">SkillBridge AI</h1>
-        <a href="Login.html" onclick="localStorage.clear()" class="bg-slate-800 px-4 py-2 rounded">Logout</a>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center"><i class="fa-solid fa-brain text-white"></i></div>
+            <div><h1 class="font-bold text-sm bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">SkillBridge AI Enterprise</h1><p class="text-xs text-slate-400">JIS University Neural Matrix v4.2</p></div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="Login.html" onclick="localStorage.clear()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-xl border border-slate-700">Logout</a>
+        </div>
     </nav>
 
-    <div class="max-w-4xl mx-auto">
-        <h2 id="welcomeHeading" class="text-2xl font-bold mb-6">Welcome back, Student 🎓</h2>
-        
-        <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
-            <label class="text-xs uppercase text-slate-400">Full Legal Name</label>
-            <input type="text" id="fullName" oninput="updateName(this.value)" placeholder="Apna sahi naam yahan likho" class="w-full mt-2 p-3 bg-slate-950 border border-slate-800 rounded-xl text-white" />
-            
-            <p class="text-xs text-slate-500 mt-6">Iske baad ye naam hi hamesha dikhega. Gmail wala naam nahi ayega.</p>
-            
-            <button onclick="saveAndGo()" class="mt-4 w-full bg-blue-600 p-3 rounded-xl font-bold">Save Name & Continue</button>
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="md:col-span-2 bg-gradient-to-r from-blue-900/40 to-slate-900 p-6 rounded-2xl border border-blue-500/20">
+                <h2 id="welcomeHeading" class="text-xl font-bold text-white mb-1">Welcome back, Student 🎓</h2>
+                <p class="text-xs text-slate-300">Map your curriculum with industry demand using AI placement engine.</p>
+            </div>
+            <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800"><span class="text-xs text-slate-400">Global Match Index</span><p class="text-2xl font-black text-blue-400 mt-2">99.4%</p></div>
+            <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800"><span class="text-xs text-slate-400">Active Recruiters</span><p class="text-2xl font-black text-purple-400 mt-2">48 Companies</p></div>
         </div>
 
-        <div id="alertBox" class="hidden mt-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-400 text-sm">Name saved!</div>
-    </div>
+        <div id="alertBox" class="hidden mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-400 flex items-center gap-3"><i class="fa-solid fa-triangle-exclamation"></i><span id="alertMessage">Please upload your resume first!</span></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 bg-slate-900/60 p-7 rounded-2xl border border-slate-800">
+                <h3 class="font-bold text-base mb-6 pb-4 border-b border-slate-800"><i class="fa-solid fa-sliders text-blue-500"></i> Student Vector Configuration</h3>
+                <form id="advancedStudentForm" class="space-y-5" onsubmit="executeAnalysis(event)">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider mb-2">Full Legal Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" oninput="updateWelcomeName(this.value)" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl focus:border-blue-500 text-white text-sm" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider mb-2">Select Course</label>
+                        <select id="branch" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm" required>
+                            <option value="" disabled selected>Select your course</option>
+                            <option value="B.Tech [CSE / AIML]">B.Tech (CSE / AIML)</option>
+                            <option value="BCA [Hons.]">BCA [Hons.]</option>
+                            <option value="M.Tech">M.Tech</option>
+                            <option value="B.Pharm">B.Pharm</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider mb-2">Core Domain Stack</label>
+                        <select id="skills" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm" required>
+                            <option value="" disabled selected>Select domain</option>
+                            <option value="Python, Machine Learning">AI / ML & Data Science</option>
+                            <option value="Full Stack Dev, React, Node.js">Full Stack Web Dev</option>
+                            <option value="Cyber Security">Cyber Security</option>
+                            <option value="Java, Spring Boot">Java Backend</option>
+                            <option value="other">Other (Custom)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 p-3.5 rounded-xl font-bold text-sm"><i class="fa-solid fa-microchip"></i> Execute Neural Compatibility Analysis</button>
+                </form>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                    <h3 class="font-bold text-sm mb-4"><i class="fa-solid fa-file-arrow-up text-purple-400"></i> AI Resume Parser</h3>
+                    <label class="border-2 border-dashed border-slate-800 hover:border-blue-500/50 rounded-xl p-4 text-center cursor-pointer bg-slate-950/50 block">
+                        <p id="uploadText" class="text-xs font-medium">Click to upload resume</p>
+                        <p id="uploadSubText" class="text-[10px] text-slate-500 mt-1">PDF, TXT up to 10MB</p>
+                        <input type="file" id="resumeFile" class="hidden" accept=".pdf,.txt" onchange="handleResumeUpload(this)">
+                    </label>
+                </div>
+                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                    <h3 class="font-bold text-sm mb-3">Live Placement Drives</h3>
+                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800"><h4 class="font-bold text-xs">TechCorp Global</h4><p class="text-[11px] text-slate-400">AI / ML Intern</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="aiReportBox" class="mt-8 p-8 bg-slate-900 border border-blue-500/30 rounded-2xl hidden">
+            <h3 class="font-bold text-base mb-2">Live Resume Content Extraction Report</h3>
+            <p class="text-xs text-emerald-400 mb-4">Extracted Dynamically From Uploaded File</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800"><span class="text-[11px] text-slate-400">File Name</span><span id="reportFileName" class="text-sm font-bold block">-</span></div>
+                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800"><span class="text-[11px] text-slate-400">Matched Companies</span><span id="reportCompanies" class="text-sm font-bold text-emerald-400 block">-</span></div>
+            </div>
+            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800"><span class="text-[11px] text-slate-400">Parsed Content</span><div id="reportExtractedSkills" class="text-xs font-mono bg-slate-900 p-3 rounded-lg max-h-60 overflow-y-auto whitespace-pre-wrap mt-2">-</div></div>
+            <div class="mt-4 w-full bg-slate-800 h-2.5 rounded-full"><div id="progressBar" class="bg-gradient-to-r from-blue-500 to-emerald-400 h-2.5 rounded-full w-[95%]"></div></div>
+        </div>
+    </main>
 
 <script>
-    // Simple Load
-    window.onload = function() {
-        let saved = localStorage.getItem('userName');
-        if(saved && !saved.includes('@')) {
-            document.getElementById('fullName').value = saved;
-            document.getElementById('welcomeHeading').innerText = "Welcome back, " + saved + " 🎓";
+let isResumeUploaded = false;
+let uploadedFileName = "";
+let dynamicFileSummary = "";
+
+window.onload = function(){
+    let name = localStorage.getItem('userName') || "";
+    // Agar naam email jaisa hai (romi.dhara004) to ignore kar
+    if(name.includes('@') || (name.includes('.') &&!name.includes(' '))){
+        name = "";
+    }
+    if(name){
+        document.getElementById('welcomeHeading').innerText = `Welcome back, ${name} 🎓`;
+        document.getElementById('fullName').value = name;
+    }
+}
+
+function updateWelcomeName(val){
+    let d = val.trim() || "Student";
+    document.getElementById('welcomeHeading').innerText = `Welcome back, ${d} 🎓`;
+    if(val.trim()) localStorage.setItem('userName', val.trim());
+}
+
+async function handleResumeUpload(input){
+    if(!input.files[0]) return;
+    let file = input.files[0];
+    uploadedFileName = file.name;
+    document.getElementById('uploadText').innerText = "⏳ Parsing " + file.name + "...";
+    try{
+        let text = "";
+        if(file.type === "application/pdf"){
+            let buf = await file.arrayBuffer();
+            let pdf = await pdfjsLib.getDocument({data: buf}).promise;
+            for(let i=1; i<=pdf.numPages; i++){
+                let page = await pdf.getPage(i);
+                let content = await page.getTextContent();
+                text += content.items.map(s=>s.str).join(' ') + "\n";
+            }
+        } else {
+            text = await file.text();
         }
+        if(!text.trim()) text = "No readable text found.";
+        isResumeUploaded = true;
+        document.getElementById('uploadText').innerText = "✅ " + file.name;
+        document.getElementById('uploadSubText').innerText = "Parsed " + text.length + " chars";
+        document.getElementById('alertBox').classList.add('hidden');
+        let curName = document.getElementById('fullName').value || localStorage.getItem('userName') || "Candidate";
+        dynamicFileSummary = `[File: ${file.name}]\nCandidate: ${curName}\n\n--- EXTRACTED TEXT ---\n${text.substring(0,2000)}`;
+        showReport();
+    }catch(e){
+        document.getElementById('uploadText').innerText = "❌ Error: " + e.message;
     }
+}
 
-    function updateName(val) {
-        let display = val.trim() || "Student";
-        document.getElementById('welcomeHeading').innerText = "Welcome back, " + display + " 🎓";
-    }
-
-    function saveAndGo() {
-        let name = document.getElementById('fullName').value.trim();
-        if(!name) { alert("Please naam likho"); return; }
-        localStorage.setItem('userName', name);
+function executeAnalysis(e){
+    e.preventDefault();
+    let fn = document.getElementById('fullName').value.trim();
+    if(fn) localStorage.setItem('userName', fn);
+    if(!isResumeUploaded){
         document.getElementById('alertBox').classList.remove('hidden');
-        document.getElementById('alertBox').innerText = "Saved! Ab se naam " + name + " hi dikhega.";
+        document.getElementById('alertMessage').innerText = "Please upload resume first!";
+        return;
     }
+    showReport();
+}
+
+function showReport(){
+    document.getElementById('reportFileName').innerText = uploadedFileName;
+    document.getElementById('reportExtractedSkills').innerText = dynamicFileSummary;
+    document.getElementById('reportCompanies').innerText = "Google AI, Microsoft, TCS";
+    document.getElementById('aiReportBox').classList.remove('hidden');
+    document.getElementById('aiReportBox').scrollIntoView({behavior:'smooth'});
+}
 </script>
 </body>
 </html>
