@@ -1,103 +1,79 @@
-    <script>
-        let isResumeUploaded = false;
-        let uploadedFileName = "";
-        let dynamicFileSummary = "";
+<script>
+    let isResumeUploaded = false;
+    let uploadedFileName = "";
+    let dynamicFileSummary = "";
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const storedName = localStorage.getItem('userName');
-            const storedEmail = localStorage.getItem('userEmail');
-
-            // Agar userName me @ wala ya gmail wala naam hai to usko ignore karo
-            let displayName = "Student";
-            if (storedName &&!storedName.includes('@') &&!storedName.includes('.') && storedName.length > 2) {
-                displayName = storedName;
-            } else if (storedEmail) {
-                // Agar naam sahi nahi hai to empty rakho, user khud type karega
-                displayName = "Student";
+    // Page load pe naam set karo - simple logic
+    window.addEventListener('DOMContentLoaded', () => {
+        try {
+            let name = localStorage.getItem('userName') || "";
+            // Agar naam me @ hai ya bahut chhota hai to usko Student dikhao
+            if (name.includes('@') || name.length < 2) {
+                name = "";
             }
 
-            document.getElementById('welcomeHeading').innerText = `Welcome back, ${displayName} 🎓`;
-
-            // Agar localStorage me sahi naam hai tabhi input me bharo, nahi to khaali chhodo
-            if (storedName &&!storedName.includes('@') &&!storedName.includes('.')) {
-                 document.getElementById('fullName').value = storedName;
+            if (name) {
+                document.getElementById('welcomeHeading').innerText = `Welcome back, ${name} 🎓`;
+                document.getElementById('fullName').value = name;
             } else {
-                 document.getElementById('fullName').value = ""; // taaki tu sahi naam likh sake
+                document.getElementById('welcomeHeading').innerText = `Welcome back, Student 🎓`;
+                document.getElementById('fullName').value = "";
             }
-        });
-
-        function updateWelcomeName(val) {
-            const nameToDisplay = val.trim()!== ""? val.trim() : "Student";
-            document.getElementById('welcomeHeading').innerText = `Welcome back, ${nameToDisplay} 🎓`;
-            // Type karte hi localStorage me sahi naam save ho jayega
-            if(val.trim()!== ""){
-                localStorage.setItem('userName', val.trim());
-            }
+        } catch (e) {
+            console.log("Load error:", e);
+            document.getElementById('welcomeHeading').innerText = `Welcome back, Student 🎓`;
         }
+    });
 
-        function checkCustomSkill(val) {
-            const customBox = document.getElementById('customSkillBox');
-            if (val === 'other') {
-                customBox.classList.remove('hidden');
-                document.getElementById('customSkillInput').focus();
-            } else {
-                customBox.classList.add('hidden');
-            }
+    function updateWelcomeName(val) {
+        const display = val.trim()? val.trim() : "Student";
+        document.getElementById('welcomeHeading').innerText = `Welcome back, ${display} 🎓`;
+        if (val.trim()) {
+            localStorage.setItem('userName', val.trim());
         }
+    }
 
-        function handleResumeUpload(input) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                uploadedFileName = file.name;
-                const currentName = document.getElementById('fullName').value || localStorage.getItem('userName') || "Candidate";
-                const currentCourse = document.getElementById('branch').value || "B.Tech Engineering";
+    function checkCustomSkill(val) {
+        const box = document.getElementById('customSkillBox');
+        if (val === 'other') box.classList.remove('hidden');
+        else box.classList.add('hidden');
+    }
 
-                document.getElementById('uploadText').innerText = "⏳ Parsing File...";
-                setTimeout(() => {
-                    isResumeUploaded = true;
-                    document.getElementById('uploadText').innerText = "✅ " + file.name;
-                    document.getElementById('uploadSubText').innerText = "Parsed Successfully by AI!";
-                    document.getElementById('alertBox').classList.add('hidden');
-                    dynamicFileSummary = `[Active File Source: ${file.name}]\nRegistered Candidate: ${currentName}\nSelected Program: ${currentCourse}\nFile Weight: ${(file.size / 1024).toFixed(1)} KB\nParsing Engine: Real-time Vector Extraction Status: SUCCESS.`;
-                    showReport();
-                }, 700);
-            }
-        }
+    async function handleResumeUpload(input) {
+        if (!input.files[0]) return;
+        const file = input.files[0];
+        uploadedFileName = file.name;
+        document.getElementById('uploadText').innerText = "⏳ Parsing...";
 
-        function executeAnalysis(e) {
-            e.preventDefault();
-            const finalName = document.getElementById('fullName').value.trim();
-            if(finalName){
-                localStorage.setItem('userName', finalName); // final sahi naam save
-            }
-            if (!isResumeUploaded) {
-                const alertBox = document.getElementById('alertBox');
-                alertBox.classList.remove('hidden');
-                alertBox.scrollIntoView({ behavior: 'smooth' });
-                return;
-            }
+        // Simple demo parsing for now
+        setTimeout(() => {
+            isResumeUploaded = true;
+            document.getElementById('uploadText').innerText = "✅ " + file.name;
+            document.getElementById('uploadSubText').innerText = "Parsed Successfully!";
+            document.getElementById('alertBox').classList.add('hidden');
+            const curName = document.getElementById('fullName').value || "Candidate";
+            dynamicFileSummary = `File: ${file.name}\nCandidate: ${curName}\nSize: ${(file.size/1024).toFixed(1)} KB\nStatus: SUCCESS`;
             showReport();
-        }
+        }, 600);
+    }
 
-        function showReport() {
-            document.getElementById('reportFileName').innerText = uploadedFileName || "Resume Document";
-            document.getElementById('reportExtractedSkills').innerText = dynamicFileSummary;
-            let hashVal = 0;
-            for (let i = 0; i < uploadedFileName.length; i++) { hashVal += uploadedFileName.charCodeAt(i); }
-            let dynamicScore = (86 + (hashVal % 12) + (Math.random() * 0.8)).toFixed(1);
-            if (dynamicScore > 99.0) dynamicScore = "98.7";
-            let matchedCompanies = "Google AI, Microsoft, TechCorp Global";
-            if (uploadedFileName.toLowerCase().includes('didi') || uploadedFileName.toLowerCase().includes('sister') || uploadedFileName.length % 2 === 0) {
-                matchedCompanies = "Amazon AWS, Infosys, Wipro Technologies";
-            } else {
-                matchedCompanies = "Oracle, Cognizant, TCS Innovation Lab";
-            }
-            document.getElementById('reportCompanies').innerText = matchedCompanies;
-            document.getElementById('scoreText').innerText = dynamicScore + "% Optimal";
-            document.getElementById('matchPercentage').innerText = dynamicScore + "% Match";
-            document.getElementById('progressBar').style.width = dynamicScore + "%";
-            const reportBox = document.getElementById('aiReportBox');
-            reportBox.classList.remove('hidden');
-            reportBox.scrollIntoView({ behavior: 'smooth' });
+    function executeAnalysis(e) {
+        e.preventDefault();
+        const finalName = document.getElementById('fullName').value.trim();
+        if (finalName) localStorage.setItem('userName', finalName);
+
+        if (!isResumeUploaded) {
+            document.getElementById('alertBox').classList.remove('hidden');
+            document.getElementById('alertBox').scrollIntoView({ behavior: 'smooth' });
+            return;
         }
-    </script>
+        showReport();
+    }
+
+    function showReport() {
+        document.getElementById('reportFileName').innerText = uploadedFileName;
+        document.getElementById('reportExtractedSkills').innerText = dynamicFileSummary;
+        document.getElementById('aiReportBox').classList.remove('hidden');
+        document.getElementById('aiReportBox').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
