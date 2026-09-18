@@ -7,21 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <script>
+  <script>
 (function(){
-  const saved = localStorage.getItem('theme');
+  const saved = localStorage.getItem('theme') || 'dark';
   if(saved === 'light'){
-    document.body.classList.add('light');
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.body.classList.add('light');
+    });
   }
   window.toggleTheme = function(){
     document.body.classList.toggle('light');
     const isLight = document.body.classList.contains('light');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   };
-  // page load pe button ko bhi update karna hai to
-  if(saved === 'light'){
-    document.body.classList.add('light');
-  }
 })();
 </script>
 </head>
