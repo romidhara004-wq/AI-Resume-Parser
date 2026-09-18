@@ -6,7 +6,23 @@
     <title>HR & Recruiter Portal - SkillBridge AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <script src="/theme.js"></script>
+    <script>
+(function(){
+  const saved = localStorage.getItem('theme');
+  if(saved === 'light'){
+    document.body.classList.add('light');
+  }
+  window.toggleTheme = function(){
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  };
+  // page load pe button ko bhi update karna hai to
+  if(saved === 'light'){
+    document.body.classList.add('light');
+  }
+})();
+</script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen selection:bg-purple-500 selection:text-white relative">
 
