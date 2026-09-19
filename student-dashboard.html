@@ -49,27 +49,46 @@
                         <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Full Legal Name</label>
                         <input type="text" id="fullName" placeholder="Enter your full name" oninput="updateWelcomeName(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white text-slate-900 text-[13px] outline-none transition" required>
                     </div>
+
+                    <!-- SELECT COURSE WITH OTHERS -->
                     <div>
                         <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Select Course</label>
-                        <select id="branch" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
+                        <select id="branch" onchange="checkCustomCourse(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
                             <option value="" disabled selected>Select your course</option>
                             <option value="B.Tech [CSE / AIML]">B.Tech (CSE / AIML)</option>
                             <option value="BCA [Hons.]">BCA [Hons.]</option>
+                            <option value="B.Tech [Cyber Security]">B.Tech [Cyber Security]</option>
                             <option value="M.Tech">M.Tech</option>
                             <option value="B.Pharm">B.Pharm</option>
+                            <option value="BBA">BBA</option>
+                            <option value="MBA">MBA</option>
+                            <option value="other">Others (Custom)</option>
                         </select>
+                        <div id="customCourseBox" class="hidden mt-3">
+                            <input type="text" id="customCourseInput" placeholder="Enter your course name, e.g. B.Sc, Diploma, BBA" class="w-full p-3 bg-blue-50/50 border border-blue-200 rounded-xl text-slate-900 text-[13px] outline-none focus:border-blue-500 focus:bg-white transition placeholder:text-slate-400">
+                            <p class="text-[10px] text-blue-600 mt-1.5 font-medium"><i class="fa-solid fa-circle-info"></i> Type your exact course name</p>
+                        </div>
                     </div>
+
+                    <!-- CORE DOMAIN STACK WITH OTHERS -->
                     <div>
                         <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Core Domain Stack</label>
-                        <select id="skills" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
+                        <select id="skills" onchange="checkCustomSkill(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
                             <option value="" disabled selected>Select domain</option>
                             <option value="Python, Machine Learning">AI / ML & Data Science</option>
                             <option value="Full Stack Dev, React, Node.js">Full Stack Web Dev</option>
                             <option value="Cyber Security">Cyber Security</option>
                             <option value="Java, Spring Boot">Java Backend</option>
+                            <option value="Cloud, AWS">Cloud Computing</option>
+                            <option value="Data Analytics">Data Analytics</option>
                             <option value="other">Other (Custom)</option>
                         </select>
+                        <div id="customSkillBox" class="hidden mt-3">
+                            <input type="text" id="customSkillInput" placeholder="Enter your skills, e.g. Flutter, Blockchain, UI/UX, DevOps" class="w-full p-3 bg-violet-50/50 border border-violet-200 rounded-xl text-slate-900 text-[13px] outline-none focus:border-violet-500 focus:bg-white transition placeholder:text-slate-400">
+                            <p class="text-[10px] text-violet-600 mt-1.5 font-medium"><i class="fa-solid fa-circle-info"></i> Type your custom domain / skills</p>
+                        </div>
                     </div>
+
                     <button type="submit" class="w-full bg-slate-900 hover:bg-black p-3.5 rounded-xl font-semibold text-[13px] text-white flex items-center justify-center gap-2 shadow-lg"><i class="fa-solid fa-microchip"></i> Execute Neural Compatibility Analysis</button>
                 </form>
             </div>
@@ -130,6 +149,35 @@ function updateWelcomeName(val){
     if(val.trim()) localStorage.setItem('userName', val.trim());
 }
 
+// NEW FUNCTIONS FOR OTHERS
+function checkCustomCourse(val){
+    const box = document.getElementById('customCourseBox');
+    const input = document.getElementById('customCourseInput');
+    if(val === 'other'){
+        box.classList.remove('hidden');
+        input.required = true;
+        input.focus();
+    } else {
+        box.classList.add('hidden');
+        input.required = false;
+        input.value = "";
+    }
+}
+
+function checkCustomSkill(val){
+    const box = document.getElementById('customSkillBox');
+    const input = document.getElementById('customSkillInput');
+    if(val === 'other'){
+        box.classList.remove('hidden');
+        input.required = true;
+        input.focus();
+    } else {
+        box.classList.add('hidden');
+        input.required = false;
+        input.value = "";
+    }
+}
+
 async function handleResumeUpload(input){
     if(!input.files[0]) return;
     let file = input.files[0];
@@ -163,6 +211,29 @@ function executeAnalysis(e){
     e.preventDefault();
     let fn = document.getElementById('fullName').value.trim();
     if(fn) localStorage.setItem('userName', fn);
+
+    // Handle Custom Course
+    let courseVal = document.getElementById('branch').value;
+    if(courseVal === 'other'){
+        courseVal = document.getElementById('customCourseInput').value.trim();
+        if(!courseVal){
+            alert("Please enter your custom course name");
+            return;
+        }
+    }
+    localStorage.setItem('userBranch', courseVal);
+
+    // Handle Custom Skill
+    let skillVal = document.getElementById('skills').value;
+    if(skillVal === 'other'){
+        skillVal = document.getElementById('customSkillInput').value.trim();
+        if(!skillVal){
+            alert("Please enter your custom skills");
+            return;
+        }
+    }
+    localStorage.setItem('userSkills', skillVal);
+
     if(!isResumeUploaded){
         const alertBox = document.getElementById('alertBox');
         alertBox.classList.remove('hidden');
