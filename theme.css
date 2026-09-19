@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400&display=swap');
+
+body {
+  background-color: #050510 !important;
+  color: white !important;
+  font-family: 'Inter', sans-serif !important;
+}
+h1, h2, h3 {
+  font-family: 'Sora', sans-serif !important;
+  color: #00C6FF !important;
+}
+button, .btn {
+  background: #00C6FF !important;
+  color: #000 !important;
+  border-radius: 12px !important;
+}
