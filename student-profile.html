@@ -3,108 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile - SkillBridge AI Enterprise</title>
+    <title>Student Profile - SkillBridge AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-      body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; }
-      h1, h2, h3 { font-family: 'Sora', sans-serif!important; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F8FAFF;
+        }
+        h1, h2 {
+            font-family: 'Sora', sans-serif;
+        }
     </style>
 </head>
-<body class="min-h-screen relative overflow-x-hidden">
-
-    <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-transparent pointer-events-none"></div>
-
-    <!-- Nav White -->
-    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow">
-                <i class="fa-solid fa-bolt text-white text-sm"></i>
+<body>
+    <nav class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center text-white text-sm">
+                ⚡
             </div>
             <div>
-                <h1 id="navTitle" class="font-bold text-[14px] text-slate-900">Student Profile</h1>
-                <p id="navSubtitle" class="text-[11px] text-slate-500">JIS University - Student Portal</p>
+                <h1 id="navName" class="font-bold text-[14px] text-slate-900">
+                    Student | Student Profile
+                </h1>
+                <p id="navCourse" class="text-[11px] text-slate-500">
+                    JIS University - B.Tech [CSE / AIML]
+                </p>
             </div>
         </div>
-        <a href="student-dashboard.html" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-[12px] px-4 py-2 rounded-xl transition font-medium shadow-sm">
-            <i class="fa-solid fa-arrow-left mr-1"></i> Back to Dashboard
+        <a href="student-dashboard.html" class="text-[12px] bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-full font-medium transition">
+            ← Back to Dashboard
         </a>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-4 py-8 space-y-6 relative z-10">
-
-        <!-- Profile Card - White -->
-        <div class="bg-white p-8 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-            <div class="absolute right-0 top-0 w-[300px] h-[200px] bg-blue-100/40 rounded-full blur-[60px] pointer-events-none"></div>
-            <div class="flex items-center space-x-5 relative">
-                <div id="profileInitials" class="w-20 h-20 rounded-2xl bg-slate-900 flex items-center justify-center text-2xl font-bold text-white shadow-lg">
-                    KG
+    <main class="max-w-4xl mx-auto p-6 mt-6 space-y-6">
+        <div class="bg-white rounded-[24px] border border-slate-200 p-6 flex justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div class="flex items-center gap-4">
+                <div id="avatar" class="w-16 h-16 bg-black text-white rounded-2xl flex items-center justify-center font-bold text-xl">
+                    ST
                 </div>
                 <div>
-                    <h2 id="profileName" class="text-[20px] font-bold text-slate-900">Student Name</h2>
-                    <p id="profileCourse" class="text-[12px] text-blue-600 font-semibold mt-1 flex items-center gap-1.5">
-                        <i class="fa-solid fa-graduation-cap"></i> B.Tech (Computer Science & AIML) - JIS University
+                    <h2 id="pName" class="font-bold text-[18px] text-slate-900">
+                        Student Name
+                    </h2>
+                    <p id="pCourse" class="text-[13px] text-blue-600 font-medium">
+                        B.Tech [CSE / AIML] - JIS University
                     </p>
-                    <p id="profileEmail" class="text-[12px] text-slate-500 mt-1 flex items-center gap-1.5">
-                        <i class="fa-solid fa-envelope"></i> student@jisuniversity.ac.in
+                    <p id="pEmail" class="text-[13px] text-slate-500">
+                        student@jisuniversity.ac.in
+                    </p>
+                    <p id="pSkills" class="text-[11px] text-slate-400 mt-1">
+                        Top Skills: Not set
                     </p>
                 </div>
             </div>
-
-            <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl text-center min-w-[180px] relative">
-                <span class="text-[11px] text-slate-500 uppercase tracking-wider font-bold block mb-1">Placement Readiness</span>
-                <span id="profileScore" class="text-[24px] font-bold text-emerald-600">98.5%</span>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center min-w-[120px]">
+                <p class="text-[10px] uppercase text-slate-500 font-bold tracking-wider">
+                    Placement Readiness
+                </p>
+                <p class="text-[24px] font-bold text-slate-900 mt-1">
+                    98.5%
+                </p>
+                <div class="w-full bg-slate-200 h-1.5 rounded-full mt-2">
+                    <div class="bg-emerald-500 h-1.5 rounded-full w-[98%]"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Invitations -->
-        <div class="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-            <h3 class="font-bold text-[13px] text-slate-900 mb-6 pb-3 border-b border-slate-100 flex items-center gap-2">
-                <i class="fa-solid fa-briefcase text-violet-600"></i> Recruiter Interview Invitations & Status
+        <div class="bg-white rounded-[24px] border border-slate-200 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <h3 class="font-bold text-[14px] text-slate-900 mb-2">
+                Recruiter Interview Invitations & Status
             </h3>
-            <div id="profileApplicationsList" class="space-y-3">
-                <div id="noProfileApps" class="text-center py-8 text-slate-400 text-[12px]">
+            <p class="text-[12px] text-slate-500 mb-6">
+                Live tracking of your applications.
+            </p>
+            <div id="statusBox" class="text-center py-10 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
+                <p class="text-[13px] text-slate-500">
                     No active recruitment requests found. Apply to live drives from the dashboard!
-                </div>
+                </p>
+                <a href="student-dashboard.html" class="inline-block mt-3 text-[12px] bg-slate-900 text-white px-4 py-2 rounded-xl">
+                    Go to Dashboard
+                </a>
             </div>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 text-[11px] text-blue-700">
+            <b>Debug:</b> Ye page dashboard se data read kar raha hai.
         </div>
     </main>
 
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const userName = localStorage.getItem('userName') || "Kamya Gupta";
-            const userEmail = localStorage.getItem('userEmail') || localStorage.getItem('userLoginEmail') || "kamya.gupta@jisuniversity.ac.in";
-            const userBranch = localStorage.getItem('userBranch') || "B.Tech [CSE / AIML]";
-            document.getElementById('navTitle').innerText = `${userName} | Student Profile`;
-            document.getElementById('navSubtitle').innerText = `JIS University - ${userBranch}`;
-            document.getElementById('profileName').innerText = userName;
-            document.getElementById('profileCourse').innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${userBranch} - JIS University`;
-            document.getElementById('profileEmail').innerHTML = `<i class="fa-solid fa-envelope"></i> ${userEmail}`;
-            let nameParts = userName.trim().split(" ");
-            let initials = nameParts.length > 1? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase() : userName.substring(0, 2).toUpperCase();
-            document.getElementById('profileInitials').innerText = initials;
+        window.onload = function(){
+            const name = localStorage.getItem('userName') || 'Student';
+            const email = localStorage.getItem('userEmail') || 'student@jisuniversity.ac.in';
+            const branch = localStorage.getItem('userBranch') || 'B.Tech [CSE / AIML]';
+            const skills = localStorage.getItem('userSkills') || 'Not set';
 
-            const userKey = 'appliedJobs_' + (localStorage.getItem('userEmail') || 'default_user');
-            const appliedJobs = JSON.parse(localStorage.getItem(userKey) || localStorage.getItem('appliedJobs') || '[]');
-            const listContainer = document.getElementById('profileApplicationsList');
+            document.getElementById('pName').innerText = name;
+            document.getElementById('navName').innerText = name + ' | Student Profile';
+            document.getElementById('navCourse').innerText = 'JIS University - ' + branch;
+            document.getElementById('pCourse').innerText = branch + ' - JIS University';
+            document.getElementById('pEmail').innerText = email;
+            document.getElementById('pSkills').innerText = 'Top Skills: ' + skills;
 
-            if (appliedJobs.length > 0) {
-                listContainer.innerHTML = "";
-                appliedJobs.forEach(job => {
-                    const card = document.createElement('div');
-                    card.className = "bg-white border border-slate-200 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:shadow-sm transition";
-                    let statusBadge = "";
-                    if (job.status.includes("Selected")) {
-                        statusBadge = `<span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-full text-[11px] font-bold inline-flex items-center gap-1.5"><i class="fa-solid fa-check-circle"></i> Shortlisted / Interview Scheduled</span>`;
-                    } else {
-                        statusBadge = `<span class="px-3 py-1 bg-amber-50 text-amber-600 border border-amber-200 rounded-full text-[11px] font-bold inline-flex items-center gap-1.5"><i class="fa-solid fa-clock"></i> Profile Under Review</span>`;
-                    }
-                    card.innerHTML = `<div><h4 class="font-bold text-slate-900 text-[13px]">${job.company}</h4><p class="text-[11px] text-slate-500 mt-0.5">Role: ${job.role}</p></div><div>${statusBadge}</div>`;
-                    listContainer.appendChild(card);
-                });
+            let initials = name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+            if(initials.length < 2){
+                initials = name.substring(0,2).toUpperCase();
             }
-        });
+            document.getElementById('avatar').innerText = initials || 'ST';
+        }
     </script>
 </body>
 </html>
