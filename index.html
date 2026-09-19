@@ -6,86 +6,84 @@
     <title>SkillBridge AI Enterprise - JIS University</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-      body { background: #ffffff!important; color: #1e293b!important; font-family: 'Inter', sans-serif!important; }
+      body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; }
       h1, h2, h3 { font-family: 'Sora', sans-serif!important; }
     </style>
 </head>
-<body class="bg-white text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white relative overflow-x-hidden">
+<body class="min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
-    <!-- Light Theme Glow -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-100/60 rounded-full blur-[100px] pointer-events-none"></div>
-    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-100/50 rounded-full blur-[100px] pointer-events-none"></div>
+    <!-- Premium Mesh Gradient -->
+    <div class="absolute top-0 left-0 w-full h-[700px] bg-gradient-to-b from-blue-100/80 via-indigo-50/40 to-transparent pointer-events-none"></div>
+    <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-blue-200/30 rounded-full blur-[120px] pointer-events-none"></div>
 
-    <!-- Top Navigation Bar -->
-    <nav class="w-full max-w-6xl mx-auto px-6 py-6 flex justify-between items-center relative z-10">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                <i class="fa-solid fa-brain text-white text-lg"></i>
+    <!-- Nav -->
+    <nav class="w-full max-w-6xl mx-auto px-6 py-5 flex justify-between items-center relative z-10">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow">
+                <i class="fa-solid fa-bolt text-white text-sm"></i>
             </div>
-            <h1 class="font-bold text-lg text-slate-900">SkillBridge-AI</h1>
+            <span class="font-bold text-[15px] tracking-tight text-slate-900">SkillBridge-AI</span>
+            <span class="ml-2 hidden md:inline-flex px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-bold tracking-wider">ENTERPRISE</span>
         </div>
-        <div class="flex items-center space-x-3">
-            <span class="hidden md:inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-600 border border-emerald-200">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> Neural Core Online
-            </span>
-        </div>
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 text-[11px] font-semibold text-slate-600 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> System Operational
+        </span>
     </nav>
 
-    <!-- Hero Section -->
-    <main class="w-full max-w-5xl mx-auto px-4 py-12 text-center relative z-10 my-auto">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-semibold mb-6 shadow-sm">
-            <i class="fa-solid fa-sparkles"></i> JIS University Neural Matrix v4.2 Active
+    <!-- Hero -->
+    <main class="w-full max-w-5xl mx-auto px-4 py-10 text-center relative z-10 my-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-blue-200 text-blue-600 text-[11px] font-bold tracking-wide mb-8 shadow-sm">
+            <i class="fa-solid fa-circle-check text-blue-500"></i> JIS University Neural Matrix v4.2 Active
         </div>
 
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 leading-tight text-slate-900">
-            Select Your Portal to <br>
+        <h2 class="text-[32px] md:text-[48px] font-bold tracking-tight leading-[1.1] text-slate-900 mb-4">
+            Select Your Portal to<br>
             <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Enterprise AI Intelligence</span>
         </h2>
 
-        <p class="text-slate-500 text-sm md:text-base max-w-xl mx-auto mb-12 leading-relaxed">
+        <p class="text-slate-500 text-[14px] md:text-[15px] max-w-[560px] mx-auto mb-14 leading-relaxed">
             Choose your gateway below to access advanced AI curriculum mapping, resume parsing, and global corporate drives.
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <!-- Cards - More Premium -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[720px] mx-auto">
 
-            <!-- Student Portal Card - White Theme -->
-            <div class="bg-white border border-slate-200 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 p-8 rounded-3xl shadow-lg transition-all group flex flex-col justify-between">
-                <div>
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-graduation-cap text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Student Portal</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed mb-6">
-                        Access your neural dashboard, execute compatibility analysis, parse resumes with AI, and explore live placement drives.
-                    </p>
+            <div class="bg-white rounded-[24px] border border-slate-200/80 p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(37,99,235,0.12)] hover:-translate-y-1 transition-all duration-300 text-center group">
+                <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-600/20 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-graduation-cap text-white"></i>
                 </div>
-                <a href="login.html" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs transition shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-right-to-bracket"></i> Enter Student Hub
+                <h3 class="font-bold text-[16px] text-slate-900 mb-2">Student Portal</h3>
+                <p class="text-[12.5px] text-slate-500 leading-[1.6] mb-6 min-h-[48px]">Access your neural dashboard, execute compatibility analysis, parse resumes with AI, and explore live placement drives.</p>
+                <a href="login.html" class="w-full h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-[13px] transition flex items-center justify-center gap-2">
+                    Enter Student Hub <i class="fa-solid fa-arrow-right text-[11px]"></i>
                 </a>
             </div>
 
-            <!-- Recruiter Portal Card - White Theme -->
-            <div class="bg-white border border-slate-200 hover:border-purple-300 hover:shadow-xl hover:shadow-purple-100 p-8 rounded-3xl shadow-lg transition-all group flex flex-col justify-between">
-                <div>
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-building-user text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Recruiter Portal</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed mb-6">
-                        Post new placement drives, evaluate top-tier candidate vectors, review parsed resumes, and manage corporate hiring pipelines.
-                    </p>
+            <div class="bg-white rounded-[24px] border border-slate-200/80 p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(147,51,234,0.12)] hover:-translate-y-1 transition-all duration-300 text-center group">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-purple-600/20 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-building text-white text-sm"></i>
                 </div>
-                <a href="recruiter.html" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs transition shadow-lg shadow-purple-600/20 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-briefcase"></i> Enter Recruiter Hub
+                <h3 class="font-bold text-[16px] text-slate-900 mb-2">Recruiter Portal</h3>
+                <p class="text-[12.5px] text-slate-500 leading-[1.6] mb-6 min-h-[48px]">Post new placement drives, evaluate top-tier candidate vectors, review parsed resumes, and manage corporate hiring pipelines.</p>
+                <a href="recruiter.html" class="w-full h-[44px] rounded-xl bg-slate-900 hover:bg-black text-white font-semibold text-[13px] transition flex items-center justify-center gap-2">
+                    Enter Recruiter Hub <i class="fa-solid fa-arrow-right text-[11px]"></i>
                 </a>
             </div>
 
         </div>
+
+        <div class="mt-12 flex items-center justify-center gap-6 text-[11px] text-slate-400 font-medium">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved"></i> Secure & Encrypted</span>
+            <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> AI Powered</span>
+            <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-users"></i> 10k+ Users</span>
+        </div>
     </main>
 
-    <footer class="w-full text-center py-6 border-t border-slate-100 text-xs text-slate-400 relative z-10 bg-white/80 backdrop-blur">
+    <footer class="w-full text-center py-6 text-[11px] text-slate-400 relative z-10">
         &copy; 2026 SkillBridge AI Enterprise. JIS University Neural Matrix. All rights reserved.
     </footer>
 
