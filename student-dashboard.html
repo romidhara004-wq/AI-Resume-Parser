@@ -8,42 +8,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-      body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; }
-      h1, h2, h3 { font-family: 'Sora', sans-serif!important; }
-    </style>
+    <style>body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; } h1, h2, h3 { font-family: 'Sora', sans-serif!important; }</style>
 </head>
 <body class="min-h-screen relative overflow-x-hidden">
     <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-transparent pointer-events-none"></div>
     <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow">
-                <i class="fa-solid fa-bolt text-white text-sm"></i>
-            </div>
-            <div>
-                <h1 class="font-bold text-[14px] text-slate-900">SkillBridge AI Enterprise</h1>
-                <p class="text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p>
-            </div>
+            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow"><i class="fa-solid fa-bolt text-white text-sm"></i></div>
+            <div><h1 class="font-bold text-[14px] text-slate-900">SkillBridge AI Enterprise</h1><p class="text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p></div>
         </div>
         <div class="flex items-center space-x-3">
-            <a href="jobs.html" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium shadow-sm hover:bg-slate-50">Jobs & Drives</a>
-            <a href="student-profile.html" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium shadow-sm hover:bg-slate-900 hover:text-white transition-all">
-                <i class="fa-regular fa-user mr-1.5"></i> Profile
-            </a>
-            <a href="login.html" onclick="localStorage.clear()" class="bg-slate-900 hover:bg-black text-white text-[12px] px-4 py-2 rounded-xl font-medium">Logout</a>
+            <a href="jobs.html" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium">Jobs & Drives</a>
+            <a href="student-profile.html" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium"><i class="fa-regular fa-user mr-1.5"></i> Profile</a>
+            <a href="login.html" onclick="localStorage.clear()" class="bg-slate-900 text-white text-[12px] px-4 py-2 rounded-xl font-medium">Logout</a>
         </div>
     </nav>
 
     <main class="max-w-6xl mx-auto px-4 py-8 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <div class="md:col-span-2 bg-white p-6 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
-                <div class="absolute right-0 top-0 w-[200px] h-[200px] bg-blue-100/50 rounded-full blur-[50px] pointer-events-none"></div>
+            <div class="md:col-span-2 bg-white p-6 rounded-[24px] border border-slate-200/80 shadow-sm relative overflow-hidden">
+                <div class="absolute right-0 top-0 w-[200px] h-[200px] bg-blue-100/50 rounded-full blur-[50px]"></div>
                 <h2 id="welcomeHeading" class="text-[20px] font-bold text-slate-900 mb-1 relative">Welcome back, Student 🎓</h2>
                 <p class="text-[12px] text-slate-500 relative">Map your curriculum with industry demand using AI placement engine.</p>
             </div>
             <div class="bg-white p-5 rounded-[20px] border border-slate-200/80 shadow-sm relative overflow-hidden">
                 <span class="text-[11px] text-slate-500 font-semibold uppercase">Global Match Index</span>
-                <p id="globalMatchValue" class="text-[22px] font-bold text-slate-400 mt-2 transition-all duration-500">--%</p>
+                <p id="globalMatchValue" class="text-[22px] font-bold text-slate-400 mt-2">--%</p>
                 <p id="globalMatchLabel" class="text-[10px] text-slate-400 mt-1 font-medium">Upload resume to calculate</p>
                 <div id="globalMatchDot" class="absolute right-4 top-4 w-2.5 h-2.5 bg-slate-300 rounded-full"></div>
             </div>
@@ -54,271 +44,138 @@
         </div>
 
         <div id="alertBox" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-[12px] text-red-700 flex items-center gap-3">
-            <i class="fa-solid fa-circle-xmark text-red-500"></i>
-            <span id="alertMessage">Please upload your resume first!</span>
+            <i class="fa-solid fa-circle-xmark text-red-500"></i><span id="alertMessage"></span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                <h3 class="font-bold text-[14px] text-slate-900 mb-6 pb-4 border-b border-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-blue-600"></i> Student Vector Configuration
-                </h3>
+            <div class="lg:col-span-2 bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-sm">
+                <h3 class="font-bold text-[14px] text-slate-900 mb-6 pb-4 border-b border-slate-100 flex items-center gap-2"><i class="fa-solid fa-sliders text-blue-600"></i> Student Vector Configuration</h3>
                 <form id="advancedStudentForm" class="space-y-5" onsubmit="executeAnalysis(event)">
-                    <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Full Legal Name</label>
-                        <input type="text" id="fullName" placeholder="Enter your full name" oninput="updateWelcomeName(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white text-slate-900 text-[13px] outline-none transition" required autocomplete="off">
+                    <div><label class="block text-[11px] font-bold uppercase mb-2 text-slate-600">Full Legal Name</label><input type="text" id="fullName" oninput="updateWelcomeName(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px] outline-none" required></div>
+                    <div><label class="block text-[11px] font-bold uppercase mb-2 text-slate-600">Email Address</label><input type="email" id="emailInput" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px] outline-none" required></div>
+                    <div><label class="block text-[11px] font-bold uppercase mb-2 text-slate-600">Select Course</label>
+                        <select id="branch" onchange="checkCustomCourse(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px]" required><option value="" disabled selected>Select course</option><option value="B.Tech [CSE / AIML]">B.Tech (CSE / AIML)</option><option value="BCA [Hons.]">BCA [Hons.]</option><option value="B.Tech [Cyber Security]">B.Tech [Cyber Security]</option><option value="M.Tech">M.Tech</option><option value="BBA">BBA</option><option value="MBA">MBA</option><option value="other">Others (Custom)</option></select>
+                        <div id="customCourseBox" class="hidden mt-3"><input type="text" id="customCourseInput" class="w-full p-3 bg-blue-50 border border-blue-200 rounded-xl text-[13px]"></div>
                     </div>
-                    <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Email Address</label>
-                        <input type="email" id="emailInput" placeholder="Enter your email" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white text-slate-900 text-[13px] outline-none transition" required autocomplete="off">
+                    <div><label class="block text-[11px] font-bold uppercase mb-2 text-slate-600">Core Domain Stack</label>
+                        <select id="skills" onchange="checkCustomSkill(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px]" required><option value="" disabled selected>Select domain</option><option value="Python, Machine Learning">AI / ML & Data Science</option><option value="Full Stack Dev, React, Node.js">Full Stack Web Dev</option><option value="Cyber Security">Cyber Security</option><option value="Java, Spring Boot">Java Backend</option><option value="Cloud, AWS">Cloud Computing</option><option value="Data Analytics">Data Analytics</option><option value="other">Other (Custom)</option></select>
+                        <div id="customSkillBox" class="hidden mt-3"><input type="text" id="customSkillInput" class="w-full p-3 bg-violet-50 border border-violet-200 rounded-xl text-[13px]"></div>
                     </div>
-                    <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Select Course</label>
-                        <select id="branch" onchange="checkCustomCourse(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
-                            <option value="" disabled selected>Select your course</option>
-                            <option value="B.Tech [CSE / AIML]">B.Tech (CSE / AIML)</option>
-                            <option value="BCA [Hons.]">BCA [Hons.]</option>
-                            <option value="B.Tech [Cyber Security]">B.Tech [Cyber Security]</option>
-                            <option value="M.Tech">M.Tech</option>
-                            <option value="B.Pharm">B.Pharm</option>
-                            <option value="BBA">BBA</option>
-                            <option value="MBA">MBA</option>
-                            <option value="other">Others (Custom)</option>
-                        </select>
-                        <div id="customCourseBox" class="hidden mt-3">
-                            <input type="text" id="customCourseInput" placeholder="Enter your course name" class="w-full p-3 bg-blue-50/50 border border-blue-200 rounded-xl text-slate-900 text-[13px] outline-none">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Core Domain Stack</label>
-                        <select id="skills" onchange="checkCustomSkill(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
-                            <option value="" disabled selected>Select domain</option>
-                            <option value="Python, Machine Learning">AI / ML & Data Science</option>
-                            <option value="Full Stack Dev, React, Node.js">Full Stack Web Dev</option>
-                            <option value="Cyber Security">Cyber Security</option>
-                            <option value="Java, Spring Boot">Java Backend</option>
-                            <option value="Cloud, AWS">Cloud Computing</option>
-                            <option value="Data Analytics">Data Analytics</option>
-                            <option value="other">Other (Custom)</option>
-                        </select>
-                        <div id="customSkillBox" class="hidden mt-3">
-                            <input type="text" id="customSkillInput" placeholder="Enter your skills" class="w-full p-3 bg-violet-50/50 border border-violet-200 rounded-xl text-slate-900 text-[13px] outline-none">
-                        </div>
-                    </div>
-                    <button type="submit" class="w-full bg-slate-900 hover:bg-black p-3.5 rounded-xl font-semibold text-[13px] text-white flex items-center justify-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-microchip"></i> Execute Neural Compatibility Analysis
-                    </button>
+                    <button type="submit" class="w-full bg-slate-900 p-3.5 rounded-xl font-semibold text-[13px] text-white"><i class="fa-solid fa-microchip"></i> Execute Neural Compatibility Analysis</button>
                 </form>
             </div>
             <div class="space-y-6">
                 <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 shadow-sm">
                     <h3 class="font-bold text-[13px] text-slate-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-file-arrow-up text-violet-600"></i> AI Resume Parser</h3>
-                    <label class="border-2 border-dashed border-slate-200 hover:border-blue-300 rounded-2xl p-6 text-center cursor-pointer bg-slate-50/50 block transition">
-                        <p id="uploadText" class="text-[12px] font-semibold text-slate-700">Click to upload resume</p>
-                        <p id="uploadSubText" class="text-[11px] text-slate-400 mt-1">PDF, TXT up to 10MB</p>
-                        <input type="file" id="resumeFile" class="hidden" accept=".pdf,.txt" onchange="handleResumeUpload(this)">
+                    <label class="border-2 border-dashed border-slate-200 hover:border-blue-300 rounded-2xl p-6 text-center cursor-pointer bg-slate-50/50 block">
+                        <p id="uploadText" class="text-[12px] font-semibold text-slate-700">Click to upload resume</p><p id="uploadSubText" class="text-[11px] text-slate-400 mt-1">PDF, TXT up to 10MB</p><input type="file" id="resumeFile" class="hidden" accept=".pdf,.txt" onchange="handleResumeUpload(this)">
                     </label>
                 </div>
-                <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 shadow-sm">
-                    <h3 class="font-bold text-[13px] text-slate-900 mb-3">Live Placement Drives</h3>
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                        <h4 class="font-bold text-[12px] text-slate-900">TechCorp Global</h4>
-                        <p class="text-[11px] text-slate-500">AI / ML Intern</p>
-                    </div>
-                </div>
+                <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 shadow-sm"><h3 class="font-bold text-[13px] mb-3">Live Placement Drives</h3><div class="p-3 rounded-xl bg-slate-50 border"><h4 class="font-bold text-[12px]">TechCorp Global</h4><p class="text-[11px] text-slate-500">AI / ML Intern</p></div></div>
             </div>
         </div>
-        <div id="aiReportBox" class="mt-8 p-8 bg-white border border-blue-200 rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden">
+
+        <div id="aiReportBox" class="mt-8 p-8 bg-white border border-blue-200 rounded-[24px] shadow-sm hidden">
             <h3 class="font-bold text-[16px] text-slate-900 mb-1">Live Resume Content Extraction Report</h3>
             <p class="text-[11px] text-emerald-600 font-bold uppercase tracking-wider mb-4">Extracted Dynamically From Uploaded File</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <span class="text-[11px] text-slate-500 uppercase font-bold">File Name</span>
-                    <span id="reportFileName" class="text-[13px] font-bold text-slate-900 block mt-1">-</span>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <span class="text-[11px] text-slate-500 uppercase font-bold">Matched Companies</span>
-                    <span id="reportCompanies" class="text-[13px] font-bold text-emerald-600 block mt-1">-</span>
-                </div>
+                <div class="p-4 bg-slate-50 rounded-xl border"><span class="text-[11px] text-slate-500 uppercase font-bold">File Name</span><span id="reportFileName" class="text-[13px] font-bold block mt-1">-</span></div>
+                <div class="p-4 bg-slate-50 rounded-xl border"><span class="text-[11px] text-slate-500 uppercase font-bold">Matched Companies</span><span id="reportCompanies" class="text-[13px] font-bold text-emerald-600 block mt-1">-</span></div>
             </div>
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <span class="text-[11px] text-slate-500 uppercase font-bold">Parsed Content</span>
-                <div id="reportExtractedSkills" class="text-[12px] font-mono bg-white p-3 rounded-lg border border-slate-200 max-h-60 overflow-y-auto whitespace-pre-wrap mt-2 text-slate-700">-</div>
-            </div>
-            <div class="mt-4 w-full bg-slate-100 h-2.5 rounded-full">
-                <div id="progressBar" class="bg-gradient-to-r from-blue-600 to-emerald-500 h-2.5 rounded-full w-[95%]"></div>
-            </div>
+            <div class="p-4 bg-slate-50 rounded-xl border"><span class="text-[11px] text-slate-500 uppercase font-bold">Parsed Content</span><div id="reportExtractedSkills" class="text-[12px] bg-white p-3 rounded-lg border max-h-80 overflow-y-auto whitespace-pre-wrap mt-2 text-slate-700">-</div></div>
+            <div class="mt-4 w-full bg-slate-100 h-2.5 rounded-full"><div id="progressBar" class="bg-gradient-to-r from-blue-600 to-emerald-500 h-2.5 rounded-full"></div></div>
         </div>
     </main>
 <script>
-let isResumeUploaded = false;
-let uploadedFileName = "";
-let extractedResumeText = "";
-const COMPANY_REQUIREMENTS = {
-    "Google AI": ["python", "machine learning", "tensorflow", "data structures", "algorithms", "sql"],
-    "Microsoft": ["javascript", "react", "node.js", "azure", "c#", "sql", "api"],
-    "TCS": ["java", "communication", "sql", "oops", "html", "teamwork"],
-    "Infosys": ["python", "java", "communication", "sql", "ms excel"],
-    "Amazon AWS": ["aws", "python", "linux", "sql", "cloud"]
+let isResumeUploaded = false, uploadedFileName = "", extractedResumeText = "";
+const COMPANY_REQUIREMENTS = {"Google AI":["python","machine learning","tensorflow","data structures","algorithms","sql"],"Microsoft":["javascript","react","node.js","azure","c#","sql","api"],"TCS":["java","communication","sql","oops","html","teamwork"],"Infosys":["python","java","communication","sql","ms excel"],"Amazon AWS":["aws","python","linux","sql","cloud"]};
+const SKILL_ROADMAP = {
+  "python":{why:"Core for AI/ML roles",learn:"OOP, Pandas, NumPy",resource:"freeCodeCamp - Python 4hrs",days:"7 days"},
+  "machine learning":{why:"Must for Google AI",learn:"Supervised + Unsupervised Models",resource:"Andrew Ng - Coursera ML",days:"14 days"},
+  "tensorflow":{why:"Deep Learning framework",learn:"Keras, CNN, RNN",resource:"TensorFlow Official Docs",days:"7 days"},
+  "data structures":{why:"DSA asked in every FAANG",learn:"Arrays, LinkedList, Graphs",resource:"Striver DSA Sheet",days:"21 days"},
+  "algorithms":{why:"Problem solving round",learn:"Sorting, DP, Greedy",resource:"LeetCode Top 100",days:"21 days"},
+  "sql":{why:"Needed in 90% companies",learn:"JOINs, Window Functions",resource:"SQLZoo + LeetCode SQL",days:"5 days"},
+  "javascript":{why:"Frontend + Backend core",learn:"ES6, Async, DOM",resource:"JavaScript.info",days:"7 days"},
+  "react":{why:"Most demanded frontend",learn:"Hooks, Redux, Next.js",resource:"React Docs Beta",days:"10 days"},
+  "node.js":{why:"Backend for Microsoft",learn:"Express, REST APIs",resource:"Node.js Crash Course",days:"7 days"},
+  "azure":{why:"Cloud skill for Microsoft",learn:"AZ-900 Fundamentals",resource:"Microsoft Learn - Free",days:"7 days"},
+  "java":{why:"TCS/Infosys main stack",learn:"OOP, Collections, Spring Boot",resource:"Telusko Java",days:"10 days"},
+  "aws":{why:"Cloud mandatory for Amazon",learn:"EC2, S3, Lambda",resource:"AWS Cloud Practitioner Free",days:"10 days"},
+  "cloud":{why:"High paying skill",learn:"Cloud basics + Deployment",resource:"AWS / GCP Free Tier",days:"10 days"}
 };
-
-// --- NEW: CV VALIDATION FUNCTION ---
-function isValidCV(text) {
-    if (!text || text.trim().length < 150) return false; // too small to be a CV
-    let lower = text.toLowerCase();
-    // Must have at least 3 of these CV signals
-    const cvSignals = ["experience", "education", "skills", "projects", "resume", "curriculum vitae", "university", "college", "internship", "certification", "objective", "career", "work", "b.tech", "bca", "m.tech", "linkedin"];
-    let score = 0;
-    cvSignals.forEach(k => { if (lower.includes(k)) score++; });
-    return score >= 3;
+function isValidCV(text){
+    if(!text || text.trim().length < 150) return false;
+    let lower=text.toLowerCase();
+    const signals=["experience","education","skills","projects","resume","curriculum vitae","university","college","internship","certification","objective","career","linkedin"];
+    let score=0; signals.forEach(k=>{if(lower.includes(k)) score++;});
+    return score>=3;
 }
-
-window.onload = function(){
-    let name = localStorage.getItem('userName') || "";
-    if(name.includes('@') || (name.includes('.') &&!name.includes(' '))) name = "";
-    if(name){
-        document.getElementById('welcomeHeading').innerText = `Welcome back, ${name} 🎓`;
-        document.getElementById('fullName').value = name;
-    }
-    let email = localStorage.getItem('userEmail');
-    if(email) document.getElementById('emailInput').value = email;
-
-    let savedScore = localStorage.getItem('globalMatchScore');
-    let savedCompany = localStorage.getItem('globalMatchCompany');
-    if(savedScore){
-        document.getElementById('globalMatchValue').innerText = savedScore + "%";
-        document.getElementById('globalMatchValue').className = "text-[22px] font-bold mt-2 " + (savedScore > 70? "text-emerald-600" : savedScore > 40? "text-amber-600" : "text-red-500");
-        document.getElementById('globalMatchLabel').innerText = `Best: ${savedCompany} | Live Score`;
-        document.getElementById('globalMatchDot').className = "absolute right-4 top-4 w-2.5 h-2.5 rounded-full animate-pulse " + (savedScore > 70? "bg-emerald-500" : savedScore > 40? "bg-amber-500" : "bg-red-500");
-    }
+function getRoadmapHTML(missingList){
+  return missingList.map(skill=>{
+    let key=skill.toLowerCase();
+    let info=SKILL_ROADMAP[key]||{why:"Important for industry",learn:`Master ${skill} fundamentals`,resource:`YouTube - ${skill} full course`,days:"7 days"};
+    return `<div class="p-3 bg-white border border-amber-200 rounded-xl">
+      <div class="flex justify-between"><h4 class="font-bold text-[12px] capitalize">${skill}</h4><span class="text-[9px] bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-bold">${info.days}</span></div>
+      <p class="text-[11px] text-slate-500 mt-1"><b class="text-slate-700">Why:</b> ${info.why}</p>
+      <p class="text-[11px] text-slate-500"><b class="text-slate-700">Learn:</b> ${info.learn}</p>
+      <p class="text-[10px] text-blue-600 font-bold mt-2"><i class="fa-solid fa-circle-play"></i> ${info.resource}</p></div>`;
+  }).join('');
 }
-function updateWelcomeName(val){
-    let d = val.trim() || "Student";
-    document.getElementById('welcomeHeading').innerText = `Welcome back, ${d} 🎓`;
-    if(val.trim()) localStorage.setItem('userName', val.trim());
+window.onload=function(){
+    let name=localStorage.getItem('userName')||""; if(name.includes('@')||(name.includes('.')&&!name.includes(' '))) name="";
+    if(name){document.getElementById('welcomeHeading').innerText=`Welcome back, ${name} 🎓`; document.getElementById('fullName').value=name;}
+    let email=localStorage.getItem('userEmail'); if(email) document.getElementById('emailInput').value=email;
+    let savedScore=localStorage.getItem('globalMatchScore'); let savedCompany=localStorage.getItem('globalMatchCompany');
+    if(savedScore){document.getElementById('globalMatchValue').innerText=savedScore+"%"; document.getElementById('globalMatchValue').className="text-[22px] font-bold mt-2 "+(savedScore>70?"text-emerald-600":savedScore>40?"text-amber-600":"text-red-500"); document.getElementById('globalMatchLabel').innerText=`Best: ${savedCompany} | Live Score`; document.getElementById('globalMatchDot').className="absolute right-4 top-4 w-2.5 h-2.5 rounded-full animate-pulse "+(savedScore>70?"bg-emerald-500":savedScore>40?"bg-amber-500":"bg-red-500");}
 }
-function checkCustomCourse(val){
-    const box = document.getElementById('customCourseBox');
-    const input = document.getElementById('customCourseInput');
-    if(val === 'other'){ box.classList.remove('hidden'); input.required = true; input.focus(); }
-    else { box.classList.add('hidden'); input.required = false; input.value = ""; }
-}
-function checkCustomSkill(val){
-    const box = document.getElementById('customSkillBox');
-    const input = document.getElementById('customSkillInput');
-    if(val === 'other'){ box.classList.remove('hidden'); input.required = true; input.focus(); }
-    else { box.classList.add('hidden'); input.required = false; input.value = ""; }
-}
+function updateWelcomeName(val){let d=val.trim()||"Student"; document.getElementById('welcomeHeading').innerText=`Welcome back, ${d} 🎓`; if(val.trim()) localStorage.setItem('userName',val.trim());}
+function checkCustomCourse(val){const box=document.getElementById('customCourseBox'); const input=document.getElementById('customCourseInput'); if(val==='other'){box.classList.remove('hidden'); input.required=true;} else{box.classList.add('hidden'); input.required=false; input.value="";}}
+function checkCustomSkill(val){const box=document.getElementById('customSkillBox'); const input=document.getElementById('customSkillInput'); if(val==='other'){box.classList.remove('hidden'); input.required=true;} else{box.classList.add('hidden'); input.required=false; input.value="";}}
 async function handleResumeUpload(input){
-    if(!input.files[0]) return;
-    let file = input.files[0];
-    uploadedFileName = file.name;
-    document.getElementById('uploadText').innerText = "⏳ Analyzing Document...";
-    document.getElementById('uploadSubText').innerText = "Checking if it's a valid CV...";
+    if(!input.files[0]) return; let file=input.files[0]; uploadedFileName=file.name;
+    document.getElementById('uploadText').innerText="⏳ Analyzing Document..."; document.getElementById('uploadSubText').innerText="Checking if it's a valid CV...";
     try{
-        let text = "";
-        if(file.type === "application/pdf"){
-            let buf = await file.arrayBuffer();
-            let pdf = await pdfjsLib.getDocument({data: buf}).promise;
-            for(let i=1; i<=pdf.numPages; i++){
-                let page = await pdf.getPage(i);
-                let content = await page.getTextContent();
-                text += content.items.map(s=>s.str).join(' ') + " ";
-            }
-        } else {
-            text = await file.text();
-        }
-        extractedResumeText = text;
-
-        // --- VALIDATION STEP ---
+        let text=""; if(file.type==="application/pdf"){let buf=await file.arrayBuffer(); let pdf=await pdfjsLib.getDocument({data:buf}).promise; for(let i=1;i<=pdf.numPages;i++){let page=await pdf.getPage(i); let content=await page.getTextContent(); text+=content.items.map(s=>s.str).join(' ')+" ";}} else{text=await file.text();}
+        extractedResumeText=text;
         if(!isValidCV(text)){
-            isResumeUploaded = false;
-            document.getElementById('uploadText').innerText = "❌ Invalid Document!";
-            document.getElementById('uploadSubText').innerText = "This is not a CV / Resume";
-            document.getElementById('alertBox').classList.remove('hidden');
-            document.getElementById('alertBox').className = "mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-[12px] text-red-700 flex items-center gap-3";
-            document.getElementById('alertMessage').innerText = "❌ Invalid Document! Please upload only your CV / Resume. Train tickets, bills, or other documents are not allowed.";
-            document.getElementById('globalMatchValue').innerText = "0%";
-            document.getElementById('globalMatchValue').className = "text-[22px] font-bold mt-2 text-red-500";
-            document.getElementById('globalMatchLabel').innerText = "Invalid Document Detected";
-            document.getElementById('aiReportBox').classList.add('hidden');
-            // Auto hide after 5 sec
-            setTimeout(() => { document.getElementById('alertBox').classList.add('hidden'); }, 5000);
-            return;
+            isResumeUploaded=false;
+            document.getElementById('uploadText').innerText="❌ Invalid Document!"; document.getElementById('uploadSubText').innerText="This is not a CV / Resume";
+            document.getElementById('alertBox').classList.remove('hidden'); document.getElementById('alertMessage').innerText="❌ Invalid Document! Please upload only your CV / Resume. Other documents are not allowed.";
+            document.getElementById('globalMatchValue').innerText="0%"; document.getElementById('globalMatchValue').className="text-[22px] font-bold mt-2 text-red-500";
+            document.getElementById('globalMatchLabel').innerText="Invalid Document Detected"; document.getElementById('aiReportBox').classList.add('hidden'); return;
         }
-
-        isResumeUploaded = true;
-        document.getElementById('uploadText').innerText = "✅ " + file.name;
-        document.getElementById('uploadSubText').innerText = "Valid CV - " + text.length + " chars analyzed";
-        document.getElementById('alertBox').classList.add('hidden');
-        showReport();
-    }catch(e){
-        document.getElementById('uploadText').innerText = "❌ Error: " + e.message;
-    }
+        isResumeUploaded=true; document.getElementById('uploadText').innerText="✅ "+file.name; document.getElementById('uploadSubText').innerText="Valid CV - "+text.length+" chars"; document.getElementById('alertBox').classList.add('hidden'); showReport();
+    }catch(e){document.getElementById('uploadText').innerText="❌ Error: "+e.message;}
 }
 function executeAnalysis(e){
-    e.preventDefault();
-    let fn = document.getElementById('fullName').value.trim();
-    if(fn) localStorage.setItem('userName', fn);
-    let emailVal = document.getElementById('emailInput').value.trim();
-    localStorage.setItem('userEmail', emailVal);
-    let courseVal = document.getElementById('branch').value;
-    if(courseVal === 'other'){
-        courseVal = document.getElementById('customCourseInput').value.trim();
-        if(!courseVal){ alert("Please enter your custom course name"); return; }
-    }
-    localStorage.setItem('userBranch', courseVal);
-    let skillVal = document.getElementById('skills').value;
-    if(skillVal === 'other'){
-        skillVal = document.getElementById('customSkillInput').value.trim();
-        if(!skillVal){ alert("Please enter your custom skills"); return; }
-    }
-    localStorage.setItem('userSkills', skillVal);
-    if(!isResumeUploaded){
-        document.getElementById('alertBox').classList.remove('hidden');
-        document.getElementById('alertMessage').innerText = "Please upload a valid CV / Resume first!";
-        return;
-    }
-    showReport();
-    setTimeout(()=>{ window.location.href = "student-profile.html"; }, 800);
+    e.preventDefault(); let fn=document.getElementById('fullName').value.trim(); if(fn) localStorage.setItem('userName',fn);
+    localStorage.setItem('userEmail',document.getElementById('emailInput').value.trim());
+    let courseVal=document.getElementById('branch').value; if(courseVal==='other'){courseVal=document.getElementById('customCourseInput').value.trim(); if(!courseVal){alert("Enter course"); return;}} localStorage.setItem('userBranch',courseVal);
+    let skillVal=document.getElementById('skills').value; if(skillVal==='other'){skillVal=document.getElementById('customSkillInput').value.trim(); if(!skillVal){alert("Enter skills"); return;}} localStorage.setItem('userSkills',skillVal);
+    if(!isResumeUploaded){document.getElementById('alertBox').classList.remove('hidden'); document.getElementById('alertMessage').innerText="Please upload a valid CV / Resume first!"; return;}
+    showReport(); setTimeout(()=>{window.location.href="student-profile.html";},800);
 }
-function analyzeSkills(resumeText, requiredSkills){
-    let lower = resumeText.toLowerCase();
-    let matched = []; let missing = [];
-    requiredSkills.forEach(skill => {
-        if(lower.includes(skill.toLowerCase())) matched.push(skill);
-        else missing.push(skill);
-    });
-    let percent = requiredSkills.length? Math.round((matched.length / requiredSkills.length) * 100) : 0;
-    return {matched, missing, percent};
-}
+function analyzeSkills(resumeText, requiredSkills){let lower=resumeText.toLowerCase(); let matched=[],missing=[]; requiredSkills.forEach(skill=>{if(lower.includes(skill.toLowerCase())) matched.push(skill); else missing.push(skill);}); let percent=requiredSkills.length?Math.round((matched.length/requiredSkills.length)*100):0; return{matched,missing,percent};}
 function showReport(){
-    let resumeText = extractedResumeText;
-    let bestCompany = "TCS"; let bestScore = 0; let allAnalysis = {};
-    for(let company in COMPANY_REQUIREMENTS){
-        let result = analyzeSkills(resumeText, COMPANY_REQUIREMENTS[company]);
-        allAnalysis[company] = result;
-        if(result.percent > bestScore){ bestScore = result.percent; bestCompany = company; }
+    let resumeText=extractedResumeText; let bestCompany="TCS"; let bestScore=0; let allAnalysis={};
+    for(let company in COMPANY_REQUIREMENTS){let result=analyzeSkills(resumeText,COMPANY_REQUIREMENTS[company]); allAnalysis[company]=result; if(result.percent>bestScore){bestScore=result.percent; bestCompany=company;}}
+    let mainResult=allAnalysis[bestCompany];
+    localStorage.setItem('globalMatchScore',bestScore); localStorage.setItem('globalMatchCompany',bestCompany);
+    let scoreColor=bestScore>70?'text-emerald-600':bestScore>40?'text-amber-600':'text-red-500'; let barColor=bestScore>70?'bg-emerald-500':bestScore>40?'bg-amber-500':'bg-red-500';
+    document.getElementById('globalMatchValue').innerText=bestScore+"%"; document.getElementById('globalMatchValue').className=`text-[22px] font-bold mt-2 ${scoreColor}`; document.getElementById('globalMatchLabel').innerText=`Best: ${bestCompany} | Live Score`; document.getElementById('globalMatchDot').className=`absolute right-4 top-4 w-2.5 h-2.5 rounded-full animate-pulse ${barColor}`;
+    document.getElementById('reportFileName').innerText=uploadedFileName; document.getElementById('reportCompanies').innerText=bestCompany+" - "+bestScore+"% Match";
+    let barWidth=bestScore+"%";
+    let html=`<div class="mb-5 p-4 bg-slate-50 rounded-xl border"><div class="flex justify-between items-center mb-3"><span class="text-[13px] font-bold">Overall Skill Compatibility</span><span class="text-[22px] font-bold ${scoreColor}">${bestScore}%</span></div><div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden"><div class="h-3 rounded-full ${barColor}" style="width:${barWidth}"></div></div><p class="text-[11px] text-slate-500 mt-2">Best Matched: <b class="text-slate-900">${bestCompany}</b></p></div><div class="grid grid-cols-2 gap-4"><div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px]"><b>Matched:</b> ${mainResult.matched.join(', ')||'None'}</div><div class="p-3 bg-red-50 border border-red-200 rounded-xl text-[11px]"><b>Gap:</b> ${mainResult.missing.join(', ')||'None'}</div></div>`;
+    // NEW: Interview Roadmap without 30-day plan
+    if(mainResult.missing.length>0){
+      html+=`<div class="mt-6"><h4 class="font-bold text-[13px] text-slate-900 mb-3 flex items-center gap-2"><i class="fa-solid fa-lightbulb text-amber-500"></i> What to Learn to be Interview-Ready for ${bestCompany}</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-3">${getRoadmapHTML(mainResult.missing)}</div></div>`;
+    } else {
+      html+=`<div class="mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-[13px] text-emerald-800 font-bold">🎉 Amazing! You are 100% Interview-Ready for ${bestCompany}. Start applying now!</div>`;
     }
-    let mainResult = allAnalysis[bestCompany];
-    localStorage.setItem('globalMatchScore', bestScore);
-    localStorage.setItem('globalMatchCompany', bestCompany);
-    let scoreColor = bestScore > 70? 'text-emerald-600' : bestScore > 40? 'text-amber-600' : 'text-red-500';
-    let barColor = bestScore > 70? 'bg-emerald-500' : bestScore > 40? 'bg-amber-500' : 'bg-red-500';
-    document.getElementById('globalMatchValue').innerText = bestScore + "%";
-    document.getElementById('globalMatchValue').className = `text-[22px] font-bold mt-2 transition-all duration-700 ${scoreColor}`;
-    document.getElementById('globalMatchLabel').innerText = `Best: ${bestCompany} | Live Score`;
-    document.getElementById('globalMatchLabel').className = `text-[10px] mt-1 font-medium ${bestScore > 70? "text-emerald-600" : bestScore > 40? "text-amber-600" : "text-red-500"}`;
-    document.getElementById('globalMatchDot').className = `absolute right-4 top-4 w-2.5 h-2.5 rounded-full animate-pulse ${barColor}`;
-    document.getElementById('reportFileName').innerText = uploadedFileName;
-    document.getElementById('reportCompanies').innerText = bestCompany + " - " + bestScore + "% Match";
-    let barWidth = bestScore + "%";
-    let html = `<div class="mb-5 p-4 bg-slate-50 rounded-xl border border-slate-200"><div class="flex justify-between items-center mb-3"><span class="text-[13px] font-bold text-slate-900">Overall Skill Compatibility</span><span class="text-[22px] font-bold ${scoreColor}">${bestScore}%</span></div><div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden"><div class="h-3 rounded-full transition-all duration-700 ${barColor}" style="width:${barWidth}"></div></div><p class="text-[11px] text-slate-500 mt-2">Best Matched Role: <b class="text-slate-900">${bestCompany}</b></p></div><div class="grid grid-cols-2 gap-4"><div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px]"><b>Matched:</b> ${mainResult.matched.join(', ') || 'None'}</div><div class="p-3 bg-red-50 border border-red-200 rounded-xl text-[11px]"><b>Gap:</b> ${mainResult.missing.join(', ') || 'None'}</div></div>`;
-    document.getElementById('reportExtractedSkills').innerHTML = html;
-    document.getElementById('progressBar').style.width = barWidth;
-    document.getElementById('progressBar').className = `h-2.5 rounded-full ${barColor}`;
-    document.getElementById('aiReportBox').classList.remove('hidden');
-    document.getElementById('aiReportBox').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('reportExtractedSkills').innerHTML=html;
+    document.getElementById('progressBar').style.width=barWidth; document.getElementById('progressBar').className=`h-2.5 rounded-full ${barColor}`;
+    document.getElementById('aiReportBox').classList.remove('hidden'); document.getElementById('aiReportBox').scrollIntoView({behavior:'smooth'});
 }
 </script>
 </body>
