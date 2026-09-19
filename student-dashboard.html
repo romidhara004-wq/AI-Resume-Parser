@@ -14,9 +14,7 @@
     </style>
 </head>
 <body class="min-h-screen relative overflow-x-hidden">
-
     <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-transparent pointer-events-none"></div>
-
     <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center space-x-3">
             <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow"><i class="fa-solid fa-bolt text-white text-sm"></i></div>
@@ -24,10 +22,10 @@
         </div>
         <div class="flex items-center space-x-3">
             <a href="jobs.html" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium shadow-sm hover:bg-slate-50">Jobs & Drives</a>
+            <button id="profileBtn" onclick="openProfile()" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium shadow-sm hover:bg-slate-900 hover:text-white transition-all"><i class="fa-regular fa-user mr-1.5"></i> Profile</button>
             <a href="login.html" onclick="localStorage.clear()" class="bg-slate-900 hover:bg-black text-white text-[12px] px-4 py-2 rounded-xl font-medium">Logout</a>
         </div>
     </nav>
-
     <main class="max-w-6xl mx-auto px-4 py-8 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div class="md:col-span-2 bg-white p-6 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
@@ -38,8 +36,37 @@
             <div class="bg-white p-5 rounded-[20px] border border-slate-200/80 shadow-sm"><span class="text-[11px] text-slate-500 font-semibold uppercase">Global Match Index</span><p class="text-[22px] font-bold text-blue-600 mt-2">99.4%</p></div>
             <div class="bg-white p-5 rounded-[20px] border border-slate-200/80 shadow-sm"><span class="text-[11px] text-slate-500 font-semibold uppercase">Active Recruiters</span><p class="text-[22px] font-bold text-violet-600 mt-2">48 Companies</p></div>
         </div>
-
         <div id="alertBox" class="hidden mb-6 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-[12px] text-amber-700 flex items-center gap-3"><i class="fa-solid fa-triangle-exclamation"></i><span id="alertMessage">Please upload your resume first!</span></div>
+
+        <!-- PROFILE SECTION ADDED HERE -->
+        <div id="profileSection" class="hidden mb-6 bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                <h3 class="font-bold text-[15px] text-slate-900 flex items-center gap-2"><i class="fa-regular fa-user text-blue-600"></i> My Profile</h3>
+                <button onclick="closeProfile()" class="text-[11px] bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full font-medium transition">Close <i class="fa-solid fa-xmark ml-1"></i></button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex flex-col items-center p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                    <div class="w-20 h-20 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-2xl mb-3">S</div>
+                    <p class="text-[13px] font-bold text-slate-900" id="profileDisplayName">Student</p>
+                    <p class="text-[11px] text-slate-500">Student Account</p>
+                </div>
+                <div class="md:col-span-2 space-y-4">
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Full Name</label>
+                        <input type="text" id="profileFullName" placeholder="Enter your name" oninput="syncProfileName(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px] outline-none focus:bg-white focus:border-blue-400">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Email Address</label>
+                        <input type="email" placeholder="Enter your email" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px] outline-none focus:bg-white focus:border-blue-400">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Top Skills</label>
+                        <input type="text" placeholder="Ex: React, Python, ML" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px] outline-none focus:bg-white focus:border-blue-400">
+                    </div>
+                    <button onclick="saveProfile()" class="w-full bg-slate-900 hover:bg-black p-3 rounded-xl font-semibold text-[13px] text-white shadow-lg">Save Profile <i class="fa-solid fa-arrow-right text-[11px] ml-2"></i></button>
+                </div>
+            </div>
+        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
@@ -49,8 +76,6 @@
                         <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Full Legal Name</label>
                         <input type="text" id="fullName" placeholder="Enter your full name" oninput="updateWelcomeName(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white text-slate-900 text-[13px] outline-none transition" required>
                     </div>
-
-                    <!-- SELECT COURSE WITH OTHERS -->
                     <div>
                         <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Select Course</label>
                         <select id="branch" onchange="checkCustomCourse(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
@@ -69,8 +94,6 @@
                             <p class="text-[10px] text-blue-600 mt-1.5 font-medium"><i class="fa-solid fa-circle-info"></i> Type your exact course name</p>
                         </div>
                     </div>
-
-                    <!-- CORE DOMAIN STACK WITH OTHERS -->
                     <div>
                         <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Core Domain Stack</label>
                         <select id="skills" onchange="checkCustomSkill(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
@@ -88,11 +111,9 @@
                             <p class="text-[10px] text-violet-600 mt-1.5 font-medium"><i class="fa-solid fa-circle-info"></i> Type your custom domain / skills</p>
                         </div>
                     </div>
-
                     <button type="submit" class="w-full bg-slate-900 hover:bg-black p-3.5 rounded-xl font-semibold text-[13px] text-white flex items-center justify-center gap-2 shadow-lg"><i class="fa-solid fa-microchip"></i> Execute Neural Compatibility Analysis</button>
                 </form>
             </div>
-
             <div class="space-y-6">
                 <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 shadow-sm">
                     <h3 class="font-bold text-[13px] text-slate-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-file-arrow-up text-violet-600"></i> AI Resume Parser</h3>
@@ -108,7 +129,6 @@
                 </div>
             </div>
         </div>
-
         <div id="aiReportBox" class="mt-8 p-8 bg-white border border-blue-200 rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden">
             <h3 class="font-bold text-[16px] text-slate-900 mb-1">Live Resume Content Extraction Report</h3>
             <p class="text-[11px] text-emerald-600 font-bold uppercase tracking-wider mb-4">Extracted Dynamically From Uploaded File</p>
@@ -120,12 +140,10 @@
             <div class="mt-4 w-full bg-slate-100 h-2.5 rounded-full"><div id="progressBar" class="bg-gradient-to-r from-blue-600 to-emerald-500 h-2.5 rounded-full w-[95%]"></div></div>
         </div>
     </main>
-
 <script>
 let isResumeUploaded = false;
 let uploadedFileName = "";
 let extractedResumeText = "";
-
 const COMPANY_REQUIREMENTS = {
     "Google AI": ["python", "machine learning", "tensorflow", "data structures", "algorithms", "sql"],
     "Microsoft": ["javascript", "react", "node.js", "azure", "c#", "sql", "api"],
@@ -133,23 +151,46 @@ const COMPANY_REQUIREMENTS = {
     "Infosys": ["python", "java", "communication", "sql", "ms excel"],
     "Amazon AWS": ["aws", "python", "linux", "sql", "cloud"]
 };
-
 window.onload = function(){
     let name = localStorage.getItem('userName') || "";
     if(name.includes('@') || (name.includes('.') &&!name.includes(' '))) name = "";
     if(name){
         document.getElementById('welcomeHeading').innerText = `Welcome back, ${name} 🎓`;
         document.getElementById('fullName').value = name;
+        if(document.getElementById('profileFullName')) document.getElementById('profileFullName').value = name;
+        if(document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').innerText = name;
     }
 }
-
 function updateWelcomeName(val){
     let d = val.trim() || "Student";
     document.getElementById('welcomeHeading').innerText = `Welcome back, ${d} 🎓`;
+    if(document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').innerText = d;
+    if(document.getElementById('profileFullName')) document.getElementById('profileFullName').value = val;
     if(val.trim()) localStorage.setItem('userName', val.trim());
 }
-
-// NEW FUNCTIONS FOR OTHERS
+function syncProfileName(val){
+    document.getElementById('fullName').value = val;
+    updateWelcomeName(val);
+}
+function openProfile(){
+    const sec = document.getElementById('profileSection');
+    sec.classList.remove('hidden');
+    sec.scrollIntoView({behavior:'smooth'});
+}
+function closeProfile(){
+    document.getElementById('profileSection').classList.add('hidden');
+}
+function saveProfile(){
+    let name = document.getElementById('profileFullName').value.trim();
+    if(name){
+        localStorage.setItem('userName', name);
+        updateWelcomeName(name);
+        alert('Profile Saved ✅');
+        closeProfile();
+    } else {
+        alert('Please enter your name');
+    }
+}
 function checkCustomCourse(val){
     const box = document.getElementById('customCourseBox');
     const input = document.getElementById('customCourseInput');
@@ -163,7 +204,6 @@ function checkCustomCourse(val){
         input.value = "";
     }
 }
-
 function checkCustomSkill(val){
     const box = document.getElementById('customSkillBox');
     const input = document.getElementById('customSkillInput');
@@ -177,7 +217,6 @@ function checkCustomSkill(val){
         input.value = "";
     }
 }
-
 async function handleResumeUpload(input){
     if(!input.files[0]) return;
     let file = input.files[0];
@@ -206,34 +245,22 @@ async function handleResumeUpload(input){
         document.getElementById('uploadText').innerText = "❌ Error: " + e.message;
     }
 }
-
 function executeAnalysis(e){
     e.preventDefault();
     let fn = document.getElementById('fullName').value.trim();
     if(fn) localStorage.setItem('userName', fn);
-
-    // Handle Custom Course
     let courseVal = document.getElementById('branch').value;
     if(courseVal === 'other'){
         courseVal = document.getElementById('customCourseInput').value.trim();
-        if(!courseVal){
-            alert("Please enter your custom course name");
-            return;
-        }
+        if(!courseVal){ alert("Please enter your custom course name"); return; }
     }
     localStorage.setItem('userBranch', courseVal);
-
-    // Handle Custom Skill
     let skillVal = document.getElementById('skills').value;
     if(skillVal === 'other'){
         skillVal = document.getElementById('customSkillInput').value.trim();
-        if(!skillVal){
-            alert("Please enter your custom skills");
-            return;
-        }
+        if(!skillVal){ alert("Please enter your custom skills"); return; }
     }
     localStorage.setItem('userSkills', skillVal);
-
     if(!isResumeUploaded){
         const alertBox = document.getElementById('alertBox');
         alertBox.classList.remove('hidden');
@@ -243,11 +270,9 @@ function executeAnalysis(e){
     }
     showReport();
 }
-
 function analyzeSkills(resumeText, requiredSkills){
     let lower = resumeText.toLowerCase();
-    let matched = [];
-    let missing = [];
+    let matched = []; let missing = [];
     requiredSkills.forEach(skill => {
         if(lower.includes(skill.toLowerCase())) matched.push(skill);
         else missing.push(skill);
@@ -255,19 +280,13 @@ function analyzeSkills(resumeText, requiredSkills){
     let percent = requiredSkills.length? Math.round((matched.length / requiredSkills.length) * 100) : 0;
     return {matched, missing, percent};
 }
-
 function showReport(){
     let resumeText = extractedResumeText;
-    let bestCompany = "TCS";
-    let bestScore = 0;
-    let allAnalysis = {};
+    let bestCompany = "TCS"; let bestScore = 0; let allAnalysis = {};
     for(let company in COMPANY_REQUIREMENTS){
         let result = analyzeSkills(resumeText, COMPANY_REQUIREMENTS[company]);
         allAnalysis[company] = result;
-        if(result.percent > bestScore){
-            bestScore = result.percent;
-            bestCompany = company;
-        }
+        if(result.percent > bestScore){ bestScore = result.percent; bestCompany = company; }
     }
     let mainResult = allAnalysis[bestCompany];
     document.getElementById('reportFileName').innerText = uploadedFileName;
@@ -275,55 +294,11 @@ function showReport(){
     let scoreColor = bestScore > 70? 'text-emerald-600' : bestScore > 40? 'text-amber-600' : 'text-red-500';
     let barColor = bestScore > 70? 'bg-emerald-500' : bestScore > 40? 'bg-amber-500' : 'bg-red-500';
     let barWidth = bestScore + "%";
-    let html = `
-        <div class="mb-5 p-4 bg-slate-50 rounded-xl border border-slate-200">
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-[13px] font-bold text-slate-900">Overall Skill Compatibility</span>
-                <span class="text-[22px] font-bold ${scoreColor}">${bestScore}%</span>
-            </div>
-            <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                <div class="h-3 rounded-full transition-all duration-700 ${barColor}" style="width:${barWidth}"></div>
-            </div>
-            <p class="text-[11px] text-slate-500 mt-2">Best Matched Role: <b class="text-slate-900">${bestCompany}</b> | Total Required: ${COMPANY_REQUIREMENTS[bestCompany].length} skills</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-            <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
-                <h4 class="text-[11px] font-bold text-emerald-700 mb-3 uppercase">Matched Skills (${mainResult.matched.length})</h4>
-                <div class="flex flex-wrap gap-2">
-                    ${mainResult.matched.length? mainResult.matched.map(s=>`<span class="px-2.5 py-1 bg-white border border-emerald-200 text-emerald-700 rounded-full text-[11px] font-medium">${s}</span>`).join('') : '<span class="text-[11px] text-slate-500">No core skills matched from resume</span>'}
-                </div>
-            </div>
-            <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
-                <h4 class="text-[11px] font-bold text-red-700 mb-3 uppercase">Skill Gap - To Learn (${mainResult.missing.length})</h4>
-                <div class="flex flex-wrap gap-2">
-                    ${mainResult.missing.map(s=>`<span class="px-2.5 py-1 bg-white border border-red-200 text-red-600 rounded-full text-[11px] font-medium">${s}</span>`).join('')}
-                </div>
-            </div>
-        </div>
-        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
-            <h4 class="text-[11px] font-bold text-slate-900 mb-3 uppercase tracking-wider">Company Wise Requirements Analysis</h4>
-            <div class="space-y-2">
-                ${Object.keys(COMPANY_REQUIREMENTS).map(comp => {
-                    let r = allAnalysis[comp];
-                    let c = r.percent > 60? 'text-emerald-600' : r.percent > 30? 'text-amber-600' : 'text-slate-400';
-                    return `<div class="flex justify-between items-center text-[11px] bg-white p-2.5 rounded-lg border border-slate-200">
-                        <span class="font-medium text-slate-700">${comp}</span>
-                        <span class="flex items-center gap-2">
-                            <span class="text-slate-500">${r.matched.length}/${COMPANY_REQUIREMENTS[comp].length} skills</span>
-                            <span class="font-bold ${c}">${r.percent}%</span>
-                        </span>
-                    </div>`
-                }).join('')}
-            </div>
-        </div>
-        <div class="mt-4 p-3 bg-slate-50 border border-slate-200 rounded-xl">
-            <span class="text-[10px] text-slate-500 uppercase font-bold">Extracted Resume Preview</span>
-            <p class="text-[11px] text-slate-600 mt-2 font-mono whitespace-pre-wrap max-h-32 overflow-y-auto">${resumeText.substring(0,800)}...</p>
-        </div>
-    `;
+    let html = '<div class="mb-5 p-4 bg-slate-50 rounded-xl border"><div class="flex justify-between"><span>Overall Skill Compatibility</span><span class="font-bold '+scoreColor+'">'+bestScore+'%</span></div><div class="w-full bg-slate-200 h-3 rounded-full mt-2"><div class="h-3 rounded-full '+barColor+'" style="width:'+barWidth+'"></div></div></div>';
+    html += '<div class="grid grid-cols-2 gap-4"><div class="p-4 bg-emerald-50 border rounded-xl">Matched: '+mainResult.matched.join(', ')+'</div><div class="p-4 bg-red-50 border rounded-xl">Gap: '+mainResult.missing.join(', ')+'</div></div>';
     document.getElementById('reportExtractedSkills').innerHTML = html;
     document.getElementById('progressBar').style.width = barWidth;
-    document.getElementById('progressBar').className = `h-2.5 rounded-full transition-all duration-700 ${barColor}`;
+    document.getElementById('progressBar').className = 'h-2.5 rounded-full '+barColor;
     const reportBox = document.getElementById('aiReportBox');
     reportBox.classList.remove('hidden');
     reportBox.scrollIntoView({ behavior: 'smooth' });
