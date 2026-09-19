@@ -53,8 +53,8 @@
             </div>
         </div>
 
-        <div id="alertBox" class="hidden mb-6 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-[12px] text-amber-700 flex items-center gap-3">
-            <i class="fa-solid fa-triangle-exclamation"></i>
+        <div id="alertBox" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-[12px] text-red-700 flex items-center gap-3">
+            <i class="fa-solid fa-circle-xmark text-red-500"></i>
             <span id="alertMessage">Please upload your resume first!</span>
         </div>
 
@@ -86,8 +86,7 @@
                             <option value="other">Others (Custom)</option>
                         </select>
                         <div id="customCourseBox" class="hidden mt-3">
-                            <input type="text" id="customCourseInput" placeholder="Enter your course name, e.g. B.Sc, Diploma, BBA" class="w-full p-3 bg-blue-50/50 border border-blue-200 rounded-xl text-slate-900 text-[13px] outline-none focus:border-blue-500 focus:bg-white transition placeholder:text-slate-400">
-                            <p class="text-[10px] text-blue-600 mt-1.5 font-medium"><i class="fa-solid fa-circle-info"></i> Type your exact course name</p>
+                            <input type="text" id="customCourseInput" placeholder="Enter your course name" class="w-full p-3 bg-blue-50/50 border border-blue-200 rounded-xl text-slate-900 text-[13px] outline-none">
                         </div>
                     </div>
                     <div>
@@ -103,8 +102,7 @@
                             <option value="other">Other (Custom)</option>
                         </select>
                         <div id="customSkillBox" class="hidden mt-3">
-                            <input type="text" id="customSkillInput" placeholder="Enter your skills, e.g. Flutter, Blockchain, UI/UX, DevOps" class="w-full p-3 bg-violet-50/50 border border-violet-200 rounded-xl text-slate-900 text-[13px] outline-none focus:border-violet-500 focus:bg-white transition placeholder:text-slate-400">
-                            <p class="text-[10px] text-violet-600 mt-1.5 font-medium"><i class="fa-solid fa-circle-info"></i> Type your custom domain / skills</p>
+                            <input type="text" id="customSkillInput" placeholder="Enter your skills" class="w-full p-3 bg-violet-50/50 border border-violet-200 rounded-xl text-slate-900 text-[13px] outline-none">
                         </div>
                     </div>
                     <button type="submit" class="w-full bg-slate-900 hover:bg-black p-3.5 rounded-xl font-semibold text-[13px] text-white flex items-center justify-center gap-2 shadow-lg">
@@ -163,6 +161,18 @@ const COMPANY_REQUIREMENTS = {
     "Infosys": ["python", "java", "communication", "sql", "ms excel"],
     "Amazon AWS": ["aws", "python", "linux", "sql", "cloud"]
 };
+
+// --- NEW: CV VALIDATION FUNCTION ---
+function isValidCV(text) {
+    if (!text || text.trim().length < 150) return false; // too small to be a CV
+    let lower = text.toLowerCase();
+    // Must have at least 3 of these CV signals
+    const cvSignals = ["experience", "education", "skills", "projects", "resume", "curriculum vitae", "university", "college", "internship", "certification", "objective", "career", "work", "b.tech", "bca", "m.tech", "linkedin"];
+    let score = 0;
+    cvSignals.forEach(k => { if (lower.includes(k)) score++; });
+    return score >= 3;
+}
+
 window.onload = function(){
     let name = localStorage.getItem('userName') || "";
     if(name.includes('@') || (name.includes('.') &&!name.includes(' '))) name = "";
@@ -171,9 +181,8 @@ window.onload = function(){
         document.getElementById('fullName').value = name;
     }
     let email = localStorage.getItem('userEmail');
-    if(email){
-        document.getElementById('emailInput').value = email;
-    }
+    if(email) document.getElementById('emailInput').value = email;
+
     let savedScore = localStorage.getItem('globalMatchScore');
     let savedCompany = localStorage.getItem('globalMatchCompany');
     if(savedScore){
@@ -186,41 +195,26 @@ window.onload = function(){
 function updateWelcomeName(val){
     let d = val.trim() || "Student";
     document.getElementById('welcomeHeading').innerText = `Welcome back, ${d} 🎓`;
-    if(val.trim()){
-        localStorage.setItem('userName', val.trim());
-    }
+    if(val.trim()) localStorage.setItem('userName', val.trim());
 }
 function checkCustomCourse(val){
     const box = document.getElementById('customCourseBox');
     const input = document.getElementById('customCourseInput');
-    if(val === 'other'){
-        box.classList.remove('hidden');
-        input.required = true;
-        input.focus();
-    } else {
-        box.classList.add('hidden');
-        input.required = false;
-        input.value = "";
-    }
+    if(val === 'other'){ box.classList.remove('hidden'); input.required = true; input.focus(); }
+    else { box.classList.add('hidden'); input.required = false; input.value = ""; }
 }
 function checkCustomSkill(val){
     const box = document.getElementById('customSkillBox');
     const input = document.getElementById('customSkillInput');
-    if(val === 'other'){
-        box.classList.remove('hidden');
-        input.required = true;
-        input.focus();
-    } else {
-        box.classList.add('hidden');
-        input.required = false;
-        input.value = "";
-    }
+    if(val === 'other'){ box.classList.remove('hidden'); input.required = true; input.focus(); }
+    else { box.classList.add('hidden'); input.required = false; input.value = ""; }
 }
 async function handleResumeUpload(input){
     if(!input.files[0]) return;
     let file = input.files[0];
     uploadedFileName = file.name;
-    document.getElementById('uploadText').innerText = "⏳ Analyzing Skills...";
+    document.getElementById('uploadText').innerText = "⏳ Analyzing Document...";
+    document.getElementById('uploadSubText').innerText = "Checking if it's a valid CV...";
     try{
         let text = "";
         if(file.type === "application/pdf"){
@@ -235,9 +229,27 @@ async function handleResumeUpload(input){
             text = await file.text();
         }
         extractedResumeText = text;
+
+        // --- VALIDATION STEP ---
+        if(!isValidCV(text)){
+            isResumeUploaded = false;
+            document.getElementById('uploadText').innerText = "❌ Invalid Document!";
+            document.getElementById('uploadSubText').innerText = "This is not a CV / Resume";
+            document.getElementById('alertBox').classList.remove('hidden');
+            document.getElementById('alertBox').className = "mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-[12px] text-red-700 flex items-center gap-3";
+            document.getElementById('alertMessage').innerText = "❌ Invalid Document! Please upload only your CV / Resume. Train tickets, bills, or other documents are not allowed.";
+            document.getElementById('globalMatchValue').innerText = "0%";
+            document.getElementById('globalMatchValue').className = "text-[22px] font-bold mt-2 text-red-500";
+            document.getElementById('globalMatchLabel').innerText = "Invalid Document Detected";
+            document.getElementById('aiReportBox').classList.add('hidden');
+            // Auto hide after 5 sec
+            setTimeout(() => { document.getElementById('alertBox').classList.add('hidden'); }, 5000);
+            return;
+        }
+
         isResumeUploaded = true;
         document.getElementById('uploadText').innerText = "✅ " + file.name;
-        document.getElementById('uploadSubText').innerText = "Analyzed " + text.length + " chars - Ready";
+        document.getElementById('uploadSubText').innerText = "Valid CV - " + text.length + " chars analyzed";
         document.getElementById('alertBox').classList.add('hidden');
         showReport();
     }catch(e){
@@ -253,26 +265,18 @@ function executeAnalysis(e){
     let courseVal = document.getElementById('branch').value;
     if(courseVal === 'other'){
         courseVal = document.getElementById('customCourseInput').value.trim();
-        if(!courseVal){
-            alert("Please enter your custom course name");
-            return;
-        }
+        if(!courseVal){ alert("Please enter your custom course name"); return; }
     }
     localStorage.setItem('userBranch', courseVal);
     let skillVal = document.getElementById('skills').value;
     if(skillVal === 'other'){
         skillVal = document.getElementById('customSkillInput').value.trim();
-        if(!skillVal){
-            alert("Please enter your custom skills");
-            return;
-        }
+        if(!skillVal){ alert("Please enter your custom skills"); return; }
     }
     localStorage.setItem('userSkills', skillVal);
     if(!isResumeUploaded){
-        const alertBox = document.getElementById('alertBox');
-        alertBox.classList.remove('hidden');
-        document.getElementById('alertMessage').innerText = "Please upload your resume first to analyze skills!";
-        alertBox.scrollIntoView({behavior: 'smooth'});
+        document.getElementById('alertBox').classList.remove('hidden');
+        document.getElementById('alertMessage').innerText = "Please upload a valid CV / Resume first!";
         return;
     }
     showReport();
@@ -280,30 +284,21 @@ function executeAnalysis(e){
 }
 function analyzeSkills(resumeText, requiredSkills){
     let lower = resumeText.toLowerCase();
-    let matched = [];
-    let missing = [];
+    let matched = []; let missing = [];
     requiredSkills.forEach(skill => {
-        if(lower.includes(skill.toLowerCase())){
-            matched.push(skill);
-        } else {
-            missing.push(skill);
-        }
+        if(lower.includes(skill.toLowerCase())) matched.push(skill);
+        else missing.push(skill);
     });
     let percent = requiredSkills.length? Math.round((matched.length / requiredSkills.length) * 100) : 0;
     return {matched, missing, percent};
 }
 function showReport(){
     let resumeText = extractedResumeText;
-    let bestCompany = "TCS";
-    let bestScore = 0;
-    let allAnalysis = {};
+    let bestCompany = "TCS"; let bestScore = 0; let allAnalysis = {};
     for(let company in COMPANY_REQUIREMENTS){
         let result = analyzeSkills(resumeText, COMPANY_REQUIREMENTS[company]);
         allAnalysis[company] = result;
-        if(result.percent > bestScore){
-            bestScore = result.percent;
-            bestCompany = company;
-        }
+        if(result.percent > bestScore){ bestScore = result.percent; bestCompany = company; }
     }
     let mainResult = allAnalysis[bestCompany];
     localStorage.setItem('globalMatchScore', bestScore);
@@ -318,32 +313,12 @@ function showReport(){
     document.getElementById('reportFileName').innerText = uploadedFileName;
     document.getElementById('reportCompanies').innerText = bestCompany + " - " + bestScore + "% Match";
     let barWidth = bestScore + "%";
-    let html = `
-        <div class="mb-5 p-4 bg-slate-50 rounded-xl border border-slate-200">
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-[13px] font-bold text-slate-900">Overall Skill Compatibility</span>
-                <span class="text-[22px] font-bold ${scoreColor}">${bestScore}%</span>
-            </div>
-            <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                <div class="h-3 rounded-full transition-all duration-700 ${barColor}" style="width:${barWidth}"></div>
-            </div>
-            <p class="text-[11px] text-slate-500 mt-2">Best Matched Role: <b class="text-slate-900">${bestCompany}</b></p>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px]">
-                <b>Matched:</b> ${mainResult.matched.join(', ') || 'None'}
-            </div>
-            <div class="p-3 bg-red-50 border border-red-200 rounded-xl text-[11px]">
-                <b>Gap:</b> ${mainResult.missing.join(', ') || 'None'}
-            </div>
-        </div>
-    `;
+    let html = `<div class="mb-5 p-4 bg-slate-50 rounded-xl border border-slate-200"><div class="flex justify-between items-center mb-3"><span class="text-[13px] font-bold text-slate-900">Overall Skill Compatibility</span><span class="text-[22px] font-bold ${scoreColor}">${bestScore}%</span></div><div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden"><div class="h-3 rounded-full transition-all duration-700 ${barColor}" style="width:${barWidth}"></div></div><p class="text-[11px] text-slate-500 mt-2">Best Matched Role: <b class="text-slate-900">${bestCompany}</b></p></div><div class="grid grid-cols-2 gap-4"><div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px]"><b>Matched:</b> ${mainResult.matched.join(', ') || 'None'}</div><div class="p-3 bg-red-50 border border-red-200 rounded-xl text-[11px]"><b>Gap:</b> ${mainResult.missing.join(', ') || 'None'}</div></div>`;
     document.getElementById('reportExtractedSkills').innerHTML = html;
     document.getElementById('progressBar').style.width = barWidth;
     document.getElementById('progressBar').className = `h-2.5 rounded-full ${barColor}`;
-    const reportBox = document.getElementById('aiReportBox');
-    reportBox.classList.remove('hidden');
-    reportBox.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('aiReportBox').classList.remove('hidden');
+    document.getElementById('aiReportBox').scrollIntoView({ behavior: 'smooth' });
 }
 </script>
 </body>
