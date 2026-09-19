@@ -41,9 +41,11 @@
                 <h2 id="welcomeHeading" class="text-[20px] font-bold text-slate-900 mb-1 relative">Welcome back, Student 🎓</h2>
                 <p class="text-[12px] text-slate-500 relative">Map your curriculum with industry demand using AI placement engine.</p>
             </div>
-            <div class="bg-white p-5 rounded-[20px] border border-slate-200/80 shadow-sm">
+            <div class="bg-white p-5 rounded-[20px] border border-slate-200/80 shadow-sm relative overflow-hidden">
                 <span class="text-[11px] text-slate-500 font-semibold uppercase">Global Match Index</span>
-                <p class="text-[22px] font-bold text-blue-600 mt-2">99.4%</p>
+                <p id="globalMatchValue" class="text-[22px] font-bold text-slate-400 mt-2 transition-all duration-500">--%</p>
+                <p id="globalMatchLabel" class="text-[10px] text-slate-400 mt-1 font-medium">Upload resume to calculate</p>
+                <div id="globalMatchDot" class="absolute right-4 top-4 w-2.5 h-2.5 bg-slate-300 rounded-full"></div>
             </div>
             <div class="bg-white p-5 rounded-[20px] border border-slate-200/80 shadow-sm">
                 <span class="text-[11px] text-slate-500 font-semibold uppercase">Active Recruiters</span>
@@ -172,6 +174,14 @@ window.onload = function(){
     if(email){
         document.getElementById('emailInput').value = email;
     }
+    let savedScore = localStorage.getItem('globalMatchScore');
+    let savedCompany = localStorage.getItem('globalMatchCompany');
+    if(savedScore){
+        document.getElementById('globalMatchValue').innerText = savedScore + "%";
+        document.getElementById('globalMatchValue').className = "text-[22px] font-bold mt-2 " + (savedScore > 70? "text-emerald-600" : savedScore > 40? "text-amber-600" : "text-red-500");
+        document.getElementById('globalMatchLabel').innerText = `Best: ${savedCompany} | Live Score`;
+        document.getElementById('globalMatchDot').className = "absolute right-4 top-4 w-2.5 h-2.5 rounded-full animate-pulse " + (savedScore > 70? "bg-emerald-500" : savedScore > 40? "bg-amber-500" : "bg-red-500");
+    }
 }
 function updateWelcomeName(val){
     let d = val.trim() || "Student";
@@ -266,7 +276,7 @@ function executeAnalysis(e){
         return;
     }
     showReport();
-    window.location.href = "student-profile.html";
+    setTimeout(()=>{ window.location.href = "student-profile.html"; }, 800);
 }
 function analyzeSkills(resumeText, requiredSkills){
     let lower = resumeText.toLowerCase();
@@ -296,10 +306,17 @@ function showReport(){
         }
     }
     let mainResult = allAnalysis[bestCompany];
-    document.getElementById('reportFileName').innerText = uploadedFileName;
-    document.getElementById('reportCompanies').innerText = bestCompany + " - " + bestScore + "% Match";
+    localStorage.setItem('globalMatchScore', bestScore);
+    localStorage.setItem('globalMatchCompany', bestCompany);
     let scoreColor = bestScore > 70? 'text-emerald-600' : bestScore > 40? 'text-amber-600' : 'text-red-500';
     let barColor = bestScore > 70? 'bg-emerald-500' : bestScore > 40? 'bg-amber-500' : 'bg-red-500';
+    document.getElementById('globalMatchValue').innerText = bestScore + "%";
+    document.getElementById('globalMatchValue').className = `text-[22px] font-bold mt-2 transition-all duration-700 ${scoreColor}`;
+    document.getElementById('globalMatchLabel').innerText = `Best: ${bestCompany} | Live Score`;
+    document.getElementById('globalMatchLabel').className = `text-[10px] mt-1 font-medium ${bestScore > 70? "text-emerald-600" : bestScore > 40? "text-amber-600" : "text-red-500"}`;
+    document.getElementById('globalMatchDot').className = `absolute right-4 top-4 w-2.5 h-2.5 rounded-full animate-pulse ${barColor}`;
+    document.getElementById('reportFileName').innerText = uploadedFileName;
+    document.getElementById('reportCompanies').innerText = bestCompany + " - " + bestScore + "% Match";
     let barWidth = bestScore + "%";
     let html = `
         <div class="mb-5 p-4 bg-slate-50 rounded-xl border border-slate-200">
