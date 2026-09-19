@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./theme.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard - SkillBridge AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; }
+      h1, h2, h3 { font-family: 'Sora', sans-serif!important; }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
-    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+<body class="min-h-screen relative overflow-x-hidden">
+
+    <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-transparent pointer-events-none"></div>
+
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center"><i class="fa-solid fa-brain text-white"></i></div>
-            <div><h1 class="font-bold text-sm bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">SkillBridge AI Enterprise</h1><p class="text-xs text-slate-400">JIS University Neural Matrix v4.2</p></div>
+            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow"><i class="fa-solid fa-bolt text-white text-sm"></i></div>
+            <div><h1 class="font-bold text-[14px] text-slate-900">SkillBridge AI Enterprise</h1><p class="text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p></div>
         </div>
-        <div class="flex items-center space-x-4">
-            <a href="login.html" onclick="localStorage.clear()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-xl border border-slate-700">Logout</a>
+        <div class="flex items-center space-x-3">
+            <a href="jobs.html" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium shadow-sm hover:bg-slate-50">Jobs & Drives</a>
+            <a href="login.html" onclick="localStorage.clear()" class="bg-slate-900 hover:bg-black text-white text-[12px] px-4 py-2 rounded-xl font-medium">Logout</a>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-4 py-8">
+    <main class="max-w-6xl mx-auto px-4 py-8 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <div class="md:col-span-2 bg-gradient-to-r from-blue-900/40 to-slate-900 p-6 rounded-2xl border border-blue-500/20">
-                <h2 id="welcomeHeading" class="text-xl font-bold text-white mb-1">Welcome back, Student 🎓</h2>
-                <p class="text-xs text-slate-300">Map your curriculum with industry demand using AI placement engine.</p>
+            <div class="md:col-span-2 bg-white p-6 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
+                <div class="absolute right-0 top-0 w-[200px] h-[200px] bg-blue-100/50 rounded-full blur-[50px] pointer-events-none"></div>
+                <h2 id="welcomeHeading" class="text-[20px] font-bold text-slate-900 mb-1 relative">Welcome back, Student 🎓</h2>
+                <p class="text-[12px] text-slate-500 relative">Map your curriculum with industry demand using AI placement engine.</p>
             </div>
-            <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800"><span class="text-xs text-slate-400">Global Match Index</span><p class="text-2xl font-black text-blue-400 mt-2">99.4%</p></div>
-            <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800"><span class="text-xs text-slate-400">Active Recruiters</span><p class="text-2xl font-black text-purple-400 mt-2">48 Companies</p></div>
+            <div class="bg-white p-5 rounded-[20px] border border-slate-200/80 shadow-sm"><span class="text-[11px] text-slate-500 font-semibold uppercase">Global Match Index</span><p class="text-[22px] font-bold text-blue-600 mt-2">99.4%</p></div>
+            <div class="bg-white p-5 rounded-[20px] border border-slate-200/80 shadow-sm"><span class="text-[11px] text-slate-500 font-semibold uppercase">Active Recruiters</span><p class="text-[22px] font-bold text-violet-600 mt-2">48 Companies</p></div>
         </div>
 
-        <div id="alertBox" class="hidden mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-400 flex items-center gap-3"><i class="fa-solid fa-triangle-exclamation"></i><span id="alertMessage">Please upload your resume first!</span></div>
+        <div id="alertBox" class="hidden mb-6 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-[12px] text-amber-700 flex items-center gap-3"><i class="fa-solid fa-triangle-exclamation"></i><span id="alertMessage">Please upload your resume first!</span></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 bg-slate-900/60 p-7 rounded-2xl border border-slate-800">
-                <h3 class="font-bold text-base mb-6 pb-4 border-b border-slate-800"><i class="fa-solid fa-sliders text-blue-500"></i> Student Vector Configuration</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                <h3 class="font-bold text-[14px] text-slate-900 mb-6 pb-4 border-b border-slate-100 flex items-center gap-2"><i class="fa-solid fa-sliders text-blue-600"></i> Student Vector Configuration</h3>
                 <form id="advancedStudentForm" class="space-y-5" onsubmit="executeAnalysis(event)">
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider mb-2">Full Legal Name</label>
-                        <input type="text" id="fullName" placeholder="Enter your full name" oninput="updateWelcomeName(this.value)" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl focus:border-blue-500 text-white text-sm" required>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Full Legal Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" oninput="updateWelcomeName(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-blue-400 focus:bg-white text-slate-900 text-[13px] outline-none transition" required>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider mb-2">Select Course</label>
-                        <select id="branch" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm" required>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Select Course</label>
+                        <select id="branch" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
                             <option value="" disabled selected>Select your course</option>
                             <option value="B.Tech [CSE / AIML]">B.Tech (CSE / AIML)</option>
                             <option value="BCA [Hons.]">BCA [Hons.]</option>
@@ -52,8 +60,8 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider mb-2">Core Domain Stack</label>
-                        <select id="skills" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm" required>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-slate-600">Core Domain Stack</label>
+                        <select id="skills" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-[13px] outline-none focus:bg-white focus:border-blue-400" required>
                             <option value="" disabled selected>Select domain</option>
                             <option value="Python, Machine Learning">AI / ML & Data Science</option>
                             <option value="Full Stack Dev, React, Node.js">Full Stack Web Dev</option>
@@ -62,35 +70,35 @@
                             <option value="other">Other (Custom)</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 p-3.5 rounded-xl font-bold text-sm"><i class="fa-solid fa-microchip"></i> Execute Neural Compatibility Analysis</button>
+                    <button type="submit" class="w-full bg-slate-900 hover:bg-black p-3.5 rounded-xl font-semibold text-[13px] text-white flex items-center justify-center gap-2 shadow-lg"><i class="fa-solid fa-microchip"></i> Execute Neural Compatibility Analysis</button>
                 </form>
             </div>
 
             <div class="space-y-6">
-                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
-                    <h3 class="font-bold text-sm mb-4"><i class="fa-solid fa-file-arrow-up text-purple-400"></i> AI Resume Parser</h3>
-                    <label class="border-2 border-dashed border-slate-800 hover:border-blue-500/50 rounded-xl p-4 text-center cursor-pointer bg-slate-950/50 block">
-                        <p id="uploadText" class="text-xs font-medium">Click to upload resume</p>
-                        <p id="uploadSubText" class="text-[10px] text-slate-500 mt-1">PDF, TXT up to 10MB</p>
+                <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 shadow-sm">
+                    <h3 class="font-bold text-[13px] text-slate-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-file-arrow-up text-violet-600"></i> AI Resume Parser</h3>
+                    <label class="border-2 border-dashed border-slate-200 hover:border-blue-300 rounded-2xl p-6 text-center cursor-pointer bg-slate-50/50 block transition">
+                        <p id="uploadText" class="text-[12px] font-semibold text-slate-700">Click to upload resume</p>
+                        <p id="uploadSubText" class="text-[11px] text-slate-400 mt-1">PDF, TXT up to 10MB</p>
                         <input type="file" id="resumeFile" class="hidden" accept=".pdf,.txt" onchange="handleResumeUpload(this)">
                     </label>
                 </div>
-                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
-                    <h3 class="font-bold text-sm mb-3">Live Placement Drives</h3>
-                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800"><h4 class="font-bold text-xs">TechCorp Global</h4><p class="text-[11px] text-slate-400">AI / ML Intern</p></div>
+                <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 shadow-sm">
+                    <h3 class="font-bold text-[13px] text-slate-900 mb-3">Live Placement Drives</h3>
+                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-200"><h4 class="font-bold text-[12px] text-slate-900">TechCorp Global</h4><p class="text-[11px] text-slate-500">AI / ML Intern</p></div>
                 </div>
             </div>
         </div>
 
-        <div id="aiReportBox" class="mt-8 p-8 bg-slate-900 border border-blue-500/30 rounded-2xl hidden">
-            <h3 class="font-bold text-base mb-2">Live Resume Content Extraction Report</h3>
-            <p class="text-xs text-emerald-400 mb-4">Extracted Dynamically From Uploaded File</p>
+        <div id="aiReportBox" class="mt-8 p-8 bg-white border border-blue-200 rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden">
+            <h3 class="font-bold text-[16px] text-slate-900 mb-1">Live Resume Content Extraction Report</h3>
+            <p class="text-[11px] text-emerald-600 font-bold uppercase tracking-wider mb-4">Extracted Dynamically From Uploaded File</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800"><span class="text-[11px] text-slate-400">File Name</span><span id="reportFileName" class="text-sm font-bold block">-</span></div>
-                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800"><span class="text-[11px] text-slate-400">Matched Companies</span><span id="reportCompanies" class="text-sm font-bold text-emerald-400 block">-</span></div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200"><span class="text-[11px] text-slate-500 uppercase font-bold">File Name</span><span id="reportFileName" class="text-[13px] font-bold text-slate-900 block mt-1">-</span></div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200"><span class="text-[11px] text-slate-500 uppercase font-bold">Matched Companies</span><span id="reportCompanies" class="text-[13px] font-bold text-emerald-600 block mt-1">-</span></div>
             </div>
-            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800"><span class="text-[11px] text-slate-400">Parsed Content</span><div id="reportExtractedSkills" class="text-xs font-mono bg-slate-900 p-3 rounded-lg max-h-60 overflow-y-auto whitespace-pre-wrap mt-2">-</div></div>
-            <div class="mt-4 w-full bg-slate-800 h-2.5 rounded-full"><div id="progressBar" class="bg-gradient-to-r from-blue-500 to-emerald-400 h-2.5 rounded-full w-[95%]"></div></div>
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200"><span class="text-[11px] text-slate-500 uppercase font-bold">Parsed Content</span><div id="reportExtractedSkills" class="text-[12px] font-mono bg-white p-3 rounded-lg border border-slate-200 max-h-60 overflow-y-auto whitespace-pre-wrap mt-2 text-slate-700">-</div></div>
+            <div class="mt-4 w-full bg-slate-100 h-2.5 rounded-full"><div id="progressBar" class="bg-gradient-to-r from-blue-600 to-emerald-500 h-2.5 rounded-full w-[95%]"></div></div>
         </div>
     </main>
 
@@ -120,13 +128,6 @@ function updateWelcomeName(val){
     let d = val.trim() || "Student";
     document.getElementById('welcomeHeading').innerText = `Welcome back, ${d} 🎓`;
     if(val.trim()) localStorage.setItem('userName', val.trim());
-}
-
-function checkCustomSkill(val) {
-    const box = document.getElementById('customSkillBox');
-    if(!box) return;
-    if (val === 'other') box.classList.remove('hidden');
-    else box.classList.add('hidden');
 }
 
 async function handleResumeUpload(input){
@@ -186,11 +187,9 @@ function analyzeSkills(resumeText, requiredSkills){
 
 function showReport(){
     let resumeText = extractedResumeText;
-
     let bestCompany = "TCS";
     let bestScore = 0;
     let allAnalysis = {};
-
     for(let company in COMPANY_REQUIREMENTS){
         let result = analyzeSkills(resumeText, COMPANY_REQUIREMENTS[company]);
         allAnalysis[company] = result;
@@ -199,51 +198,45 @@ function showReport(){
             bestCompany = company;
         }
     }
-
     let mainResult = allAnalysis[bestCompany];
-
     document.getElementById('reportFileName').innerText = uploadedFileName;
     document.getElementById('reportCompanies').innerText = bestCompany + " - " + bestScore + "% Match";
-
-    let scoreColor = bestScore > 70? 'text-emerald-400' : bestScore > 40? 'text-yellow-400' : 'text-red-400';
-    let barColor = bestScore > 70? 'bg-emerald-500' : bestScore > 40? 'bg-yellow-500' : 'bg-red-500';
+    let scoreColor = bestScore > 70? 'text-emerald-600' : bestScore > 40? 'text-amber-600' : 'text-red-500';
+    let barColor = bestScore > 70? 'bg-emerald-500' : bestScore > 40? 'bg-amber-500' : 'bg-red-500';
     let barWidth = bestScore + "%";
-
     let html = `
-        <div class="mb-5 p-4 bg-slate-900 rounded-xl border border-slate-800">
+        <div class="mb-5 p-4 bg-slate-50 rounded-xl border border-slate-200">
             <div class="flex justify-between items-center mb-3">
-                <span class="text-sm font-bold text-white">Overall Skill Compatibility</span>
-                <span class="text-2xl font-black ${scoreColor}">${bestScore}%</span>
+                <span class="text-[13px] font-bold text-slate-900">Overall Skill Compatibility</span>
+                <span class="text-[22px] font-bold ${scoreColor}">${bestScore}%</span>
             </div>
-            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
+            <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
                 <div class="h-3 rounded-full transition-all duration-700 ${barColor}" style="width:${barWidth}"></div>
             </div>
-            <p class="text-[11px] text-slate-400 mt-2">Best Matched Role: <b class="text-white">${bestCompany}</b> | Total Required: ${COMPANY_REQUIREMENTS[bestCompany].length} skills</p>
+            <p class="text-[11px] text-slate-500 mt-2">Best Matched Role: <b class="text-slate-900">${bestCompany}</b> | Total Required: ${COMPANY_REQUIREMENTS[bestCompany].length} skills</p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-            <div class="p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-xl">
-                <h4 class="text-xs font-bold text-emerald-400 mb-3"><i class="fa-solid fa-circle-check"></i> Matched Skills (${mainResult.matched.length})</h4>
+            <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                <h4 class="text-[11px] font-bold text-emerald-700 mb-3 uppercase">Matched Skills (${mainResult.matched.length})</h4>
                 <div class="flex flex-wrap gap-2">
-                    ${mainResult.matched.length? mainResult.matched.map(s=>`<span class="px-2.5 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 rounded-full text-[11px] font-medium">${s}</span>`).join('') : '<span class="text-[11px] text-slate-500">No core skills matched from resume</span>'}
+                    ${mainResult.matched.length? mainResult.matched.map(s=>`<span class="px-2.5 py-1 bg-white border border-emerald-200 text-emerald-700 rounded-full text-[11px] font-medium">${s}</span>`).join('') : '<span class="text-[11px] text-slate-500">No core skills matched from resume</span>'}
                 </div>
             </div>
-            <div class="p-4 bg-red-950/20 border border-red-500/20 rounded-xl">
-                <h4 class="text-xs font-bold text-red-400 mb-3"><i class="fa-solid fa-circle-xmark"></i> Skill Gap - To Learn (${mainResult.missing.length})</h4>
+            <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+                <h4 class="text-[11px] font-bold text-red-700 mb-3 uppercase">Skill Gap - To Learn (${mainResult.missing.length})</h4>
                 <div class="flex flex-wrap gap-2">
-                    ${mainResult.missing.map(s=>`<span class="px-2.5 py-1 bg-red-500/20 border border-red-500/30 text-red-300 rounded-full text-[11px] font-medium">${s}</span>`).join('')}
+                    ${mainResult.missing.map(s=>`<span class="px-2.5 py-1 bg-white border border-red-200 text-red-600 rounded-full text-[11px] font-medium">${s}</span>`).join('')}
                 </div>
             </div>
         </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
-            <h4 class="text-xs font-bold text-white mb-3">Company Wise Requirements Analysis</h4>
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <h4 class="text-[11px] font-bold text-slate-900 mb-3 uppercase tracking-wider">Company Wise Requirements Analysis</h4>
             <div class="space-y-2">
                 ${Object.keys(COMPANY_REQUIREMENTS).map(comp => {
                     let r = allAnalysis[comp];
-                    let c = r.percent > 60? 'text-emerald-400' : r.percent > 30? 'text-yellow-400' : 'text-slate-400';
-                    return `<div class="flex justify-between items-center text-[11px] bg-slate-950 p-2.5 rounded-lg border border-slate-800">
-                        <span class="font-medium text-slate-300">${comp}</span>
+                    let c = r.percent > 60? 'text-emerald-600' : r.percent > 30? 'text-amber-600' : 'text-slate-400';
+                    return `<div class="flex justify-between items-center text-[11px] bg-white p-2.5 rounded-lg border border-slate-200">
+                        <span class="font-medium text-slate-700">${comp}</span>
                         <span class="flex items-center gap-2">
                             <span class="text-slate-500">${r.matched.length}/${COMPANY_REQUIREMENTS[comp].length} skills</span>
                             <span class="font-bold ${c}">${r.percent}%</span>
@@ -252,17 +245,14 @@ function showReport(){
                 }).join('')}
             </div>
         </div>
-
-        <div class="mt-4 p-3 bg-slate-950 border border-slate-800 rounded-xl">
-            <span class="text-[10px] text-slate-500 uppercase tracking-wider">Extracted Resume Preview</span>
-            <p class="text-[11px] text-slate-400 mt-2 font-mono whitespace-pre-wrap max-h-32 overflow-y-auto">${resumeText.substring(0,800)}...</p>
+        <div class="mt-4 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="text-[10px] text-slate-500 uppercase font-bold">Extracted Resume Preview</span>
+            <p class="text-[11px] text-slate-600 mt-2 font-mono whitespace-pre-wrap max-h-32 overflow-y-auto">${resumeText.substring(0,800)}...</p>
         </div>
     `;
-
     document.getElementById('reportExtractedSkills').innerHTML = html;
     document.getElementById('progressBar').style.width = barWidth;
     document.getElementById('progressBar').className = `h-2.5 rounded-full transition-all duration-700 ${barColor}`;
-
     const reportBox = document.getElementById('aiReportBox');
     reportBox.classList.remove('hidden');
     reportBox.scrollIntoView({ behavior: 'smooth' });

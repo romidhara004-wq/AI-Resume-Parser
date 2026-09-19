@@ -1,63 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./theme.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Applications - SkillBridge AI Enterprise</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; }
+      h1, h2, h3, h4 { font-family: 'Sora', sans-serif!important; }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen selection:bg-blue-500 selection:text-white">
+<body class="min-h-screen relative overflow-x-hidden">
 
-    <!-- Top Navigation Bar -->
-    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+    <!-- Light Mesh -->
+    <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-transparent pointer-events-none"></div>
+
+    <!-- Top Navigation Bar - White -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                <i class="fa-solid fa-brain text-white text-lg"></i>
+            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow">
+                <i class="fa-solid fa-bolt text-white text-sm"></i>
             </div>
             <div>
-                <h1 class="font-bold text-base bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">SkillBridge AI Enterprise</h1>
-                <p class="text-xs text-slate-400">JIS University Neural Matrix v4.2</p>
+                <h1 class="font-bold text-[14px] text-slate-900">SkillBridge AI Enterprise</h1>
+                <p class="text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p>
             </div>
         </div>
 
-        <div class="hidden md:flex items-center space-x-6 text-xs font-medium text-slate-300">
-            <a href="student-dashboard.html" class="transition hover:text-blue-400">Dashboard</a>
-            <a href="jobs.html" class="transition hover:text-blue-400">Jobs & Drives</a>
-            <a href="application.html" class="text-blue-400 font-bold transition hover:text-blue-300">My Applications</a>
-            <a href="student-profile.html" class="transition hover:text-blue-400">Profile</a>
+        <div class="hidden md:flex items-center space-x-6 text-[12px] font-semibold text-slate-600">
+            <a href="student-dashboard.html" class="transition hover:text-blue-600">Dashboard</a>
+            <a href="jobs.html" class="transition hover:text-blue-600">Jobs & Drives</a>
+            <a href="application.html" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">My Applications</a>
+            <a href="student-profile.html" class="transition hover:text-blue-600">Profile</a>
         </div>
 
-        <div class="flex items-center space-x-4">
-            <span class="hidden md:inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-2"></span> Neural Core Online
+        <div class="flex items-center space-x-3">
+            <span class="hidden md:inline-flex items-center px-3 py-1.5 rounded-full text-[11px] font-semibold bg-white border border-slate-200 text-slate-600 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> System Operational
             </span>
-            <a href="login.html" onclick="localStorage.removeItem('userName'); localStorage.getItem('userEmail');" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs px-4 py-2 rounded-xl transition border border-slate-700 font-medium">
+            <a href="login.html" onclick="localStorage.removeItem('userName'); localStorage.getItem('userEmail');" class="bg-slate-900 hover:bg-black text-white text-[12px] px-4 py-2 rounded-xl transition font-medium">
                 <i class="fa-solid fa-arrow-left mr-1"></i> Logout
             </a>
         </div>
     </nav>
 
-    <!-- Main Content Container -->
-    <main class="max-w-5xl mx-auto px-4 py-8">
-        <div class="bg-gradient-to-r from-blue-900/40 via-indigo-900/30 to-slate-900 p-8 rounded-3xl border border-blue-500/20 mb-8 relative overflow-hidden shadow-xl">
-            <h2 class="text-2xl font-black text-white mb-2">My Application Tracking Hub 📋</h2>
-            <p class="text-xs text-slate-300 leading-relaxed max-w-xl">
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 py-8 relative z-10">
+        <div class="bg-white p-8 rounded-[24px] border border-slate-200/80 mb-8 relative overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div class="absolute top-0 right-0 w-[300px] h-[200px] bg-blue-100/50 rounded-full blur-[60px] pointer-events-none"></div>
+            <h2 class="text-[22px] font-bold text-slate-900 mb-2 relative">My Application Tracking Hub 📋</h2>
+            <p class="text-[13px] text-slate-500 leading-relaxed max-w-xl relative">
                 Monitor the real-time review status of all the corporate placement drives you have applied to through the neural matrix.
             </p>
         </div>
 
-        <div class="bg-slate-900/60 backdrop-blur-sm p-6 rounded-2xl border border-slate-800 shadow-xl">
-            <h3 class="font-bold text-sm text-slate-200 mb-4 pb-3 border-b border-slate-800 flex items-center gap-2">
-                <i class="fa-solid fa-list-check text-blue-400"></i> Submitted Applications & Recruiter Interview Status
+        <div class="bg-white p-6 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <h3 class="font-bold text-[13px] text-slate-800 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-blue-600"></i> Submitted Applications & Recruiter Interview Status
             </h3>
 
             <div id="applicationsList" class="space-y-4">
-                <div id="noApplications" class="text-center py-12 text-slate-500 text-xs">
-                    <i class="fa-solid fa-folder-open text-3xl mb-3 block text-slate-600"></i>
-                    No active applications found. Head over to <a href="jobs.html" class="text-blue-400 underline font-semibold">Jobs & Drives</a> to apply!
+                <div id="noApplications" class="text-center py-12 text-slate-400 text-[13px]">
+                    <i class="fa-solid fa-folder-open text-3xl mb-3 block text-slate-300"></i>
+                    No active applications found. Head over to <a href="jobs.html" class="text-blue-600 underline font-semibold">Jobs & Drives</a> to apply!
                 </div>
             </div>
         </div>
@@ -79,23 +86,23 @@
             let appliedJobs = JSON.parse(localStorage.getItem(userKey) || '[]');
 
             if (appliedJobs.length > 0) {
-                listContainer.innerHTML = ""; 
-                
+                listContainer.innerHTML = "";
+
                 appliedJobs.forEach((job) => {
                     const card = document.createElement('div');
-                    card.className = "p-5 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition hover:border-slate-700";
-                    
+                    card.className = "p-5 rounded-2xl bg-white border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition hover:shadow-md hover:border-blue-200";
+
                     let statusBadge = "";
                     let actionArea = "";
 
                     if (job.status.includes("Under Review")) {
-                        statusBadge = `<span class="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-full text-xs font-semibold">Under Review 🟡</span>`;
-                        actionArea = `<span class="text-xs text-slate-400 italic">Awaiting Recruiter Review</span>`;
+                        statusBadge = `<span class="px-3 py-1 bg-amber-50 text-amber-600 border border-amber-200 rounded-full text-[11px] font-semibold">Under Review 🟡</span>`;
+                        actionArea = `<span class="text-[11px] text-slate-500 italic">Awaiting Recruiter Review</span>`;
                     } else if (job.status.includes("Selected")) {
-                        statusBadge = `<span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full text-xs font-semibold">Shortlisted for Interview 🟢</span>`;
-                        
+                        statusBadge = `<span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-full text-[11px] font-semibold">Shortlisted for Interview 🟢</span>`;
+
                         actionArea = `
-                            <div class="text-xs text-emerald-400 font-semibold bg-emerald-500/10 px-4 py-2.5 rounded-xl border border-emerald-500/20 flex items-center gap-2 shadow-sm">
+                            <div class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-4 py-2.5 rounded-xl border border-emerald-200 flex items-center gap-2">
                                 <i class="fa-solid fa-calendar-check text-sm"></i>
                                 <span>Recruiter Scheduled: <strong>30 Aug 2026, 11:30 AM</strong></span>
                             </div>
@@ -104,9 +111,9 @@
 
                     card.innerHTML = `
                         <div>
-                            <span class="text-[10px] text-blue-400 font-semibold uppercase tracking-wider">${job.company}</span>
-                            <h4 class="font-bold text-white text-sm mt-0.5">${job.role}</h4>
-                            <p class="text-[11px] text-slate-400 mt-1"><i class="fa-regular fa-calendar mr-1"></i> Applied on: ${job.date}</p>
+                            <span class="text-[10px] text-blue-600 font-bold uppercase tracking-wider">${job.company}</span>
+                            <h4 class="font-bold text-slate-900 text-[14px] mt-0.5">${job.role}</h4>
+                            <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-calendar mr-1"></i> Applied on: ${job.date}</p>
                         </div>
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                             ${statusBadge}
