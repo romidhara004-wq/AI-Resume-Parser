@@ -25,50 +25,46 @@
     </nav>
 
     <main class="max-w-6xl mx-auto px-4 py-8 relative z-10">
-        <div class="bg-white p-8 rounded-[24px] border border-slate-200/80 mb-8 relative overflow-hidden shadow-sm">
-            <h2 class="text-[22px] font-bold text-slate-900 mb-2 relative">Live Corporate Placement Drives 🚀</h2>
-            <p class="text-[13px] text-slate-500 leading-relaxed max-w-2xl relative">Explore verified openings matched with your skill profile. Apply directly and track status in real-time.</p>
+        <div class="bg-white p-8 rounded-[24px] border border-slate-200/80 mb-8 shadow-sm">
+            <h2 class="text-[22px] font-bold text-slate-900 mb-2">Live Corporate Placement Drives 🚀</h2>
+            <p class="text-[13px] text-slate-500 leading-relaxed max-w-2xl">Explore verified openings matched with your skill profile. Apply directly and track status in real-time.</p>
         </div>
-        <div id="jobsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-            <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all">
+        <div id="jobsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Static Job 1 -->
+            <div class="bg-white p-6 rounded-[20px] border flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all">
                 <div>
-                    <div class="flex justify-between items-start mb-4"><div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100"><i class="fa-solid fa-building text-sm"></i></div><span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 border rounded-full text-[10px] font-bold">Remote / Hybrid</span></div>
-                    <h3 class="font-bold text-slate-900 text-[14px] mb-1">TechCorp Global</h3><p class="text-[12px] text-blue-600 font-semibold mb-3">AI / Machine Learning Intern</p>
-                    <p class="text-[12px] text-slate-500 leading-relaxed mb-4">Looking for AIML engineers proficient in Python, TensorFlow, and Neural Networks.</p>
+                    <div class="flex justify-between items-start mb-4"><div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border"><i class="fa-solid fa-building text-sm"></i></div><span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 border rounded-full text-[10px] font-bold">Remote / Hybrid</span></div>
+                    <h3 class="font-bold text-[14px] mb-1">TechCorp Global</h3><p class="text-[12px] text-blue-600 font-semibold mb-3">AI / Machine Learning Intern</p>
+                    <p class="text-[12px] text-slate-500 mb-4">Looking for AIML engineers proficient in Python, TensorFlow.</p>
                 </div>
                 <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>₹45,000 / month</span><span>Kolkata / Remote</span></div>
-                <button id="btn-job1" onclick="applyJob('TechCorp Global', 'AI / Machine Learning Intern', 'btn-job1', '₹45,000 / month', 'Kolkata / Remote', 'Python, TensorFlow, Neural Networks')" class="w-full py-3 bg-slate-900 hover:bg-black text-white rounded-xl text-[12px] font-semibold transition flex items-center justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>
+                <button id="btn-job1" onclick="applyJob('TechCorp Global', 'AI / Machine Learning Intern', 'btn-job1')" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-semibold flex justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>
             </div>
-
-            <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all">
+            <!-- Static Job 2 -->
+            <div class="bg-white p-6 rounded-[20px] border flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all">
                 <div>
                     <div class="flex justify-between items-start mb-4"><div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center border"><i class="fa-solid fa-laptop-code text-sm"></i></div><span class="px-2.5 py-1 bg-purple-50 text-purple-600 border rounded-full text-[10px] font-bold">Full Time</span></div>
                     <h3 class="font-bold text-[14px] mb-1">InnoTech Solutions</h3><p class="text-[12px] text-purple-600 font-semibold mb-3">Full Stack Web Developer</p>
-                    <p class="text-[12px] text-slate-500 mb-4">Seeking developers with expertise in React.js, Node.js, and Tailwind CSS.</p>
+                    <p class="text-[12px] text-slate-500 mb-4">Seeking developers with React.js, Node.js, Tailwind CSS.</p>
                 </div>
-                <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>₹6.5 LPA - ₹9 LPA</span><span>Bangalore</span></div>
-                <button id="btn-job2" onclick="applyJob('InnoTech Solutions', 'Full Stack Web Developer', 'btn-job2', '₹6.5 LPA - ₹9 LPA', 'Bangalore', 'React.js, Node.js, Tailwind CSS')" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-semibold flex justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>
+                <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>₹6.5 LPA</span><span>Bangalore</span></div>
+                <button id="btn-job2" onclick="applyJob('InnoTech Solutions', 'Full Stack Web Developer', 'btn-job2')" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-semibold flex justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>
             </div>
-
+            <!-- Static Job 3 -->
             <div class="bg-white p-6 rounded-[20px] border flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all">
                 <div>
                     <div class="flex justify-between items-start mb-4"><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border"><i class="fa-solid fa-shield-halved text-sm"></i></div><span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 border rounded-full text-[10px] font-bold">Internship</span></div>
                     <h3 class="font-bold text-[14px] mb-1">DataMetrics Corp</h3><p class="text-[12px] text-emerald-600 font-semibold mb-3">Cyber Security Analyst</p>
-                    <p class="text-[12px] text-slate-500 mb-4">Protect core architectures and execute ethical hacking protocols.</p>
+                    <p class="text-[12px] text-slate-500 mb-4">Protect core architectures and ethical hacking.</p>
                 </div>
-                <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>₹35,000 / month</span><span>Kolkata / Hybrid</span></div>
-                <button id="btn-job3" onclick="applyJob('DataMetrics Corp', 'Cyber Security Analyst', 'btn-job3', '₹35,000 / month', 'Kolkata / Hybrid', 'Network Defense, Ethical Hacking')" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-semibold flex justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>
+                <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>₹35,000 / month</span><span>Hybrid</span></div>
+                <button id="btn-job3" onclick="applyJob('DataMetrics Corp', 'Cyber Security Analyst', 'btn-job3')" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-semibold flex justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>
             </div>
         </div>
     </main>
 
 <script>
-    function getUserKey(){
-        const email = localStorage.getItem('userEmail') || localStorage.getItem('userLoginEmail') || 'default_user';
-        return 'appliedJobs_' + email;
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
         loadDynamicJobs();
         checkAppliedStatus();
@@ -78,29 +74,22 @@
         const container = document.getElementById('jobsContainer');
         const customJobs = JSON.parse(localStorage.getItem('customPostedJobs') || '[]');
         customJobs.forEach((job, idx)=>{
-            const uniqueBtnId = 'custom-btn-' + idx + '-' + job.id;
+            const btnId = 'custom-btn-' + idx + '-' + job.id;
             const card = document.createElement('div');
             card.className = "bg-white p-6 rounded-[20px] border border-violet-200 flex flex-col justify-between shadow-sm hover:shadow-md transition";
-            card.innerHTML = `
-                <div><div class="flex justify-between items-start mb-4"><div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center border"><i class="fa-solid fa-briefcase text-sm"></i></div><span class="px-2.5 py-1 bg-violet-50 text-violet-600 border rounded-full text-[10px] font-bold">Recruiter Drive</span></div>
-                <h3 class="font-bold text-[14px] mb-1">${job.company}</h3><p class="text-[12px] text-violet-600 font-semibold mb-3">${job.role}</p><p class="text-[12px] text-slate-500 mb-4">${job.desc}</p></div>
-                <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>${job.salary}</span><span>${job.location}</span></div>
-                <button id="${uniqueBtnId}" onclick="applyJob('${job.company.replace(/'/g,"")}', '${job.role.replace(/'/g,"")}', '${uniqueBtnId}', '${job.salary}', '${job.location}', '${job.desc.replace(/'/g,"")}')" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-semibold flex justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>`;
+            card.innerHTML = `<div><div class="flex justify-between items-start mb-4"><div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center border"><i class="fa-solid fa-briefcase text-sm"></i></div><span class="px-2.5 py-1 bg-violet-50 text-violet-600 border rounded-full text-[10px] font-bold">Recruiter Drive</span></div><h3 class="font-bold text-[14px] mb-1">${job.company}</h3><p class="text-[12px] text-violet-600 font-semibold mb-3">${job.role}</p><p class="text-[12px] text-slate-500 mb-4">${job.desc}</p></div><div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>${job.salary}</span><span>${job.location}</span></div><button id="${btnId}" onclick="applyJob('${job.company.replace(/'/g,'')}', '${job.role.replace(/'/g,'')}', '${btnId}')" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-semibold flex justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>`;
             container.appendChild(card);
         });
-        setTimeout(checkAppliedStatus, 200);
+        setTimeout(checkAppliedStatus, 100);
     }
 
     function checkAppliedStatus(){
-        const userKey = getUserKey();
-        let appliedJobs = JSON.parse(localStorage.getItem(userKey) || '[]');
-        let allApps = JSON.parse(localStorage.getItem('studentApplications') || '[]');
-        let merged = [...appliedJobs,...allApps];
-        merged.forEach(job=>{
+        let appliedJobs = JSON.parse(localStorage.getItem('studentApplications') || '[]');
+        appliedJobs.forEach(job=>{
             if(job.buttonId){
                 const btn = document.getElementById(job.buttonId);
                 if(btn){
-                    btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> Applied Successfully`;
+                    btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> Applied`;
                     btn.className = "w-full py-3 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-xl text-[12px] font-bold flex items-center justify-center gap-2 cursor-not-allowed";
                     btn.disabled = true;
                 }
@@ -108,48 +97,37 @@
         });
     }
 
-    function applyJob(company, role, btnId, salary, location, desc){
+    function applyJob(company, role, btnId){
         const btn = document.getElementById(btnId);
         if(btn.disabled) return;
-        btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> Applied Successfully`;
-        btn.className = "w-full py-3 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-xl text-[12px] font-bold flex items-center justify-center gap-2 cursor-not-allowed";
-        btn.disabled = true;
 
         const applicationData = {
             id: Date.now(),
-            name: localStorage.getItem('userName') || 'Student',
-            studentName: localStorage.getItem('userName') || 'Student',
+            name: localStorage.getItem('userName') || 'RANKIT DHARA',
             course: localStorage.getItem('userBranch') || 'B.Tech CSE [AIML]',
             company: company,
-            companyName: company,
             role: role,
-            jobRole: role,
-            salary: salary || 'Not specified',
-            location: location || 'Not specified',
-            skills: localStorage.getItem('userSkills') || desc || 'Python, AI/ML',
-            score: (localStorage.getItem('globalMatchScore') || '85') + '% Optimal',
-            matchScore: (localStorage.getItem('globalMatchScore') || '85') + '%',
             date: new Date().toLocaleDateString(),
             status: "Under Review 🟡",
             buttonId: btnId
         };
 
-        const userKey = getUserKey();
-        let userApps = JSON.parse(localStorage.getItem(userKey) || '[]');
         let allApps = JSON.parse(localStorage.getItem('studentApplications') || '[]');
-        let generic = JSON.parse(localStorage.getItem('appliedJobs') || '[]');
 
-        if(userApps.some(j => j.company === company && j.role === role)) return;
+        // Prevent duplicate
+        if(allApps.some(j => j.company === company && j.role === role)){
+            alert("Already applied to "+company+" - "+role);
+            return;
+        }
 
-        userApps.push(applicationData);
         allApps.push(applicationData);
-        generic.push(applicationData);
-
-        localStorage.setItem(userKey, JSON.stringify(userApps));
         localStorage.setItem('studentApplications', JSON.stringify(allApps));
-        localStorage.setItem('appliedJobs', JSON.stringify(generic));
 
-        alert("Applied to " + company + " - " + role + " successfully! Check recruiter portal now.");
+        btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> Applied`;
+        btn.className = "w-full py-3 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-xl text-[12px] font-bold flex items-center justify-center gap-2 cursor-not-allowed";
+        btn.disabled = true;
+
+        alert("Applied to " + company + " successfully!");
     }
 </script>
 </body>
