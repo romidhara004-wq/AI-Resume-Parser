@@ -7,49 +7,30 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; } h1,h2,h3,h4{font-family:'Sora',sans-serif!important;}</style>
+    <style>body{background:#F8FAFF!important;font-family:'Inter',sans-serif!important}h1,h2,h3{font-family:'Sora',sans-serif!important}</style>
 </head>
-<body class="min-h-screen relative overflow-x-hidden">
-    <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-violet-100/60 via-purple-50/30 to-transparent pointer-events-none"></div>
-
-    <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-x-full transition-all duration-300 bg-white border px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3">
-        <div class="w-8 h-8 rounded-xl bg-violet-600 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-bell"></i></div>
-        <div><h4 id="toastTitle" class="font-bold text-[12px]">Notification</h4><p id="toastDesc" class="text-[11px] text-slate-500">Done</p></div>
-    </div>
-
-    <div id="candidateModal" class="fixed inset-0 z-50 bg-slate-900/20 backdrop-blur-md flex items-center justify-center hidden p-4">
-        <div class="bg-white border w-full max-w-2xl rounded-[24px] p-7 shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
-            <div class="flex items-center gap-3 mb-5 pb-4 border-b"><div class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center"><i class="fa-solid fa-user-tie"></i></div><div><h3 id="modalStudentName" class="text-[15px] font-bold">Name</h3><p id="modalStudentCourse" class="text-[12px] text-violet-600">Course</p></div></div>
-            <div class="space-y-4 mb-6">
-                <div><span class="text-[11px] text-slate-500 uppercase font-bold block mb-1.5">Applied Drive</span><p id="modalJobRole" class="text-[12px] font-bold bg-slate-50 p-3 rounded-xl border">-</p></div>
-                <div><span class="text-[11px] text-slate-500 uppercase font-bold block mb-1.5">Skills</span><p id="modalSkills" class="text-[12px] font-mono text-emerald-600 bg-emerald-50 p-3 rounded-xl border">-</p></div>
-                <div><span class="text-[11px] text-slate-500 uppercase font-bold block mb-1.5">Match Score</span><p id="modalScore" class="text-[12px] font-bold text-blue-600 bg-blue-50 p-3 rounded-xl border">-</p></div>
-            </div>
-            <button onclick="closeModal()" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-bold">Close</button>
-        </div>
-    </div>
-
-    <nav class="bg-white/80 backdrop-blur-md border-b sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center"><i class="fa-solid fa-building-user text-white text-sm"></i></div><div><h1 class="font-bold text-[14px]">HR & Recruiter Portal</h1><p class="text-[11px] text-slate-500">JIS University Placement Matrix</p></div></div>
-        <a href="index.html" class="bg-white border text-[12px] px-4 py-2 rounded-xl font-medium"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Home</a>
+<body class="min-h-screen">
+    <nav class="bg-white border-b sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center text-white"><i class="fa-solid fa-building-user text-sm"></i></div><div><h1 class="font-bold text-[14px]">HR & Recruiter Portal</h1><p class="text-[11px] text-slate-500">JIS University Placement Matrix</p></div></div>
+        <button onclick="localStorage.clear(); location.reload();" class="bg-red-50 border border-red-200 text-red-600 text-[11px] px-3 py-1.5 rounded-xl">Clear All Data</button>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
+    <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="bg-white p-7 rounded-[24px] border shadow-sm lg:col-span-1 h-fit">
             <h3 class="font-bold text-[13px] mb-4 pb-3 border-b flex items-center gap-2"><i class="fa-solid fa-briefcase text-violet-600"></i> Post Placement Drive</h3>
             <form id="jobPostForm" onsubmit="postNewJob(event)" class="space-y-4">
-                <input type="text" id="companyName" placeholder="Company e.g. Google India" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
-                <input type="text" id="jobRole" placeholder="Role e.g. AI Intern" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
+                <input type="text" id="companyName" placeholder="Company Name e.g. Google" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
+                <input type="text" id="jobRole" placeholder="Job Role e.g. AI Intern" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
                 <input type="text" id="jobSalary" placeholder="Salary e.g. ₹50k/month" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
-                <input type="text" id="jobLocation" placeholder="Location e.g. Remote" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
+                <input type="text" id="jobLocation" placeholder="Location" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
                 <textarea id="jobDesc" rows="3" placeholder="Requirements..." class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required></textarea>
                 <button type="submit" class="w-full py-3.5 bg-slate-900 text-white rounded-xl text-[12px] font-bold">Broadcast Drive Live 🚀</button>
             </form>
+            <div class="mt-6 p-3 bg-slate-50 rounded-xl border text-[10px] font-mono"><p id="debugInfo" class="text-slate-500">Debug: checking...</p></div>
         </div>
         <div class="lg:col-span-2">
             <div class="bg-white p-7 rounded-[24px] border shadow-sm">
-                <h3 class="font-bold text-[13px] mb-4 pb-3 border-b flex items-center gap-2"><i class="fa-solid fa-users text-violet-600"></i> Incoming Student Applications</h3>
+                <div class="flex justify-between items-center mb-4 pb-3 border-b"><h3 class="font-bold text-[13px] flex items-center gap-2"><i class="fa-solid fa-users text-violet-600"></i> Incoming Student Applications</h3><button onclick="renderRecruiterPanel()" class="text-[11px] bg-violet-50 text-violet-600 border px-3 py-1 rounded-full">Refresh List ↻</button></div>
                 <div id="recruiterList" class="space-y-3"></div>
             </div>
         </div>
@@ -57,14 +38,6 @@
 
 <script>
 window.addEventListener('DOMContentLoaded', renderRecruiterPanel);
-
-function showToast(title, desc){
-    document.getElementById('toastTitle').innerText=title;
-    document.getElementById('toastDesc').innerText=desc;
-    const t=document.getElementById('toastNotification');
-    t.classList.remove('translate-x-full');
-    setTimeout(()=>t.classList.add('translate-x-full'),3500);
-}
 
 function postNewJob(e){
     e.preventDefault();
@@ -76,61 +49,49 @@ function postNewJob(e){
     let jobs=JSON.parse(localStorage.getItem('customPostedJobs')||'[]');
     jobs.push({company, role, salary, location, desc, id:'job-'+Date.now()});
     localStorage.setItem('customPostedJobs', JSON.stringify(jobs));
-    showToast("Drive Published!",""+company+" - "+role+" is now live");
     document.getElementById('jobPostForm').reset();
     renderRecruiterPanel();
+    alert("Drive Published: "+company+" - "+role);
 }
 
 function renderRecruiterPanel(){
     const container=document.getElementById('recruiterList');
+    const debug=document.getElementById('debugInfo');
     const drives=JSON.parse(localStorage.getItem('customPostedJobs')||'[]');
-    const apps1=JSON.parse(localStorage.getItem('studentApplications')||'[]');
-    const apps2=JSON.parse(localStorage.getItem('appliedJobs')||'[]');
-    const apps3=JSON.parse(localStorage.getItem('applications')||'[]');
-    const allApps=[...apps1,...apps2,...apps3];
+
+    let allApps = [];
+    for(let i=0; i<localStorage.length; i++){
+        let key = localStorage.key(i);
+        if(key.includes('appliedJobs') || key.includes('studentApplications') || key.includes('applications')){
+            try{
+                let arr = JSON.parse(localStorage.getItem(key)||'[]');
+                if(Array.isArray(arr)) allApps = allApps.concat(arr);
+            }catch(e){}
+        }
+    }
+
+    debug.innerText = `Keys found: ${localStorage.length} | Drives: ${drives.length} | Apps found in any key: ${allApps.length} | Keys: ${Object.keys(localStorage).join(', ')}`;
 
     if(drives.length===0){
-        container.innerHTML=`<div class="text-center py-16 bg-slate-50 rounded-[20px] border border-dashed"><i class="fa-solid fa-inbox text-[42px] text-slate-300 mb-4"></i><h3 class="font-bold text-[14px]">No Drives Created Yet</h3><p class="text-[12px] text-slate-500 mt-1 max-w-[300px] mx-auto">Create a placement drive first. Once students apply, they will appear here.</p></div>`;
+        container.innerHTML=`<div class="text-center py-16 bg-slate-50 rounded-[20px] border border-dashed"><h3 class="font-bold text-[14px]">No Drives Created Yet</h3><p class="text-[12px] text-slate-500 mt-1">Create a drive first</p></div>`;
         return;
     }
     if(allApps.length===0){
-        container.innerHTML=`<div class="text-center py-16 bg-violet-50/50 rounded-[20px] border border-dashed border-violet-200"><i class="fa-solid fa-user-clock text-[42px] text-violet-300 mb-4"></i><h3 class="font-bold text-[14px]">Waiting for Applications</h3><p class="text-[12px] text-slate-500 mt-1">Drive is live: <b>${drives[drives.length-1].company} - ${drives[drives.length-1].role}</b><br>The list will appear here as soon as a student applies.</p><p class="text-[10px] text-slate-400 mt-3">${drives.length} active drive(s)</p></div>`;
+        container.innerHTML=`<div class="text-center py-16 bg-violet-50/50 rounded-[20px] border border-dashed border-violet-200"><div class="text-[42px] mb-4">👨‍💻</div><h3 class="font-bold text-[14px]">Waiting for Applications</h3><p class="text-[12px] text-slate-500 mt-1">Drive is live: <b>${drives[drives.length-1].company} - ${drives[drives.length-1].role}</b><br>Apply from jobs.html then click Refresh List ↻</p><p class="text-[10px] text-slate-400 mt-3">${drives.length} active drive(s) | Checked ${localStorage.length} storage keys</p></div>`;
         return;
     }
 
     container.innerHTML="";
-    allApps.forEach((app, index)=>{
+    allApps.forEach((app)=>{
         const div=document.createElement('div');
-        div.className="p-4 rounded-2xl bg-white border flex flex-col sm:flex-row justify-between gap-4";
-        const isShortlisted = (app.status||'').includes('Selected') || (app.status||'').includes('Shortlisted');
+        div.className="p-4 rounded-2xl bg-white border flex justify-between items-center gap-4";
         div.innerHTML=`
-            <div>
-                <span class="text-[10px] text-violet-600 font-bold uppercase">${app.company||app.companyName||'Company'}</span>
-                <h4 class="font-bold text-[13px] mt-0.5">${app.name||app.studentName||localStorage.getItem('userName')||'Student'} - <span class="text-blue-600">${app.role||app.jobRole||''}</span></h4>
-                <p class="text-[11px] text-slate-500">Course: ${app.course||localStorage.getItem('userBranch')||'N/A'} | Score: <span class="font-bold text-emerald-600">${app.score||app.matchScore||localStorage.getItem('globalMatchScore')+'%'||'--'}</span></p>
-            </div>
-            <div class="flex items-center gap-2">
-                ${isShortlisted? `<span class="px-3 py-1.5 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-[11px] font-bold"><i class="fa-solid fa-check-circle"></i> Shortlisted</span>` : `<button onclick='viewCandidate(${JSON.stringify(app).replace(/'/g,"&#39;")})' class="px-3 py-2 bg-white border rounded-xl text-[11px] font-semibold">View</button><button onclick="shortlistCandidate(${index})" class="px-3 py-2 bg-emerald-600 text-white rounded-xl text-[11px] font-bold">Shortlist</button>`}
-            </div>`;
+            <div><span class="text-[10px] text-violet-600 font-bold uppercase">${app.company||'Company'}</span>
+            <h4 class="font-bold text-[13px]">${app.name||app.studentName||'Student'} - <span class="text-blue-600">${app.role||app.jobRole}</span></h4>
+            <p class="text-[11px] text-slate-500">Course: ${app.course||'N/A'} | Score: ${app.score||app.matchScore||'--'} | Date: ${app.date||''}</p></div>
+            <span class="px-3 py-1.5 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-[11px] font-bold">${app.status||'Under Review 🟡'}</span>`;
         container.appendChild(div);
     });
-}
-
-function viewCandidate(app){
-    document.getElementById('modalStudentName').innerText=app.name||app.studentName||'Student';
-    document.getElementById('modalStudentCourse').innerText=app.course||localStorage.getItem('userBranch')||'N/A';
-    document.getElementById('modalJobRole').innerText=`${app.company||''} - ${app.role||app.jobRole||''}`;
-    document.getElementById('modalSkills').innerText=app.skills||localStorage.getItem('userSkills')||'Not parsed';
-    document.getElementById('modalScore').innerText=app.score||app.matchScore||localStorage.getItem('globalMatchScore')+'%'||'--';
-    document.getElementById('candidateModal').classList.remove('hidden');
-}
-function closeModal(){document.getElementById('candidateModal').classList.add('hidden');}
-function shortlistCandidate(index){
-    let apps=JSON.parse(localStorage.getItem('studentApplications')||'[]');
-    if(apps.length===0) apps=JSON.parse(localStorage.getItem('appliedJobs')||'[]');
-    if(apps[index]){ apps[index].status="Shortlisted 🟢"; localStorage.setItem('studentApplications', JSON.stringify(apps)); localStorage.setItem('appliedJobs', JSON.stringify(apps)); }
-    showToast("Shortlisted!","Candidate selected for interview");
-    renderRecruiterPanel();
 }
 </script>
 </body>

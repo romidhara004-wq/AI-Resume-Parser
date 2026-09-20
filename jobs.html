@@ -7,10 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-      body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; }
-      h1, h2, h3 { font-family: 'Sora', sans-serif!important; }
-    </style>
+    <style>body{background:#F8FAFF!important;font-family:'Inter',sans-serif!important}h1,h2,h3{font-family:'Sora',sans-serif!important}</style>
 </head>
 <body class="min-h-screen relative overflow-x-hidden">
     <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-transparent pointer-events-none"></div>
@@ -18,23 +15,17 @@
     <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-4 md:px-6 py-3 md:py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center space-x-2 md:space-x-3">
             <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow"><i class="fa-solid fa-bolt text-white text-sm"></i></div>
-            <div><h1 class="font-bold text-[12px] md:text-[14px] text-slate-900 leading-tight">SkillBridge AI Enterprise</h1><p class="text-[9px] md:text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p></div>
+            <div><h1 class="font-bold text-[12px] md:text-[14px] leading-tight">SkillBridge AI Enterprise</h1><p class="text-[9px] md:text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p></div>
         </div>
-        <div class="flex items-center space-x-2 md:space-x-4">
-            <div class="hidden md:flex items-center space-x-6 text-[12px] font-semibold text-slate-600">
-                <a href="student-dashboard.html" class="hover:text-blue-600">Dashboard</a>
-                <a href="jobs.html" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">Jobs & Drives</a>
-                <a href="application.html" class="hover:text-blue-600">My Applications</a>
-                <a href="student-profile.html" class="hover:text-blue-600">Profile</a>
-            </div>
-            <a href="student-dashboard.html" class="md:hidden inline-flex bg-white border text-[11px] px-3 py-2 rounded-xl font-medium">Dashboard</a>
-            <a href="index.html" class="bg-slate-900 text-white text-[11px] md:text-[12px] px-3 md:px-4 py-2 rounded-xl font-medium"><i class="fa-solid fa-arrow-left mr-1"></i> Logout</a>
+        <div class="flex items-center space-x-2">
+            <a href="student-dashboard.html" class="hidden md:inline-flex bg-white border text-[12px] px-4 py-2 rounded-xl font-medium">Dashboard</a>
+            <a href="application.html" class="inline-flex bg-white border text-[11px] md:text-[12px] px-3 md:px-4 py-2 rounded-xl font-medium">My Applications</a>
+            <a href="index.html" class="bg-slate-900 text-white text-[11px] md:text-[12px] px-3 md:px-4 py-2 rounded-xl font-medium">Logout</a>
         </div>
     </nav>
 
     <main class="max-w-6xl mx-auto px-4 py-8 relative z-10">
         <div class="bg-white p-8 rounded-[24px] border border-slate-200/80 mb-8 relative overflow-hidden shadow-sm">
-            <div class="absolute right-0 top-0 w-[300px] h-[200px] bg-blue-100/50 rounded-full blur-[60px] pointer-events-none"></div>
             <h2 class="text-[22px] font-bold text-slate-900 mb-2 relative">Live Corporate Placement Drives 🚀</h2>
             <p class="text-[13px] text-slate-500 leading-relaxed max-w-2xl relative">Explore verified openings matched with your skill profile. Apply directly and track status in real-time.</p>
         </div>
@@ -46,7 +37,7 @@
                     <h3 class="font-bold text-slate-900 text-[14px] mb-1">TechCorp Global</h3><p class="text-[12px] text-blue-600 font-semibold mb-3">AI / Machine Learning Intern</p>
                     <p class="text-[12px] text-slate-500 leading-relaxed mb-4">Looking for AIML engineers proficient in Python, TensorFlow, and Neural Networks.</p>
                 </div>
-                <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span><i class="fa-solid fa-wallet text-emerald-500 mr-1"></i> ₹45,000 / month</span><span><i class="fa-solid fa-location-dot text-red-400 mr-1"></i> Kolkata / Remote</span></div>
+                <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>₹45,000 / month</span><span>Kolkata / Remote</span></div>
                 <button id="btn-job1" onclick="applyJob('TechCorp Global', 'AI / Machine Learning Intern', 'btn-job1', '₹45,000 / month', 'Kolkata / Remote', 'Python, TensorFlow, Neural Networks')" class="w-full py-3 bg-slate-900 hover:bg-black text-white rounded-xl text-[12px] font-semibold transition flex items-center justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>
             </div>
 
@@ -73,7 +64,7 @@
     </main>
 
 <script>
-    function getUserKey() {
+    function getUserKey(){
         const email = localStorage.getItem('userEmail') || localStorage.getItem('userLoginEmail') || 'default_user';
         return 'appliedJobs_' + email;
     }
@@ -83,33 +74,32 @@
         checkAppliedStatus();
     });
 
-    function loadDynamicJobs() {
+    function loadDynamicJobs(){
         const container = document.getElementById('jobsContainer');
         const customJobs = JSON.parse(localStorage.getItem('customPostedJobs') || '[]');
-        customJobs.forEach((job, idx) => {
+        customJobs.forEach((job, idx)=>{
             const uniqueBtnId = 'custom-btn-' + idx + '-' + job.id;
             const card = document.createElement('div');
             card.className = "bg-white p-6 rounded-[20px] border border-violet-200 flex flex-col justify-between shadow-sm hover:shadow-md transition";
             card.innerHTML = `
-                <div>
-                    <div class="flex justify-between items-start mb-4"><div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center border"><i class="fa-solid fa-briefcase text-sm"></i></div><span class="px-2.5 py-1 bg-violet-50 text-violet-600 border rounded-full text-[10px] font-bold">Recruiter Drive</span></div>
-                    <h3 class="font-bold text-[14px] mb-1">${job.company}</h3><p class="text-[12px] text-violet-600 font-semibold mb-3">${job.role}</p><p class="text-[12px] text-slate-500 mb-4">${job.desc}</p>
-                </div>
+                <div><div class="flex justify-between items-start mb-4"><div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center border"><i class="fa-solid fa-briefcase text-sm"></i></div><span class="px-2.5 py-1 bg-violet-50 text-violet-600 border rounded-full text-[10px] font-bold">Recruiter Drive</span></div>
+                <h3 class="font-bold text-[14px] mb-1">${job.company}</h3><p class="text-[12px] text-violet-600 font-semibold mb-3">${job.role}</p><p class="text-[12px] text-slate-500 mb-4">${job.desc}</p></div>
                 <div><div class="flex justify-between text-[11px] text-slate-500 mb-4 pt-3 border-t"><span>${job.salary}</span><span>${job.location}</span></div>
                 <button id="${uniqueBtnId}" onclick="applyJob('${job.company.replace(/'/g,"")}', '${job.role.replace(/'/g,"")}', '${uniqueBtnId}', '${job.salary}', '${job.location}', '${job.desc.replace(/'/g,"")}')" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-semibold flex justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Apply Now ✨</button></div>`;
             container.appendChild(card);
         });
+        setTimeout(checkAppliedStatus, 200);
     }
 
-    function checkAppliedStatus() {
+    function checkAppliedStatus(){
         const userKey = getUserKey();
         let appliedJobs = JSON.parse(localStorage.getItem(userKey) || '[]');
-        const recruiterApps = JSON.parse(localStorage.getItem('studentApplications') || '[]');
-        const all = [...appliedJobs,...recruiterApps];
-        all.forEach(job => {
-            if (job.buttonId) {
+        let allApps = JSON.parse(localStorage.getItem('studentApplications') || '[]');
+        let merged = [...appliedJobs,...allApps];
+        merged.forEach(job=>{
+            if(job.buttonId){
                 const btn = document.getElementById(job.buttonId);
-                if (btn) {
+                if(btn){
                     btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> Applied Successfully`;
                     btn.className = "w-full py-3 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-xl text-[12px] font-bold flex items-center justify-center gap-2 cursor-not-allowed";
                     btn.disabled = true;
@@ -118,24 +108,15 @@
         });
     }
 
-    function applyJob(company, role, btnId, salary, location, desc) {
+    function applyJob(company, role, btnId, salary, location, desc){
         const btn = document.getElementById(btnId);
         if(btn.disabled) return;
-
         btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> Applied Successfully`;
         btn.className = "w-full py-3 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-xl text-[12px] font-bold flex items-center justify-center gap-2 cursor-not-allowed";
         btn.disabled = true;
 
-        const userKey = getUserKey();
-        let appliedJobs = JSON.parse(localStorage.getItem(userKey) || '[]');
-        let studentApplications = JSON.parse(localStorage.getItem('studentApplications') || '[]');
-
-        if (appliedJobs.some(j => j.company === company && j.role === role)) {
-            return;
-        }
-
         const applicationData = {
-            id: company + '-' + role + '-' + Date.now(),
+            id: Date.now(),
             name: localStorage.getItem('userName') || 'Student',
             studentName: localStorage.getItem('userName') || 'Student',
             course: localStorage.getItem('userBranch') || 'B.Tech CSE [AIML]',
@@ -143,8 +124,8 @@
             companyName: company,
             role: role,
             jobRole: role,
-            salary: salary,
-            location: location,
+            salary: salary || 'Not specified',
+            location: location || 'Not specified',
             skills: localStorage.getItem('userSkills') || desc || 'Python, AI/ML',
             score: (localStorage.getItem('globalMatchScore') || '85') + '% Optimal',
             matchScore: (localStorage.getItem('globalMatchScore') || '85') + '%',
@@ -153,12 +134,22 @@
             buttonId: btnId
         };
 
-        appliedJobs.push(applicationData);
-        studentApplications.push(applicationData);
+        const userKey = getUserKey();
+        let userApps = JSON.parse(localStorage.getItem(userKey) || '[]');
+        let allApps = JSON.parse(localStorage.getItem('studentApplications') || '[]');
+        let generic = JSON.parse(localStorage.getItem('appliedJobs') || '[]');
 
-        localStorage.setItem(userKey, JSON.stringify(appliedJobs));
-        localStorage.setItem('studentApplications', JSON.stringify(studentApplications));
-        localStorage.setItem('appliedJobs', JSON.stringify(studentApplications));
+        if(userApps.some(j => j.company === company && j.role === role)) return;
+
+        userApps.push(applicationData);
+        allApps.push(applicationData);
+        generic.push(applicationData);
+
+        localStorage.setItem(userKey, JSON.stringify(userApps));
+        localStorage.setItem('studentApplications', JSON.stringify(allApps));
+        localStorage.setItem('appliedJobs', JSON.stringify(generic));
+
+        alert("Applied to " + company + " - " + role + " successfully! Check recruiter portal now.");
     }
 </script>
 </body>
