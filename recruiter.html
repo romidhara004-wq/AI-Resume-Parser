@@ -1,98 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR & Recruiter Portal - SkillBridge AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>body{background:#F8FAFF!important;font-family:'Inter',sans-serif!important}h1,h2,h3{font-family:'Sora',sans-serif!important}</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recruiter Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </head>
-<body class="min-h-screen">
-    <nav class="bg-white border-b sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center text-white"><i class="fa-solid fa-building-user text-sm"></i></div><div><h1 class="font-bold text-[14px]">HR & Recruiter Portal</h1><p class="text-[11px] text-slate-500">JIS University Placement Matrix</p></div></div>
-        <button onclick="localStorage.clear(); location.reload();" class="bg-red-50 border border-red-200 text-red-600 text-[11px] px-3 py-1.5 rounded-xl">Clear All Data</button>
-    </nav>
-
-    <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="bg-white p-7 rounded-[24px] border shadow-sm lg:col-span-1 h-fit">
-            <h3 class="font-bold text-[13px] mb-4 pb-3 border-b flex items-center gap-2"><i class="fa-solid fa-briefcase text-violet-600"></i> Post Placement Drive</h3>
-            <form id="jobPostForm" onsubmit="postNewJob(event)" class="space-y-4">
-                <input type="text" id="companyName" placeholder="Company Name e.g. Google" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
-                <input type="text" id="jobRole" placeholder="Job Role e.g. AI Intern" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
-                <input type="text" id="jobSalary" placeholder="Salary e.g. ₹50k/month" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
-                <input type="text" id="jobLocation" placeholder="Location" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required>
-                <textarea id="jobDesc" rows="3" placeholder="Requirements..." class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required></textarea>
-                <button type="submit" class="w-full py-3.5 bg-slate-900 text-white rounded-xl text-[12px] font-bold">Broadcast Drive Live 🚀</button>
-            </form>
-            <div class="mt-6 p-3 bg-slate-50 rounded-xl border text-[10px] font-mono"><p id="debugInfo" class="text-slate-500">Debug: checking...</p></div>
-        </div>
-        <div class="lg:col-span-2">
-            <div class="bg-white p-7 rounded-[24px] border shadow-sm">
-                <div class="flex justify-between items-center mb-4 pb-3 border-b"><h3 class="font-bold text-[13px] flex items-center gap-2"><i class="fa-solid fa-users text-violet-600"></i> Incoming Student Applications</h3><button onclick="renderRecruiterPanel()" class="text-[11px] bg-violet-50 text-violet-600 border px-3 py-1 rounded-full">Refresh List ↻</button></div>
-                <div id="recruiterList" class="space-y-3"></div>
-            </div>
-        </div>
-    </main>
-
+<body class="bg-slate-50 min-h-screen">
+<nav class="bg-white border-b px-6 py-4 flex justify-between sticky top-0">
+<div class="font-bold">HR Portal - Debug Mode</div>
+<div class="flex gap-2"><button onclick="render()" class="bg-slate-900 text-white px-4 py-1.5 rounded-full text-xs">Refresh ↻</button><button onclick="if(confirm('Clear?')){localStorage.clear();render()}" class="bg-red-50 text-red-600 border border-red-200 px-3 py-1.5 rounded-full text-xs">Clear All</button></div>
+</nav>
+<main class="max-w-6xl mx-auto p-4 grid lg:grid-cols-3 gap-6 mt-4">
+<div class="bg-white p-6 rounded-2xl border">
+<h3 class="font-bold text-sm mb-3">Post Drive (Optional)</h3>
+<form onsubmit="postJob(event)" class="space-y-3">
+<input id="c" placeholder="Google" class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs" required>
+<input id="r" placeholder="AI Intern" class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs" required>
+<input id="s" placeholder="50k/month" class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs" required>
+<input id="l" placeholder="Kolkata" class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs" required>
+<textarea id="d" placeholder="Python, AI" class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs"></textarea>
+<button class="w-full bg-slate-900 text-white py-3 rounded-xl text-xs font-bold">Broadcast Drive</button>
+</form>
+<div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-[11px] font-mono break-words">
+<p class="font-bold mb-1">DEBUG INFO (Isse screenshot bhejo):</p>
+<p id="debug"></p>
+</div>
+</div>
+<div class="lg:col-span-2 bg-white p-6 rounded-2xl border">
+<div class="flex justify-between items-center border-b pb-3 mb-4"><h3 class="font-bold text-sm">Incoming Student Applications (<span id="count">0</span>)</h3></div>
+<div id="list" class="space-y-3"></div>
+</div>
+</main>
 <script>
-window.addEventListener('DOMContentLoaded', renderRecruiterPanel);
+function postJob(e){e.preventDefault(); let jobs=JSON.parse(localStorage.getItem('customPostedJobs')||'[]'); jobs.push({company:document.getElementById('c').value,role:document.getElementById('r').value,salary:document.getElementById('s').value,location:document.getElementById('l').value,desc:document.getElementById('d').value,id:Date.now()}); localStorage.setItem('customPostedJobs',JSON.stringify(jobs)); e.target.reset(); render(); alert('Drive Created!');}
 
-function postNewJob(e){
-    e.preventDefault();
-    const company=document.getElementById('companyName').value;
-    const role=document.getElementById('jobRole').value;
-    const salary=document.getElementById('jobSalary').value;
-    const location=document.getElementById('jobLocation').value;
-    const desc=document.getElementById('jobDesc').value;
-    let jobs=JSON.parse(localStorage.getItem('customPostedJobs')||'[]');
-    jobs.push({company, role, salary, location, desc, id:'job-'+Date.now()});
-    localStorage.setItem('customPostedJobs', JSON.stringify(jobs));
-    document.getElementById('jobPostForm').reset();
-    renderRecruiterPanel();
-    alert("Drive Published: "+company+" - "+role);
+function render(){
+let debugEl=document.getElementById('debug');
+let listEl=document.getElementById('list');
+let countEl=document.getElementById('count');
+let allKeys = [];
+for(let i=0;i<localStorage.length;i++) allKeys.push(localStorage.key(i));
+let allApps=[];
+let drives=JSON.parse(localStorage.getItem('customPostedJobs')||'[]');
+for(let k of allKeys){
+ if(k.includes('applied') || k.includes('student') || k.includes('Jobs')){
+   try{let arr=JSON.parse(localStorage.getItem(k)||'[]'); if(Array.isArray(arr)) allApps=allApps.concat(arr.map(x=>({...x,_fromKey:k})));}catch(e){}
+ }
 }
+debugEl.innerHTML=`Total Keys: ${localStorage.length}<br>Keys: ${allKeys.join(', ')||'EMPTY'}<br><br>Drives in customPostedJobs: ${drives.length}<br>Apps found total: ${allApps.length}<br><br>Raw data:<br>${JSON.stringify(allApps).substring(0,800)}`;
 
-function renderRecruiterPanel(){
-    const container=document.getElementById('recruiterList');
-    const debug=document.getElementById('debugInfo');
-    const drives=JSON.parse(localStorage.getItem('customPostedJobs')||'[]');
-
-    let allApps = [];
-    for(let i=0; i<localStorage.length; i++){
-        let key = localStorage.key(i);
-        if(key.includes('appliedJobs') || key.includes('studentApplications') || key.includes('applications')){
-            try{
-                let arr = JSON.parse(localStorage.getItem(key)||'[]');
-                if(Array.isArray(arr)) allApps = allApps.concat(arr);
-            }catch(e){}
-        }
-    }
-
-    debug.innerText = `Keys found: ${localStorage.length} | Drives: ${drives.length} | Apps found in any key: ${allApps.length} | Keys: ${Object.keys(localStorage).join(', ')}`;
-
-    if(drives.length===0){
-        container.innerHTML=`<div class="text-center py-16 bg-slate-50 rounded-[20px] border border-dashed"><h3 class="font-bold text-[14px]">No Drives Created Yet</h3><p class="text-[12px] text-slate-500 mt-1">Create a drive first</p></div>`;
-        return;
-    }
-    if(allApps.length===0){
-        container.innerHTML=`<div class="text-center py-16 bg-violet-50/50 rounded-[20px] border border-dashed border-violet-200"><div class="text-[42px] mb-4">👨‍💻</div><h3 class="font-bold text-[14px]">Waiting for Applications</h3><p class="text-[12px] text-slate-500 mt-1">Drive is live: <b>${drives[drives.length-1].company} - ${drives[drives.length-1].role}</b><br>Apply from jobs.html then click Refresh List ↻</p><p class="text-[10px] text-slate-400 mt-3">${drives.length} active drive(s) | Checked ${localStorage.length} storage keys</p></div>`;
-        return;
-    }
-
-    container.innerHTML="";
-    allApps.forEach((app)=>{
-        const div=document.createElement('div');
-        div.className="p-4 rounded-2xl bg-white border flex justify-between items-center gap-4";
-        div.innerHTML=`
-            <div><span class="text-[10px] text-violet-600 font-bold uppercase">${app.company||'Company'}</span>
-            <h4 class="font-bold text-[13px]">${app.name||app.studentName||'Student'} - <span class="text-blue-600">${app.role||app.jobRole}</span></h4>
-            <p class="text-[11px] text-slate-500">Course: ${app.course||'N/A'} | Score: ${app.score||app.matchScore||'--'} | Date: ${app.date||''}</p></div>
-            <span class="px-3 py-1.5 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-[11px] font-bold">${app.status||'Under Review 🟡'}</span>`;
-        container.appendChild(div);
-    });
+countEl.innerText=allApps.length;
+if(allApps.length===0){
+ listEl.innerHTML=`<div class="text-center py-16 bg-slate-50 rounded-2xl border-dashed border-2"><p class="text-3xl mb-2">📭</p><p class="font-bold text-sm">No Applications Yet</p><p class="text-xs text-slate-500 mt-1">1. Same website pe raho (er.com ya localhost)<br>2. jobs.html pe Apply karo<br>3. Yaha Refresh click karo</p><p class="text-[10px] mt-3 text-slate-400">If drives still 0 after creating, your browser is blocking localStorage. Try Chrome normal mode, not incognito.</p></div>`;
+ return;
 }
+listEl.innerHTML="";
+allApps.forEach(app=>{
+ let div=document.createElement('div');
+ div.className="p-4 border rounded-2xl flex justify-between";
+ div.innerHTML=`<div><p class="text-[10px] text-violet-600 font-bold uppercase">${app.company} (from ${app._fromKey})</p><p class="font-bold text-[13px]">${app.name||'Student'} - ${app.role}</p><p class="text-[11px] text-slate-500">${app.course||''} | ${app.date||''}</p></div><span class="px-3 py-1 bg-emerald-50 text-emerald-600 border rounded-full text-[11px] h-fit">${app.status||'Under Review'}</span>`;
+ listEl.appendChild(div);
+});
+}
+window.onload=render;
 </script>
 </body>
 </html>
