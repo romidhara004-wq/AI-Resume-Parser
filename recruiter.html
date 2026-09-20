@@ -13,193 +13,144 @@
     </style>
 </head>
 <body class="min-h-screen relative overflow-x-hidden">
-
     <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-violet-100/60 via-purple-50/30 to-transparent pointer-events-none"></div>
 
-    <!-- Toast -->
     <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-x-full transition-all duration-300 bg-white border border-slate-200 px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3">
-        <div class="w-8 h-8 rounded-xl bg-violet-600 flex items-center justify-center text-white text-xs">
-            <i class="fa-solid fa-bell"></i>
-        </div>
-        <div>
-            <h4 id="toastTitle" class="font-bold text-slate-900 text-[12px]">Notification</h4>
-            <p id="toastDesc" class="text-[11px] text-slate-500">Action completed successfully.</p>
-        </div>
+        <div class="w-8 h-8 rounded-xl bg-violet-600 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-bell"></i></div>
+        <div><h4 id="toastTitle" class="font-bold text-slate-900 text-[12px]">Notification</h4><p id="toastDesc" class="text-[11px] text-slate-500">Action completed.</p></div>
     </div>
 
-    <!-- Modal - White -->
     <div id="candidateModal" class="fixed inset-0 z-50 bg-slate-900/20 backdrop-blur-md flex items-center justify-center hidden p-4">
         <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-[24px] p-7 shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 text-sm w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 text-sm w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             <div class="flex items-center gap-3 mb-5 pb-4 border-b border-slate-100">
-                <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-lg">
-                    <i class="fa-solid fa-user-tie"></i>
-                </div>
-                <div>
-                    <h3 id="modalStudentName" class="text-[15px] font-bold text-slate-900">Candidate Name</h3>
-                    <p id="modalStudentCourse" class="text-[12px] text-violet-600 font-medium">B.Tech CSE (AIML)</p>
-                </div>
+                <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-lg"><i class="fa-solid fa-user-tie"></i></div>
+                <div><h3 id="modalStudentName" class="text-[15px] font-bold text-slate-900">Candidate</h3><p id="modalStudentCourse" class="text-[12px] text-violet-600 font-medium">Course</p></div>
             </div>
             <div class="space-y-4 mb-6">
-                <div>
-                    <span class="text-[11px] text-slate-500 uppercase font-bold tracking-wider block mb-1.5">Applied Drive</span>
-                    <p id="modalJobRole" class="text-[12px] font-bold text-slate-900 bg-slate-50 p-3 rounded-xl border border-slate-200">-</p>
-                </div>
-                <div>
-                    <span class="text-[11px] text-slate-500 uppercase font-bold tracking-wider block mb-1.5">Parsed Resume Skills & Core Stack</span>
-                    <p id="modalSkills" class="text-[12px] font-mono text-emerald-600 bg-emerald-50 p-3 rounded-xl border border-emerald-200">-</p>
-                </div>
-                <div>
-                    <span class="text-[11px] text-slate-500 uppercase font-bold tracking-wider block mb-1.5">AI Match Compatibility Score</span>
-                    <p id="modalScore" class="text-[12px] font-bold text-blue-600 bg-blue-50 p-3 rounded-xl border border-blue-200">-</p>
-                </div>
+                <div><span class="text-[11px] text-slate-500 uppercase font-bold block mb-1.5">Applied Drive</span><p id="modalJobRole" class="text-[12px] font-bold text-slate-900 bg-slate-50 p-3 rounded-xl border">-</p></div>
+                <div><span class="text-[11px] text-slate-500 uppercase font-bold block mb-1.5">Parsed Resume Skills</span><p id="modalSkills" class="text-[12px] font-mono text-emerald-600 bg-emerald-50 p-3 rounded-xl border border-emerald-200">-</p></div>
+                <div><span class="text-[11px] text-slate-500 uppercase font-bold block mb-1.5">AI Match Score</span><p id="modalScore" class="text-[12px] font-bold text-blue-600 bg-blue-50 p-3 rounded-xl border border-blue-200">-</p></div>
             </div>
-            <button onclick="closeModal()" class="w-full py-3 bg-slate-900 hover:bg-black text-white rounded-xl text-[12px] font-bold transition">Close Review Panel</button>
+            <button onclick="closeModal()" class="w-full py-3 bg-slate-900 text-white rounded-xl text-[12px] font-bold">Close</button>
         </div>
     </div>
 
-    <!-- Nav White -->
     <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow">
-                <i class="fa-solid fa-building-user text-white text-sm"></i>
-            </div>
-            <div>
-                <h1 class="font-bold text-[14px] text-slate-900">HR & Recruiter Portal</h1>
-                <p class="text-[11px] text-slate-500">JIS University Placement Matrix</p>
-            </div>
-        </div>
-        <a href="index.html" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-[12px] px-4 py-2 rounded-xl transition font-medium shadow-sm">
-            <i class="fa-solid fa-arrow-left mr-1"></i> Back to Home
-        </a>
+        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow"><i class="fa-solid fa-building-user text-white text-sm"></i></div><div><h1 class="font-bold text-[14px] text-slate-900">HR & Recruiter Portal</h1><p class="text-[11px] text-slate-500">JIS University Placement Matrix</p></div></div>
+        <a href="index.html" class="bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium shadow-sm"><i class="fa-solid fa-arrow-left mr-1"></i> Back</a>
     </nav>
 
     <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
-
-        <!-- Post Job - White -->
-        <div class="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:col-span-1 h-fit">
-            <h3 class="font-bold text-[13px] text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
-                <i class="fa-solid fa-briefcase text-violet-600"></i> Post Placement Drive
-            </h3>
+        <div class="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-sm lg:col-span-1 h-fit">
+            <h3 class="font-bold text-[13px] text-slate-900 mb-4 pb-3 border-b flex items-center gap-2"><i class="fa-solid fa-briefcase text-violet-600"></i> Post Placement Drive</h3>
             <form id="jobPostForm" onsubmit="postNewJob(event)" class="space-y-4">
-                <div>
-                    <label class="block text-slate-700 text-[11px] font-bold uppercase tracking-wider mb-1.5">Company Name</label>
-                    <input type="text" id="companyName" placeholder="e.g. Google India" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-violet-400 focus:bg-white text-slate-900 text-[12px]" required>
-                </div>
-                <div>
-                    <label class="block text-slate-700 text-[11px] font-bold uppercase tracking-wider mb-1.5">Job Role / Designation</label>
-                    <input type="text" id="jobRole" placeholder="e.g. AI Research Intern" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-violet-400 focus:bg-white text-slate-900 text-[12px]" required>
-                </div>
-                <div>
-                    <label class="block text-slate-700 text-[11px] font-bold uppercase tracking-wider mb-1.5">Salary Package</label>
-                    <input type="text" id="jobSalary" placeholder="e.g. ₹50,000 / month" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-violet-400 focus:bg-white text-slate-900 text-[12px]" required>
-                </div>
-                <div>
-                    <label class="block text-slate-700 text-[11px] font-bold uppercase tracking-wider mb-1.5">Location</label>
-                    <input type="text" id="jobLocation" placeholder="e.g. Kolkata / Remote" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-violet-400 focus:bg-white text-slate-900 text-[12px]" required>
-                </div>
-                <div>
-                    <label class="block text-slate-700 text-[11px] font-bold uppercase tracking-wider mb-1.5">Requirements</label>
-                    <textarea id="jobDesc" rows="3" placeholder="Required skills, tech stack..." class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-violet-400 focus:bg-white text-slate-900 text-[12px]" required></textarea>
-                </div>
-                <button type="submit" class="w-full py-3.5 bg-slate-900 hover:bg-black text-white rounded-xl text-[12px] font-bold transition shadow-lg flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-paper-plane"></i> Broadcast Drive Live 🚀
-                </button>
+                <div><label class="block text-[11px] font-bold uppercase mb-1.5">Company Name</label><input type="text" id="companyName" placeholder="e.g. Google India" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required></div>
+                <div><label class="block text-[11px] font-bold uppercase mb-1.5">Job Role</label><input type="text" id="jobRole" placeholder="e.g. AI Intern" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required></div>
+                <div><label class="block text-[11px] font-bold uppercase mb-1.5">Salary</label><input type="text" id="jobSalary" placeholder="e.g. ₹50k / month" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required></div>
+                <div><label class="block text-[11px] font-bold uppercase mb-1.5">Location</label><input type="text" id="jobLocation" placeholder="e.g. Kolkata / Remote" class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required></div>
+                <div><label class="block text-[11px] font-bold uppercase mb-1.5">Requirements</label><textarea id="jobDesc" rows="3" placeholder="Required skills..." class="w-full p-3 bg-slate-50 border rounded-xl text-[12px]" required></textarea></div>
+                <button type="submit" class="w-full py-3.5 bg-slate-900 text-white rounded-xl text-[12px] font-bold shadow-lg"><i class="fa-solid fa-paper-plane"></i> Broadcast Drive Live 🚀</button>
             </form>
         </div>
-
-        <!-- Applications -->
         <div class="lg:col-span-2">
-            <div class="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                <h3 class="font-bold text-[13px] text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-users text-violet-600"></i> Incoming Student Applications
-                </h3>
-                <p class="text-[12px] text-slate-500 mb-4">Review candidate profiles, parsed resumes, and manage interview shortlists.</p>
+            <div class="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-sm">
+                <h3 class="font-bold text-[13px] mb-4 pb-3 border-b flex items-center gap-2"><i class="fa-solid fa-users text-violet-600"></i> Incoming Student Applications</h3>
                 <div id="recruiterList" class="space-y-3"></div>
             </div>
         </div>
     </main>
 
-    <script>
-        const applicantsData = [
-            { id: 1, name: "Rishika Gupta", course: "B.Tech CSE [AIML]", company: "TechCorp Global", role: "AI / Machine Learning Intern", status: "Under Review 🟡", skills: "Python, Machine Learning, TensorFlow, Neural Networks", score: "98.4% Optimal" },
-            { id: 2, name: "Aman Verma", course: "BCA [Hons.]", company: "InnoTech Solutions", role: "Full Stack Web Developer", status: "Under Review 🟡", skills: "React.js, Node.js, JavaScript, MongoDB, Tailwind CSS", score: "94.2% Optimal" },
-            { id: 3, name: "Priya Sharma", course: "B.Tech [Cyber Security]", company: "DataMetrics Corp", role: "Cyber Security Analyst", status: "Under Review 🟡", skills: "Network Defense, Ethical Hacking, Linux, Cryptography", score: "96.8% Optimal" },
-            { id: 4, name: "Rahul Mukherjee", course: "M.Tech [CSE]", company: "Google India", role: "AI Research Intern", status: "Under Review 🟡", skills: "Deep Learning, PyTorch, Large Language Models, C++", score: "99.1% Optimal" }
-        ];
+<script>
+    window.addEventListener('DOMContentLoaded', () => { renderRecruiterPanel(); });
 
-        window.addEventListener('DOMContentLoaded', () => { renderRecruiterPanel(); });
+    function showToast(title, desc) {
+        const toast = document.getElementById('toastNotification');
+        document.getElementById('toastTitle').innerText = title;
+        document.getElementById('toastDesc').innerText = desc;
+        toast.classList.remove('translate-x-full');
+        setTimeout(() => { toast.classList.add('translate-x-full'); }, 3500);
+    }
 
-        function showToast(title, desc) {
-            const toast = document.getElementById('toastNotification');
-            document.getElementById('toastTitle').innerText = title;
-            document.getElementById('toastDesc').innerText = desc;
-            toast.classList.remove('translate-x-full');
-            setTimeout(() => { toast.classList.add('translate-x-full'); }, 3500);
+    function postNewJob(e) {
+        e.preventDefault();
+        const company = document.getElementById('companyName').value;
+        const role = document.getElementById('jobRole').value;
+        const salary = document.getElementById('jobSalary').value;
+        const location = document.getElementById('jobLocation').value;
+        const desc = document.getElementById('jobDesc').value;
+        let customJobs = JSON.parse(localStorage.getItem('customPostedJobs') || '[]');
+        customJobs.push({ company, role, salary, location, desc, id: 'job-' + Date.now() });
+        localStorage.setItem('customPostedJobs', JSON.stringify(customJobs));
+        showToast("Drive Published! 🚀", `${company} - ${role} is now live`);
+        document.getElementById('jobPostForm').reset();
+        renderRecruiterPanel();
+    }
+
+    // FIXED LOGIC - NO MORE DUMMY DATA
+    function renderRecruiterPanel() {
+        const listContainer = document.getElementById('recruiterList');
+        const drives = JSON.parse(localStorage.getItem('customPostedJobs') || '[]');
+        const applications = JSON.parse(localStorage.getItem('studentApplications') || '[]');
+
+        if (drives.length === 0) {
+            listContainer.innerHTML = `
+                <div class="text-center py-16 bg-slate-50 rounded-[20px] border border-dashed border-slate-300">
+                    <i class="fa-solid fa-inbox text-[42px] text-slate-300 mb-4"></i>
+                    <h3 class="font-bold text-[14px] text-slate-900">No Drives Created Yet</h3>
+                    <p class="text-[12px] text-slate-500 mt-1 max-w-[280px] mx-auto">Pehle left side se ek Job Drive create karo. Tabhi students uspe apply kar payenge.</p>
+                </div>`;
+            return;
         }
 
-        function postNewJob(e) {
-            e.preventDefault();
-            const company = document.getElementById('companyName').value;
-            const role = document.getElementById('jobRole').value;
-            const salary = document.getElementById('jobSalary').value;
-            const location = document.getElementById('jobLocation').value;
-            const desc = document.getElementById('jobDesc').value;
-            let customJobs = JSON.parse(localStorage.getItem('customPostedJobs') || '[]');
-            customJobs.push({ company, role, salary, location, desc, id: 'job-' + Date.now() });
-            localStorage.setItem('customPostedJobs', JSON.stringify(customJobs));
-            showToast("Drive Published! 🚀", "New placement drive broadcasted successfully.");
-            document.getElementById('jobPostForm').reset();
+        if (applications.length === 0) {
+            listContainer.innerHTML = `
+                <div class="text-center py-16 bg-violet-50/50 rounded-[20px] border border-dashed border-violet-200">
+                    <i class="fa-solid fa-user-clock text-[42px] text-violet-300 mb-4"></i>
+                    <h3 class="font-bold text-[14px] text-slate-900">Waiting for Applications</h3>
+                    <p class="text-[12px] text-slate-500 mt-1 max-w-[320px] mx-auto">Drive live hai: <b>${drives[drives.length-1].company} - ${drives[drives.length-1].role}</b><br>Jaise hi student apply karega, yahan list aa jayegi.</p>
+                    <p class="text-[10px] text-slate-400 mt-3">${drives.length} active drive(s)</p>
+                </div>`;
+            return;
         }
 
-        function renderRecruiterPanel() {
-            const listContainer = document.getElementById('recruiterList');
-            listContainer.innerHTML = "";
-            applicantsData.forEach((app, index) => {
-                const card = document.createElement('div');
-                card.className = "p-4 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:shadow-md hover:border-violet-200 transition";
-                let actionHtml = "";
-                if (app.status.includes("Under Review")) {
-                    actionHtml = `
-                        <button onclick='viewCandidate(${JSON.stringify(app)})' class="px-3 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-[11px] font-semibold transition">
-                            <i class="fa-solid fa-eye mr-1"></i> View Profile
-                        </button>
-                        <button onclick="shortlistCandidate(${index})" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-bold transition shadow">Shortlist</button>
-                    `;
-                } else {
-                    actionHtml = `
-                        <button onclick='viewCandidate(${JSON.stringify(app)})' class="px-3 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-[11px] font-semibold transition mr-2"><i class="fa-solid fa-eye mr-1"></i> View</button>
-                        <span class="px-3 py-1.5 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-[11px] font-bold inline-flex items-center gap-1"><i class="fa-solid fa-check-circle"></i> Shortlisted</span>
-                    `;
-                }
-                card.innerHTML = `
-                    <div>
-                        <span class="text-[10px] text-violet-600 font-bold tracking-wider uppercase">${app.company}</span>
-                        <h4 class="font-bold text-slate-900 text-[13px] mt-0.5">${app.name} - <span class="text-blue-600">${app.role}</span></h4>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Course: ${app.course} | Status: <span class="text-amber-600 font-medium">${app.status}</span></p>
-                    </div>
-                    <div class="flex items-center gap-2">${actionHtml}</div>
-                `;
-                listContainer.appendChild(card);
-            });
-        }
+        listContainer.innerHTML = "";
+        applications.forEach((app, index) => {
+            const card = document.createElement('div');
+            card.className = "p-4 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:shadow-md transition";
+            let actionHtml = "";
+            if (app.status && app.status.includes("Selected")) {
+                actionHtml = `<span class="px-3 py-1.5 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-[11px] font-bold inline-flex items-center gap-1"><i class="fa-solid fa-check-circle"></i> Shortlisted</span>`;
+            } else {
+                actionHtml = `<button onclick='viewCandidate(${JSON.stringify(app).replace(/'/g, "&#39;")})' class="px-3 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-[11px] font-semibold transition"><i class="fa-solid fa-eye mr-1"></i> View</button><button onclick="shortlistCandidate(${index})" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-bold transition shadow">Shortlist</button>`;
+            }
+            card.innerHTML = `
+                <div>
+                    <span class="text-[10px] text-violet-600 font-bold uppercase">${app.company || 'Company'}</span>
+                    <h4 class="font-bold text-slate-900 text-[13px] mt-0.5">${app.name} - <span class="text-blue-600">${app.role || app.jobRole}</span></h4>
+                    <p class="text-[11px] text-slate-500 mt-0.5">Course: ${app.course} | Match: <span class="text-emerald-600 font-bold">${app.score || app.matchScore || '--'}</span></p>
+                </div>
+                <div class="flex items-center gap-2">${actionHtml}</div>`;
+            listContainer.appendChild(card);
+        });
+    }
 
-        function viewCandidate(app) {
-            document.getElementById('modalStudentName').innerText = app.name;
-            document.getElementById('modalStudentCourse').innerText = app.course;
-            document.getElementById('modalJobRole').innerText = `${app.company} — ${app.role}`;
-            document.getElementById('modalSkills').innerText = app.skills;
-            document.getElementById('modalScore').innerText = app.score;
-            document.getElementById('candidateModal').classList.remove('hidden');
-        }
-        function closeModal() { document.getElementById('candidateModal').classList.add('hidden'); }
-        function shortlistCandidate(index) {
-            applicantsData[index].status = "Selected for Interview 🟢";
-            showToast("Candidate Shortlisted! 🟢", `${applicantsData[index].name} has been selected for interview.`);
-            renderRecruiterPanel();
-        }
-    </script>
+    function viewCandidate(app) {
+        document.getElementById('modalStudentName').innerText = app.name;
+        document.getElementById('modalStudentCourse').innerText = app.course || 'N/A';
+        document.getElementById('modalJobRole').innerText = `${app.company || ''} — ${app.role || app.jobRole || ''}`;
+        document.getElementById('modalSkills').innerText = app.skills || 'No skills parsed';
+        document.getElementById('modalScore').innerText = app.score || app.matchScore || '--';
+        document.getElementById('candidateModal').classList.remove('hidden');
+    }
+    function closeModal() { document.getElementById('candidateModal').classList.add('hidden'); }
+    function shortlistCandidate(index) {
+        let applications = JSON.parse(localStorage.getItem('studentApplications') || '[]');
+        applications[index].status = "Selected for Interview 🟢";
+        localStorage.setItem('studentApplications', JSON.stringify(applications));
+        showToast("Candidate Shortlisted! 🟢", `${applications[index].name} selected`);
+        renderRecruiterPanel();
+    }
+</script>
 </body>
 </html>
