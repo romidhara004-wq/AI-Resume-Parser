@@ -7,123 +7,139 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-      body { background: #F8FAFF!important; font-family: 'Inter', sans-serif!important; }
-      h1, h2, h3, h4 { font-family: 'Sora', sans-serif!important; }
-    </style>
+    <style>body{background:#F8FAFF!important;font-family:'Inter',sans-serif!important}h1,h2,h3,h4{font-family:'Sora',sans-serif!important}</style>
 </head>
 <body class="min-h-screen relative overflow-x-hidden">
-
-    <!-- Light Mesh -->
     <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-transparent pointer-events-none"></div>
 
-    <!-- Top Navigation Bar - White -->
-    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow">
-                <i class="fa-solid fa-bolt text-white text-sm"></i>
-            </div>
-            <div>
-                <h1 class="font-bold text-[14px] text-slate-900">SkillBridge AI Enterprise</h1>
-                <p class="text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p>
-            </div>
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-4 md:px-6 py-3 md:py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow"><i class="fa-solid fa-bolt text-white text-sm"></i></div>
+            <div><h1 class="font-bold text-[12px] md:text-[14px] leading-tight">SkillBridge AI Enterprise</h1><p class="text-[9px] md:text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p></div>
         </div>
-
-        <div class="hidden md:flex items-center space-x-6 text-[12px] font-semibold text-slate-600">
-            <a href="student-dashboard.html" class="transition hover:text-blue-600">Dashboard</a>
-            <a href="jobs.html" class="transition hover:text-blue-600">Jobs & Drives</a>
-            <a href="application.html" class="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">My Applications</a>
-            <a href="student-profile.html" class="transition hover:text-blue-600">Profile</a>
-        </div>
-
-        <div class="flex items-center space-x-3">
-            <span class="hidden md:inline-flex items-center px-3 py-1.5 rounded-full text-[11px] font-semibold bg-white border border-slate-200 text-slate-600 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> System Operational
-            </span>
-            <a href="login.html" onclick="localStorage.removeItem('userName'); localStorage.getItem('userEmail');" class="bg-slate-900 hover:bg-black text-white text-[12px] px-4 py-2 rounded-xl transition font-medium">
-                <i class="fa-solid fa-arrow-left mr-1"></i> Logout
-            </a>
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <a href="student-dashboard.html" class="hidden md:inline-flex bg-white border text-[12px] px-4 py-2 rounded-xl font-medium">Dashboard</a>
+            <a href="jobs.html" class="inline-flex bg-white border text-[11px] md:text-[12px] px-3 md:px-4 py-2 rounded-xl font-medium">Jobs</a>
+            <a href="index.html" onclick="localStorage.clear()" class="bg-slate-900 text-white text-[11px] md:text-[12px] px-3 md:px-4 py-2 rounded-xl font-medium">Logout</a>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="max-w-5xl mx-auto px-4 py-8 relative z-10">
-        <div class="bg-white p-8 rounded-[24px] border border-slate-200/80 mb-8 relative overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        <div class="bg-white p-6 md:p-8 rounded-[24px] border shadow-sm mb-6 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-[300px] h-[200px] bg-blue-100/50 rounded-full blur-[60px] pointer-events-none"></div>
-            <h2 class="text-[22px] font-bold text-slate-900 mb-2 relative">My Application Tracking Hub 📋</h2>
-            <p class="text-[13px] text-slate-500 leading-relaxed max-w-xl relative">
-                Monitor the real-time review status of all the corporate placement drives you have applied to through the neural matrix.
-            </p>
+            <h2 class="text-[20px] md:text-[22px] font-bold text-slate-900 mb-2 relative">My Application Tracking Hub 📋</h2>
+            <p class="text-[12px] md:text-[13px] text-slate-500 leading-relaxed max-w-xl relative">Monitor real-time review status of all placement drives you have applied to.</p>
         </div>
 
-        <div class="bg-white p-6 rounded-[24px] border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-            <h3 class="font-bold text-[13px] text-slate-800 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
-                <i class="fa-solid fa-list-check text-blue-600"></i> Submitted Applications & Recruiter Interview Status
-            </h3>
-
-            <div id="applicationsList" class="space-y-4">
-                <div id="noApplications" class="text-center py-12 text-slate-400 text-[13px]">
-                    <i class="fa-solid fa-folder-open text-3xl mb-3 block text-slate-300"></i>
-                    No active applications found. Head over to <a href="jobs.html" class="text-blue-600 underline font-semibold">Jobs & Drives</a> to apply!
-                </div>
+        <div class="bg-white p-5 md:p-6 rounded-[24px] border shadow-sm">
+            <h3 class="font-bold text-[13px] text-slate-800 mb-4 pb-3 border-b flex items-center gap-2"><i class="fa-solid fa-list-check text-blue-600"></i> Submitted Applications & Interview Status</h3>
+            <div id="applicationsList" class="space-y-4"></div>
+            <div id="noApplications" class="hidden text-center py-12 text-slate-400 text-[13px]">
+                <i class="fa-solid fa-folder-open text-3xl mb-3 block text-slate-300"></i>
+                No active applications found. Head over to <a href="jobs.html" class="text-blue-600 underline font-semibold">Jobs & Drives</a> to apply!
             </div>
         </div>
     </main>
 
-    <script>
-        function getUserKey() {
-            const email = localStorage.getItem('userEmail') || 'default_user';
-            return 'appliedJobs_' + email;
-        }
+<script>
+    function getUserKey() {
+        const email = localStorage.getItem('userEmail') || localStorage.getItem('userLoginEmail') || 'default_user';
+        return 'appliedJobs_' + email;
+    }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            loadStudentApplications();
+    window.addEventListener('DOMContentLoaded', loadStudentApplications);
+
+    function loadStudentApplications() {
+        const container = document.getElementById('applicationsList');
+        const empty = document.getElementById('noApplications');
+        const userKey = getUserKey();
+
+        let myApps = JSON.parse(localStorage.getItem(userKey) || '[]');
+        let recruiterApps = JSON.parse(localStorage.getItem('studentApplications') || '[]');
+        let genericApps = JSON.parse(localStorage.getItem('appliedJobs') || '[]');
+
+        // Merge all and sync shortlist status from recruiter side
+        let mergedMap = new Map();
+        [...myApps,...recruiterApps,...genericApps].forEach(a => {
+            const key = (a.company||'') + (a.role||'');
+            if(!mergedMap.has(key)) mergedMap.set(key, a);
+            else {
+                // If any version is shortlisted, keep shortlisted version
+                if((a.status||'').toLowerCase().includes('selected') || (a.status||'').toLowerCase().includes('shortlisted')){
+                    mergedMap.set(key, a);
+                }
+            }
         });
 
-        function loadStudentApplications() {
-            const listContainer = document.getElementById('applicationsList');
-            const userKey = getUserKey();
-            let appliedJobs = JSON.parse(localStorage.getItem(userKey) || '[]');
-
-            if (appliedJobs.length > 0) {
-                listContainer.innerHTML = "";
-
-                appliedJobs.forEach((job) => {
-                    const card = document.createElement('div');
-                    card.className = "p-5 rounded-2xl bg-white border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition hover:shadow-md hover:border-blue-200";
-
-                    let statusBadge = "";
-                    let actionArea = "";
-
-                    if (job.status.includes("Under Review")) {
-                        statusBadge = `<span class="px-3 py-1 bg-amber-50 text-amber-600 border border-amber-200 rounded-full text-[11px] font-semibold">Under Review 🟡</span>`;
-                        actionArea = `<span class="text-[11px] text-slate-500 italic">Awaiting Recruiter Review</span>`;
-                    } else if (job.status.includes("Selected")) {
-                        statusBadge = `<span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-full text-[11px] font-semibold">Shortlisted for Interview 🟢</span>`;
-
-                        actionArea = `
-                            <div class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-4 py-2.5 rounded-xl border border-emerald-200 flex items-center gap-2">
-                                <i class="fa-solid fa-calendar-check text-sm"></i>
-                                <span>Recruiter Scheduled: <strong>30 Aug 2026, 11:30 AM</strong></span>
-                            </div>
-                        `;
-                    }
-
-                    card.innerHTML = `
-                        <div>
-                            <span class="text-[10px] text-blue-600 font-bold uppercase tracking-wider">${job.company}</span>
-                            <h4 class="font-bold text-slate-900 text-[14px] mt-0.5">${job.role}</h4>
-                            <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-calendar mr-1"></i> Applied on: ${job.date}</p>
-                        </div>
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                            ${statusBadge}
-                            ${actionArea}
-                        </div>
-                    `;
-                    listContainer.appendChild(card);
-                });
-            }
+        let appliedJobs = Array.from(mergedMap.values());
+        // Update localStorage with synced status
+        if(appliedJobs.length > 0){
+            const shortlistedMap = new Map();
+            recruiterApps.forEach(a=>{ if((a.status||'').includes('Selected')) shortlistedMap.set((a.company||'')+(a.role||''), a.status); });
+            appliedJobs = appliedJobs.map(a=>{
+                const k = (a.company||'')+(a.role||'');
+                if(shortlistedMap.has(k)) a.status = shortlistedMap.get(k);
+                return a;
+            });
         }
-    </script>
+
+        if (appliedJobs.length === 0) {
+            container.innerHTML = "";
+            empty.classList.remove('hidden');
+            return;
+        }
+
+        empty.classList.add('hidden');
+        container.innerHTML = "";
+
+        appliedJobs.reverse().forEach((job) => {
+            const status = job.status || "Under Review 🟡";
+            let statusBadge = "";
+            let actionArea = "";
+
+            if (status.toLowerCase().includes("under review")) {
+                statusBadge = `<span class="px-3 py-1 bg-amber-50 text-amber-600 border border-amber-200 rounded-full text-[11px] font-semibold">Under Review 🟡</span>`;
+                actionArea = `<span class="text-[11px] text-slate-500 italic">Awaiting Recruiter Review</span>`;
+            } else if (status.toLowerCase().includes("selected") || status.toLowerCase().includes("shortlisted")) {
+                statusBadge = `<span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-full text-[11px] font-semibold">Shortlisted for Interview 🟢</span>`;
+                actionArea = `<div class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-4 py-2.5 rounded-xl border border-emerald-200 flex items-center gap-2"><i class="fa-solid fa-calendar-check text-sm"></i><span>Interview: <strong>30 Aug 2026, 11:30 AM</strong></span></div>`;
+            } else {
+                statusBadge = `<span class="px-3 py-1 bg-slate-50 text-slate-600 border rounded-full text-[11px] font-semibold">${status}</span>`;
+            }
+
+            const card = document.createElement('div');
+            card.className = "p-5 rounded-2xl bg-white border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:shadow-md hover:border-blue-200 transition";
+            card.innerHTML = `
+                <div class="flex-1">
+                    <span class="text-[10px] text-blue-600 font-bold uppercase tracking-wider">${job.company||job.companyName||'Company'}</span>
+                    <h4 class="font-bold text-slate-900 text-[14px] mt-0.5">${job.role||job.jobRole||'Role'}</h4>
+                    <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-calendar mr-1"></i> Applied on: ${job.date||new Date().toLocaleDateString()} | <i class="fa-solid fa-location-dot ml-2 mr-1"></i> ${job.location||'N/A'}</p>
+                </div>
+                <div class="flex flex-col sm:flex-row md:flex-col items-start sm:items-center md:items-end gap-3 w-full md:w-auto">
+                    ${statusBadge}
+                    ${actionArea}
+                    <button onclick="withdrawApplication('${(job.company||'').replace(/'/g,'')}', '${(job.role||'').replace(/'/g,'')}', '${job.buttonId||''}')" class="text-[10px] text-slate-400 hover:text-red-500 underline">Withdraw</button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function withdrawApplication(company, role, buttonId){
+        if(!confirm(`Withdraw application for ${company} - ${role}?`)) return;
+        const userKey = getUserKey();
+        let keysToClean = [userKey, 'studentApplications', 'appliedJobs'];
+        Object.keys(localStorage).filter(k=>k.startsWith('appliedJobs_')).forEach(k=>{ if(!keysToClean.includes(k)) keysToClean.push(k); });
+
+        keysToClean.forEach(k=>{
+            try{
+                let list = JSON.parse(localStorage.getItem(k)||'[]');
+                list = list.filter(a =>!((a.company===company || a.companyName===company) && (a.role===role || a.jobRole===role)));
+                localStorage.setItem(k, JSON.stringify(list));
+            }catch(e){}
+        });
+        loadStudentApplications();
+    }
+</script>
 </body>
 </html>
