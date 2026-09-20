@@ -12,18 +12,17 @@
 </head>
 <body class="min-h-screen relative overflow-x-hidden">
     <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-transparent pointer-events-none"></div>
-    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow"><i class="fa-solid fa-bolt text-white text-sm"></i></div>
-            <div><h1 class="font-bold text-[14px] text-slate-900">SkillBridge AI Enterprise</h1><p class="text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p></div>
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-4 md:px-6 py-3 md:py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow"><i class="fa-solid fa-bolt text-white text-sm"></i></div>
+            <div><h1 class="font-bold text-[12px] md:text-[14px] text-slate-900 leading-tight">SkillBridge AI Enterprise</h1><p class="text-[9px] md:text-[11px] text-slate-500">JIS University Neural Matrix v4.2</p></div>
         </div>
-        <div class="flex items-center space-x-3">
-            <a href="jobs.html" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium">Jobs & Drives</a>
-            <a href="student-profile.html" class="hidden md:inline-flex bg-white border border-slate-200 text-slate-700 text-[12px] px-4 py-2 rounded-xl font-medium"><i class="fa-regular fa-user mr-1.5"></i> Profile</a>
-            <a href="login.html" onclick="localStorage.clear()" class="bg-slate-900 text-white text-[12px] px-4 py-2 rounded-xl font-medium">Logout</a>
+        <div class="flex items-center space-x-2">
+            <a href="jobs.html" class="inline-flex bg-white border border-slate-200 text-slate-700 text-[11px] md:text-[12px] px-3 md:px-4 py-2 rounded-xl font-medium shadow-sm">Jobs & Drives</a>
+            <a href="student-profile.html" class="inline-flex bg-white border border-slate-200 text-slate-700 text-[11px] md:text-[12px] px-3 md:px-4 py-2 rounded-xl font-medium shadow-sm"><i class="fa-regular fa-user mr-1"></i> Profile</a>
+            <a href="login.html" onclick="localStorage.clear()" class="bg-slate-900 text-white text-[11px] md:text-[12px] px-3 md:px-4 py-2 rounded-xl font-medium">Logout</a>
         </div>
     </nav>
-
     <main class="max-w-6xl mx-auto px-4 py-8 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div class="md:col-span-2 bg-white p-6 rounded-[24px] border border-slate-200/80 shadow-sm relative overflow-hidden">
@@ -42,11 +41,9 @@
                 <p class="text-[22px] font-bold text-violet-600 mt-2">48 Companies</p>
             </div>
         </div>
-
         <div id="alertBox" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-[12px] text-red-700 flex items-center gap-3">
             <i class="fa-solid fa-circle-xmark text-red-500"></i><span id="alertMessage"></span>
         </div>
-
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-sm">
                 <h3 class="font-bold text-[14px] text-slate-900 mb-6 pb-4 border-b border-slate-100 flex items-center gap-2"><i class="fa-solid fa-sliders text-blue-600"></i> Student Vector Configuration</h3>
@@ -55,11 +52,11 @@
                     <div><label class="block text-[11px] font-bold uppercase mb-2 text-slate-600">Email Address</label><input type="email" id="emailInput" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px] outline-none" required></div>
                     <div><label class="block text-[11px] font-bold uppercase mb-2 text-slate-600">Select Course</label>
                         <select id="branch" onchange="checkCustomCourse(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px]" required><option value="" disabled selected>Select course</option><option value="B.Tech [CSE / AIML]">B.Tech (CSE / AIML)</option><option value="BCA [Hons.]">BCA [Hons.]</option><option value="B.Tech [Cyber Security]">B.Tech [Cyber Security]</option><option value="M.Tech">M.Tech</option><option value="BBA">BBA</option><option value="MBA">MBA</option><option value="other">Others (Custom)</option></select>
-                        <div id="customCourseBox" class="hidden mt-3"><input type="text" id="customCourseInput" class="w-full p-3 bg-blue-50 border border-blue-200 rounded-xl text-[13px]"></div>
+                        <div id="customCourseBox" class="hidden mt-3"><input type="text" id="customCourseInput" placeholder="Enter your course name" class="w-full p-3 bg-blue-50 border border-blue-200 rounded-xl text-[13px]"></div>
                     </div>
                     <div><label class="block text-[11px] font-bold uppercase mb-2 text-slate-600">Core Domain Stack</label>
                         <select id="skills" onchange="checkCustomSkill(this.value)" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[13px]" required><option value="" disabled selected>Select domain</option><option value="Python, Machine Learning">AI / ML & Data Science</option><option value="Full Stack Dev, React, Node.js">Full Stack Web Dev</option><option value="Cyber Security">Cyber Security</option><option value="Java, Spring Boot">Java Backend</option><option value="Cloud, AWS">Cloud Computing</option><option value="Data Analytics">Data Analytics</option><option value="other">Other (Custom)</option></select>
-                        <div id="customSkillBox" class="hidden mt-3"><input type="text" id="customSkillInput" class="w-full p-3 bg-violet-50 border border-violet-200 rounded-xl text-[13px]"></div>
+                        <div id="customSkillBox" class="hidden mt-3"><input type="text" id="customSkillInput" placeholder="Enter your skills" class="w-full p-3 bg-violet-50 border border-violet-200 rounded-xl text-[13px]"></div>
                     </div>
                     <button type="submit" class="w-full bg-slate-900 p-3.5 rounded-xl font-semibold text-[13px] text-white"><i class="fa-solid fa-microchip"></i> Execute Neural Compatibility Analysis</button>
                 </form>
@@ -74,7 +71,6 @@
                 <div class="bg-white p-6 rounded-[20px] border border-slate-200/80 shadow-sm"><h3 class="font-bold text-[13px] mb-3">Live Placement Drives</h3><div class="p-3 rounded-xl bg-slate-50 border"><h4 class="font-bold text-[12px]">TechCorp Global</h4><p class="text-[11px] text-slate-500">AI / ML Intern</p></div></div>
             </div>
         </div>
-
         <div id="aiReportBox" class="mt-8 p-8 bg-white border border-blue-200 rounded-[24px] shadow-sm hidden">
             <h3 class="font-bold text-[16px] text-slate-900 mb-1">Live Resume Content Extraction Report</h3>
             <p class="text-[11px] text-emerald-600 font-bold uppercase tracking-wider mb-4">Extracted Dynamically From Uploaded File</p>
@@ -82,7 +78,7 @@
                 <div class="p-4 bg-slate-50 rounded-xl border"><span class="text-[11px] text-slate-500 uppercase font-bold">File Name</span><span id="reportFileName" class="text-[13px] font-bold block mt-1">-</span></div>
                 <div class="p-4 bg-slate-50 rounded-xl border"><span class="text-[11px] text-slate-500 uppercase font-bold">Matched Companies</span><span id="reportCompanies" class="text-[13px] font-bold text-emerald-600 block mt-1">-</span></div>
             </div>
-            <div class="p-4 bg-slate-50 rounded-xl border"><span class="text-[11px] text-slate-500 uppercase font-bold">Parsed Content</span><div id="reportExtractedSkills" class="text-[12px] bg-white p-3 rounded-lg border max-h-80 overflow-y-auto whitespace-pre-wrap mt-2 text-slate-700">-</div></div>
+            <div class="p-4 bg-slate-50 rounded-xl border"><span class="text-[11px] text-slate-500 uppercase font-bold">Parsed Content</span><div id="reportExtractedSkills" class="text-[12px] bg-white p-3 rounded-lg border max-h-[600px] overflow-y-auto whitespace-pre-wrap mt-2 text-slate-700">-</div></div>
             <div class="mt-4 w-full bg-slate-100 h-2.5 rounded-full"><div id="progressBar" class="bg-gradient-to-r from-blue-600 to-emerald-500 h-2.5 rounded-full"></div></div>
         </div>
     </main>
@@ -115,11 +111,7 @@ function getRoadmapHTML(missingList){
   return missingList.map(skill=>{
     let key=skill.toLowerCase();
     let info=SKILL_ROADMAP[key]||{why:"Important for industry",learn:`Master ${skill} fundamentals`,resource:`YouTube - ${skill} full course`,days:"7 days"};
-    return `<div class="p-3 bg-white border border-amber-200 rounded-xl">
-      <div class="flex justify-between"><h4 class="font-bold text-[12px] capitalize">${skill}</h4><span class="text-[9px] bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-bold">${info.days}</span></div>
-      <p class="text-[11px] text-slate-500 mt-1"><b class="text-slate-700">Why:</b> ${info.why}</p>
-      <p class="text-[11px] text-slate-500"><b class="text-slate-700">Learn:</b> ${info.learn}</p>
-      <p class="text-[10px] text-blue-600 font-bold mt-2"><i class="fa-solid fa-circle-play"></i> ${info.resource}</p></div>`;
+    return `<div class="p-3 bg-white border border-amber-200 rounded-xl"><div class="flex justify-between"><h4 class="font-bold text-[12px] capitalize">${skill}</h4><span class="text-[9px] bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-bold">${info.days}</span></div><p class="text-[11px] text-slate-500 mt-1"><b class="text-slate-700">Why:</b> ${info.why}</p><p class="text-[11px] text-slate-500"><b class="text-slate-700">Learn:</b> ${info.learn}</p><p class="text-[10px] text-blue-600 font-bold mt-2"><i class="fa-solid fa-circle-play"></i> ${info.resource}</p></div>`;
   }).join('');
 }
 window.onload=function(){
@@ -167,7 +159,6 @@ function showReport(){
     document.getElementById('reportFileName').innerText=uploadedFileName; document.getElementById('reportCompanies').innerText=bestCompany+" - "+bestScore+"% Match";
     let barWidth=bestScore+"%";
     let html=`<div class="mb-5 p-4 bg-slate-50 rounded-xl border"><div class="flex justify-between items-center mb-3"><span class="text-[13px] font-bold">Overall Skill Compatibility</span><span class="text-[22px] font-bold ${scoreColor}">${bestScore}%</span></div><div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden"><div class="h-3 rounded-full ${barColor}" style="width:${barWidth}"></div></div><p class="text-[11px] text-slate-500 mt-2">Best Matched: <b class="text-slate-900">${bestCompany}</b></p></div><div class="grid grid-cols-2 gap-4"><div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px]"><b>Matched:</b> ${mainResult.matched.join(', ')||'None'}</div><div class="p-3 bg-red-50 border border-red-200 rounded-xl text-[11px]"><b>Gap:</b> ${mainResult.missing.join(', ')||'None'}</div></div>`;
-    // NEW: Interview Roadmap without 30-day plan
     if(mainResult.missing.length>0){
       html+=`<div class="mt-6"><h4 class="font-bold text-[13px] text-slate-900 mb-3 flex items-center gap-2"><i class="fa-solid fa-lightbulb text-amber-500"></i> What to Learn to be Interview-Ready for ${bestCompany}</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-3">${getRoadmapHTML(mainResult.missing)}</div></div>`;
     } else {
